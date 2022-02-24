@@ -1,0 +1,173 @@
+@import '../App.scss';
+
+.header-wrapper {
+	//grid-row: header;
+	width: 100%;
+	height: 10%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-direction: row;
+	background-color: black;
+	color: white;
+	position: fixed;
+	top: 0;
+	padding: 3%;
+	border-bottom: 1px solid white; //debug
+	.header-logo {
+		width: fit-content;
+		height: fit-content;
+		display: flex;
+		flex-direction: column;
+		font-size: 1.3em;
+		flex-shrink: 0;
+		.header-logo-top {
+		}
+		.header-logo-bottom {
+			display: inline-flex;
+			justify-content: space-between;
+			align-items: flex-start;
+			.header-logo-icon {
+				margin: 0 auto;
+			}
+			.header-logo-ker {
+			}
+		}
+		@media screen and (max-width: $mobile) {
+			//margin-left: 5%;
+			font-size: 2em;
+		}
+	}
+	.header-links {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center;
+		width: 50%;
+		@media screen and (max-width: $middle) {
+			width: 80%;
+		}
+		@media screen and (max-width: $mobile) {
+			display: none;
+			flex-direction: column;
+			justify-content: flex-start;
+			align-items: center;
+			position: fixed;
+			width: 100%; //if 110 = full screen
+			height: 90%;
+			background-color: black;
+			top: 10%;
+		}
+		.header-link {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			width: fit-content;
+			margin: 5px;
+			//border-right: 1px solid white;
+			color: white;
+			font-size: 1.3em;
+			text-align: center;
+			@media screen and (max-width: $middle) {
+				font-size: 1.2em;
+			}
+			@media screen and (max-width: $mobile) {
+				margin: 0;
+				width: 100%;
+				padding: 15%;
+				background-color: black;
+				border: 1px solid white;
+				font-size: 2em;
+			}
+		}
+		.header-loginButton {
+			display: inline-block;
+			border: none;
+			padding: 2% 4%;
+			font-size: 1.3em;
+			text-decoration: none;
+			background: green;
+			color: #ffffff;
+			cursor: pointer;
+			border-radius: 8px;
+			transition-duration: 0.4s;
+			&:hover,
+			&:focus {
+				transform: scale(1.07);
+			}
+			@media screen and (max-width: $middle) {
+				padding: 2%;
+				font-size: 1.1em;
+			}
+			@media screen and (max-width: $mobile) {
+				margin-top: 10%;
+				padding: 8%;
+				font-size: 2.1em;
+			}
+		}
+	}
+	.showLinks {
+		//show links in mobile view
+		display: flex;
+	}
+	.header-hamburger {
+		display: none;
+		@media screen and (max-width: $mobile) {
+			display: block;
+			.hamburger-icon {
+				width: 3em;
+				height: 3em; //2.5em;
+				//border: 8px solid green;
+				position: relative;
+				transform: rotate(0deg);
+				transition: 0.5s ease-in-out;
+				cursor: pointer;
+				color: white;
+				span {
+					display: block;
+					position: absolute;
+					height: 8px;
+					width: 100%;
+					margin-top: 5%;
+					//background: rgb(187, 152, 86);
+					background: white;
+					border-radius: 9px;
+					opacity: 1;
+					left: 0;
+					transform: rotate(0deg);
+					transition: 0.25s ease-in-out;
+					&:nth-child(1) {
+						top: 0px;
+					}
+					&:nth-child(2),
+					&:nth-child(3) {
+						top: 16px;
+					}
+					&:nth-child(4) {
+						top: 32px;
+					}
+				}
+			}
+			.openHamburger {
+				span {
+					&:nth-child(1),
+					&:nth-child(4) {
+						top: 16px;
+						width: 0%;
+						left: 50%;
+					}
+					&:nth-child(2) {
+						transform: rotate(45deg);
+					}
+					&:nth-child(3) {
+						transform: rotate(-45deg);
+					}
+				}
+			}
+		}
+	}
+	@media screen and (max-width: $mobile) {
+		justify-content: space-around;
+	}
+}

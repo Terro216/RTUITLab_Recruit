@@ -1,0 +1,28 @@
+.main-wrapper {
+	//grid-row: main;
+	background-color: black;
+	width: 100%;
+	height: 100%;
+	color: white;
+	.welcome-screen {
+		margin-top: 10%; //from fixed header
+		min-width: 100%;
+		min-height: 90vh;
+		.welcome-screen-header {
+		}
+		.welcome-screen-bonus {
+		}
+		border-bottom: 1px solid yellow; //debug
+	}
+	.block {
+		width: 30%;
+		height: 400px;
+		background-color: white;
+		color: black;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		margin: 2%;
+		border: 1px solid #000;
+	}
+}
