@@ -1,3 +1,5 @@
+@import '../App.scss';
+
 .main-wrapper {
 	//grid-row: main;
 	background-color: black;
@@ -5,14 +7,156 @@
 	height: 100%;
 	color: white;
 	.welcome-screen {
-		margin-top: 10%; //from fixed header
-		min-width: 100%;
+		position: relative;
+		overflow: hidden;
+		margin-top: 10vh; //from fixed header
+		width: 100%;
 		min-height: 90vh;
-		.welcome-screen-header {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		/*background-image: url(../../public/blob-scene-haikei2.svg);
+		background-clip: border-box;
+		background-size: 100%;*/
+		.welcome-screen-allText {
+			text-align: center;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: space-around;
+			height: 40vh;
+			width: 60%;
+			font-size: 2em;
+			z-index: 1;
+			//border: 1px solid green; //debug
+			.welcome-screen-header {
+				font-size: 2em;
+			}
+			.welcome-screen-bonus {
+				font-size: 0.8em;
+			}
+			@media screen and (max-width: $middle) {
+				//margin-left: 5%;
+				font-size: 1.3em;
+				width: 90%;
+			}
 		}
-		.welcome-screen-bonus {
+		.welcome-redblop {
+			svg {
+				position: absolute;
+				width: 100%;
+				top: 4%;
+				left: 2%;
+				transform: scale(1);
+				@media screen and (max-width: $middle) {
+					left: 2%;
+					transform: scale(1.2);
+				}
+				@media screen and (max-width: $mobile) {
+					top: 0%;
+					transform: scale(1.5);
+				}
+			}
+		}
+		.welcome-blueblop {
+			svg {
+				position: absolute;
+				width: 100%;
+				top: 15%;
+				left: -5%;
+				transform: scale(1.1);
+				@media screen and (max-width: $middle) {
+					top: 15%;
+					transform: scale(1.2);
+				}
+				@media screen and (max-width: $mobile) {
+					transform: scale(1.8);
+				}
+				//mix-blend-mode: hard-light;
+			}
 		}
 		border-bottom: 1px solid yellow; //debug
+	}
+	.whyus-wrapper {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		padding: 5% 0;
+		font-size: 2em;
+		background-color: white;
+		color: black;
+		.whyus-header {
+			font-size: 1.5em;
+		}
+		.whyus-reasons {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: row;
+			flex-wrap: wrap;
+			gap: 6%;
+			text-align: center;
+			.whyus-reasons-card {
+				margin-top: 3%;
+				width: 40%;
+				padding: 2%;
+				border: 1px solid grey;
+				background-color: rgba(255, 255, 255, 0.92);
+				&:nth-child(3n-3),
+				&:nth-child(2n) {
+					box-shadow: 0px 0px 5px 2px green; //rgba(232, 36, 79, 0.6);
+				}
+				&:nth-child(5n),
+				&:nth-child(3n -2) {
+					box-shadow: 0px 0px 5px 2px rgba(22, 74, 228, 0.6);
+				}
+
+				& + .withgreytext {
+					.greytext {
+						font-size: 0.6em;
+						color: grey;
+					}
+				}
+				@media screen and (max-width: $middle) {
+					font-size: 0.8em;
+				}
+				@media screen and (max-width: $mobile) {
+					width: 40%;
+					padding: 5%;
+					margin-top: 10%;
+					font-size: 0.7em;
+				}
+			}
+		}
+	}
+	.moving-wrapper {
+		.marquee {
+			width: 450px;
+			margin: 0 auto;
+			white-space: nowrap;
+			overflow: hidden;
+			box-sizing: border-box;
+			border: 1px dotted #800000;
+			span {
+				display: inline-block;
+				padding-left: 100%;
+				animation: marquee 15s linear infinite;
+				&:hover {
+					animation-play-state: paused;
+				}
+			}
+		}
+		@keyframes marquee {
+			0% {
+				transform: translate(0, 0);
+			}
+			100% {
+				transform: translate(-100%, 0);
+			}
+		}
 	}
 	.block {
 		width: 30%;
