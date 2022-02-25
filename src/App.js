@@ -11,6 +11,7 @@ import {
 import './App.scss'
 import { Header } from './components/header.js'
 import { Main } from './components/main.js'
+import { About } from './components/about.js'
 import { Footer } from './components/footer.js'
 
 export function App() {
@@ -57,9 +58,7 @@ export function App() {
 					element={
 						<div className='app-wrapper'>
 							<Header />
-							{
-								//<About />
-							}
+							<About />
 							<Footer />
 						</div>
 					}
