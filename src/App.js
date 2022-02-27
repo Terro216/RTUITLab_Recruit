@@ -1,80 +1,58 @@
-import React, { useContext, createContext, useState } from 'react'
-import {
-	BrowserRouter as Router,
-	Routes,
-	Route,
-	Link,
-	Redirect,
-	useHistory,
-	useLocation,
-} from 'react-router-dom'
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
 import './App.scss'
 import { Header } from './components/header.js'
 import { Main } from './components/main.js'
 import { About } from './components/about.js'
 import { Footer } from './components/footer.js'
+import { Login } from './components/login.js'
+import { CabinetMain } from './components/cabinet/cabinetMain.js'
+import { AuthProvider, RequireAuth } from './scripts/fakeAuth.js'
 
-export function App() {
-	const authContext = createContext()
-
-	function useAuth() {
-		return useContext(authContext)
-	}
-	function PrivateRoute({ children, ...rest }) {
-		let auth = useAuth()
-		return (
-			<Route
-				{...rest}
-				render={({ location }) =>
-					auth.user ? (
-						children
-					) : (
-						<Redirect
-							to={{
-								pathname: '/login',
-								state: { from: location },
-							}}
-						/>
-					)
-				}
-			/>
-		)
-	}
+export default function App() {
 	return (
-		<Router basename='/'>
+		<AuthProvider>
 			<Routes>
-				<Route
-					path='/'
-					element={
-						<div className='app-wrapper'>
-							<Header />
-							<Main />
-							<Footer />
-						</div>
-					}
-				/>
-				<Route
-					path='/about'
-					element={
-						<div className='app-wrapper'>
-							<Header />
-							<About />
-							<Footer />
-						</div>
-					}
-				/>
-				<Route
-					path='/login'
-					element={
-						<div className='login-wrapper'>
-							{
-								//<Login />
+				<Route path='/'>
+					<Route
+						index
+						element={
+							<div className='app-wrapper'>
+								<Header />
+								<Main />
+								<Footer />
+							</div>
+						}
+					/>
+					<Route
+						path='about'
+						element={
+							<div className='app-wrapper'>
+								<Header />
+								<About />
+								<Footer />
+							</div>
+						}
+					/>
+					<Route path='protected/'>
+						<Route path='login' element={<Login />} />
+						<Route
+							path='cabinet'
+							element={
+								<RequireAuth>
+									<CabinetMain />
+								</RequireAuth>
 							}
-						</div>
-					}
-				/>
-				<Route path='/protected' />
+						/>
+					</Route>
+					<Route
+						path='*'
+						element={
+							<>there will be 404 page</> //<NoMatch />
+						}
+					/>
+				</Route>
 			</Routes>
-		</Router>
+		</AuthProvider>
 	)
 }
