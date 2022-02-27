@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import './header.scss'
 import * as Heart from '../../public/heart.svg'
+import React from 'react'
 
 function Hamburger() {
 	function toggleState() {
@@ -62,7 +63,7 @@ export function Header() {
 					className={({ isActive }) => (isActive ? 'header-link header-link--active' : 'header-link')}>
 					Обучение
 				</NavLink>
-				<NavLink to='/login' className='header-loginButton'>
+				<NavLink to='/protected/cabinet' className='header-loginButton'>
 					Стать клиентом!
 				</NavLink>
 			</nav>
