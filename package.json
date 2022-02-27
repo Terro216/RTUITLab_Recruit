@@ -6,18 +6,23 @@
 	"scripts": {
 		"start": "parcel public/index.html",
 		"build": "parcel build public/* --dist-dir build",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"lint": "eslint src/**/*.js"
 	},
 	"author": "ilya med",
 	"license": "ISC",
 	"devDependencies": {
 		"@babel/core": "^7.17.5",
+		"@babel/eslint-parser": "^7.17.0",
 		"@babel/preset-env": "^7.16.11",
 		"@babel/preset-react": "^7.16.7",
 		"@parcel/transformer-sass": "^2.3.2",
-		"autoprefixer": "^10.4.2",
+		"eslint": "^8.10.0",
+		"eslint-config-prettier": "^8.4.0",
+		"eslint-plugin-react": "^7.29.2",
 		"parcel": "^2.3.2",
 		"postcss": "^8.4.6",
+		"autoprefixer": "^10.4.2",
 		"sass": "^1.49.8"
 	},
 	"dependencies": {
