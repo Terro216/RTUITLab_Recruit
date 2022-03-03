@@ -5,9 +5,9 @@ import { Header } from './components/header.js'
 import { Main } from './components/main.js'
 import { About } from './components/about.js'
 import { Footer } from './components/footer.js'
-import { Login } from './components/login.js'
+import { Login } from './components/cabinet/login.js'
 import { CabinetMain } from './components/cabinet/cabinetMain.js'
-import { AuthProvider, RequireAuth } from './scripts/fakeAuth.js'
+import { AuthProvider, RequireAuth } from './scripts/firebaseAuth.js'
 
 export default function App() {
 	return (
