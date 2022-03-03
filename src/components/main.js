@@ -1,5 +1,6 @@
 import './main.scss'
 import React from 'react'
+import Ticker from 'react-ticker'
 
 function WelcomeScreen() {
 	return (
@@ -83,15 +84,21 @@ function B() {
 function MovingText() {
 	return (
 		<section className='moving-wrapper'>
-			<div className='marquee line1'>
-				<span>Никогда не спешите. Покупайте умно. </span>
-			</div>
-			<div className='marquee line2'>
-				<span>Берегите своих близких.</span>
-			</div>
-			<div className='marquee line3'>
-				<span>Вкладывайтесь с нами.</span>
-			</div>
+			<h2>Отзывы о нас (или может компании-партнеры)</h2>
+			<Ticker direction='toRight' mode='smooth'>
+				{() => (
+					<div className='moving-line'>
+						<h1>This is the Headline!</h1>
+					</div>
+				)}
+			</Ticker>
+			<Ticker direction='toLeft' mode='smooth'>
+				{() => (
+					<div className='moving-line'>
+						<h1>This is the Headline!</h1>
+					</div>
+				)}
+			</Ticker>
 		</section>
 	)
 }
