@@ -1,6 +1,6 @@
 import './CabinetMain.scss'
 import React from 'react'
-import { useAuth } from '../../scripts/fakeAuth.js'
+import { useAuth } from '../../scripts/firebaseAuth.js'
 import { useNavigate } from 'react-router-dom'
 
 export function CabinetMain() {
@@ -11,7 +11,7 @@ export function CabinetMain() {
 			welcome to the private cabinet <br />
 			<button
 				onClick={() => {
-					auth.signout(() => navigate('/'))
+					auth.signOut(() => navigate('/'))
 				}}>
 				Sign out
 			</button>
