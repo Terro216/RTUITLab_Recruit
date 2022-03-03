@@ -64,7 +64,7 @@ export function Header() {
 					Обучение
 				</NavLink>
 				<NavLink to='/protected/cabinet' className='header-loginButton'>
-					Стать клиентом!
+					Стать клиентом
 				</NavLink>
 			</nav>
 			<Hamburger />
