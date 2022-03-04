@@ -1,5 +1,6 @@
 test/fixtures
 **/app/public
+src/scripts/cookie.js
 node_modules
 cache
 parcel-cache
