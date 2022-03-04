@@ -1,4 +1,4 @@
-import './footer.scss'
+import './styles/footer.scss'
 import React from 'react'
 
 export function Footer() {

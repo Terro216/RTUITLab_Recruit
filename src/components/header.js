@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import './header.scss'
+import './styles/header.scss'
 import * as Heart from '../../public/heart.svg'
 import React from 'react'
 

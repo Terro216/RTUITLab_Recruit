@@ -1,4 +1,4 @@
-import './about.scss'
+import './styles/about.scss'
 import React from 'react'
 
 export function About() {

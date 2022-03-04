@@ -1,4 +1,4 @@
-import './main.scss'
+import './styles/main.scss'
 import React from 'react'
 import Ticker from 'react-ticker'
 
