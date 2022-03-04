@@ -3,7 +3,7 @@ import { useLocation, Navigate } from 'react-router-dom'
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore'
-import { getCookie, setCookie } from './cookie'
+import { deleteCookie, getCookie, setCookie } from './cookie'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyC-kBpUNGn5AqUM9iDmVUIaEOxrnLbZz54', //please dont steal it
@@ -18,7 +18,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig)
 const analytics = getAnalytics(firebase)
-const db = getFirestore()
+const db = getFirestore(firebase)
 
 const authProvider = {
 	isAuthenticated: false,
@@ -54,11 +54,17 @@ const authProvider = {
 					doc.data().password === pass
 				) {
 					truePass = true
-					user = { name: doc.data().name, mobile: doc.data().mobile, password: doc.data().password }
+					console.table(doc.data())
+					user = {
+						name: doc.data().name,
+						mobile: doc.data().mobile,
+						password: doc.data().password,
+						balance: doc.data().balance,
+						id: doc.id,
+					}
 				}
 			})
 			if (truePass) {
-				console.log('pass ok')
 				//this.instantLogin(callback, user, false, true)
 				authProvider.isAuthenticated = true
 				callback(false, true, user)
@@ -76,6 +82,7 @@ const authProvider = {
 				name: name,
 				password: pass,
 				mobile: mobile,
+				balance: '1000',
 			})
 			console.log('Document written with ID: ', docRef.id)
 
@@ -91,7 +98,13 @@ const authProvider = {
 	},
 	instantLogin(callback, user = null) {
 		if (user == null)
-			user = { name: getCookie('name'), password: getCookie('password'), mobile: getCookie('mobile') }
+			user = {
+				name: getCookie('name'),
+				password: getCookie('password'),
+				mobile: getCookie('mobile'),
+				balance: getCookie('balance'),
+				id: getCookie('id'),
+			}
 		authProvider.isAuthenticated = true
 		callback(user)
 	},
@@ -108,14 +121,19 @@ function AuthProvider({ children }) {
 
 	function handleChange(state, user = null) {
 		if (state === 'out') {
+			setUser(null)
+			deleteCookie('password')
+			deleteCookie('name')
+			deleteCookie('balance')
 			setCookie('logged', false, { secure: false, 'max-age': 3600 })
 		} else {
+			setUser(user)
+			setCookie('password', user?.password, { secure: false, 'max-age': 3600 })
+			setCookie('name', user?.name, { secure: false, 'max-age': 3600 })
+			setCookie('balance', user?.balance, { secure: false, 'max-age': 3600 })
+			setCookie('id', user?.id, { secure: false, 'max-age': 3600 })
 			setCookie('logged', true, { secure: false, 'max-age': 3600 })
 		}
-		setUser(user)
-		console.log('hh', user)
-		setCookie('password', user?.password, { secure: false, 'max-age': 3600 })
-		setCookie('name', user?.name, { secure: false, 'max-age': 3600 })
 	}
 
 	let checkMobile = (mobile, callback) => {
@@ -184,4 +202,4 @@ function RequireAuth({ children }) {
 	return <p></p>
 }*/
 
-export { authProvider, AuthProvider, useAuth, RequireAuth, firebase }
+export { authProvider, AuthProvider, useAuth, RequireAuth, firebase, db }
