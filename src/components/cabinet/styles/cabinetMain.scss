@@ -1,0 +1,22 @@
+@import '../../../App.scss';
+
+.cabinetMain-wrapper {
+	min-width: 100vw;
+	height: 100%;
+	display: flex;
+	justify-content: flex-start;
+	padding-top: 10%;
+	align-items: center;
+	flex-direction: column;
+	font-size: 1.4em;
+	@media screen and (max-width: $mobile) {
+		padding-top: 0;
+		@include marginFromButton;
+	}
+	.cabinetMain-balance {
+		text-align: center;
+		span {
+			margin-top: 5%;
+		}
+	}
+}

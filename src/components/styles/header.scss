@@ -133,71 +133,16 @@
 				font-size: 1.1em;
 			}
 			@media screen and (max-width: $mobile) {
-				margin-top: 10%;
+				margin: 10%;
 				padding: 8%;
 				font-size: 2.1em;
 			}
 		}
 	}
+
 	.showLinks {
 		//show links in mobile view
 		display: flex;
-	}
-	.header-hamburger {
-		display: none;
-		@media screen and (max-width: $mobile) {
-			display: block;
-			.hamburger-icon {
-				width: 3em;
-				height: 3em; //2.5em;
-				//border: 8px solid green;
-				position: relative;
-				transform: rotate(0deg);
-				transition: 0.5s ease-in-out;
-				cursor: pointer;
-				color: white;
-				span {
-					display: block;
-					position: absolute;
-					height: 8px;
-					width: 100%;
-					margin-top: 5%;
-					//background: rgb(187, 152, 86);
-					background: white;
-					border-radius: 9px;
-					opacity: 1;
-					left: 0;
-					transform: rotate(0deg);
-					transition: 0.25s ease-in-out;
-					&:nth-child(1) {
-						top: 0px;
-					}
-					&:nth-child(2),
-					&:nth-child(3) {
-						top: 16px;
-					}
-					&:nth-child(4) {
-						top: 32px;
-					}
-				}
-			}
-			.openHamburger {
-				span {
-					&:nth-child(1),
-					&:nth-child(4) {
-						top: 16px;
-						width: 0%;
-						left: 50%;
-					}
-					&:nth-child(2) {
-						transform: rotate(45deg);
-					}
-					&:nth-child(3) {
-						transform: rotate(-45deg);
-					}
-				}
-			}
-		}
 	}
 	@media screen and (max-width: $mobile) {
 		justify-content: space-around;

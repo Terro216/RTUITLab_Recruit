@@ -9,9 +9,13 @@
 	color: white;
 	.back {
 		position: absolute;
-		top: 2%;
+		top: 5%;
 		left: 5%;
-		width: 15%;
+		width: 5%;
+		@media screen and (max-width: $mobile) {
+			top: 2%;
+			width: 15%;
+		}
 	}
 	.login-form {
 		border-radius: 10px;
