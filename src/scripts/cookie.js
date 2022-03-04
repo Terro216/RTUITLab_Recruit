@@ -28,4 +28,10 @@ function setCookie(name, value, options = {}) {
 	document.cookie = updatedCookie
 }
 
-export { getCookie, setCookie }
+function deleteCookie(name) {
+	setCookie(name, '', {
+		'max-age': -1,
+	})
+}
+
+export { getCookie, setCookie, deleteCookie }
