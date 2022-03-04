@@ -1,4 +1,4 @@
-@import '../../App.scss';
+@import '../../../App.scss';
 .login-wrapper {
 	width: 100vw;
 	height: 100vh;
@@ -6,13 +6,14 @@
 	justify-content: center;
 	align-items: center;
 	background-color: black;
+	color: white;
 	.back {
 		position: absolute;
-		font-size: 2em;
-		background-color: green;
+		top: 2%;
+		left: 5%;
+		width: 15%;
 	}
 	.login-form {
-		background-color: white;
 		border-radius: 10px;
 		padding: 5%;
 		width: 50%;
@@ -23,8 +24,14 @@
 		flex-direction: column;
 		@media screen and (max-width: $mobile) {
 			width: 100%;
+			padding: 0;
 			height: 100%;
 			border-radius: 0;
+		}
+
+		.login-form-welcome {
+			font-size: 1.8em;
+			text-align: center;
 		}
 		.login-form-inputs {
 			display: flex;
@@ -33,7 +40,7 @@
 			align-items: center;
 			.login-form-input {
 				padding: 2%;
-				margin: 4%;
+				margin: 4% 0;
 				font-size: 2em;
 				text-align: center;
 				@media screen and (max-width: $mobile) {
@@ -42,6 +49,9 @@
 				}
 			}
 		}
+		.login-error-message {
+			color: rgb(255, 65, 65);
+		}
 		.login-form-buttons {
 			margin-top: 5%;
 			display: flex;
@@ -49,13 +59,33 @@
 			justify-content: space-around;
 			align-items: center;
 			width: 100%;
-			.login-form-button--reset {
-				font-size: 1.2em;
-				padding: 2% 4%;
-			}
-			.login-form-button--submit {
+			.login-form-button {
+				position: relative;
+				padding: 10px 40px;
+				margin: 0px 10px 10px 0px;
+				border-radius: 3px;
+				color: #fff;
 				font-size: 1.6em;
-				padding: 2% 4%;
+				text-decoration: none;
+				background-color: #2ecc71;
+				border: none;
+				border-bottom: 5px solid #27ae60;
+				text-shadow: 0px -2px #27ae60;
+				will-change: transform;
+				&:active {
+					animation: bop 0.2s;
+				}
+				@keyframes bop {
+					0% {
+						transform: scale(1);
+					}
+					50% {
+						transform: scale(1.2);
+					}
+					100% {
+						transform: scale(1);
+					}
+				}
 			}
 		}
 	}

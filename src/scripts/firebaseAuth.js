@@ -3,6 +3,7 @@ import { useLocation, Navigate } from 'react-router-dom'
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
 import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore'
+import { getCookie, setCookie } from './cookie'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyC-kBpUNGn5AqUM9iDmVUIaEOxrnLbZz54', //please dont steal it
@@ -38,22 +39,27 @@ const authProvider = {
 			callback(false, hasNum, name)
 		} catch (e) {
 			console.error('Error reading document: ', e)
-			callback(true, false, '')
+			callback(true, false)
 		}
 	},
-	async signIn(pass, callback) {
+	async signIn(mobile, pass, callback) {
 		try {
 			const querySnapshot = await getDocs(collection(db, 'users'))
 			let truePass = false
 			let user = {}
 			querySnapshot.forEach((doc) => {
-				console.log(pass, doc.data().password)
-				if (doc.data().password === pass) {
+				if (
+					(doc.data().mobile == mobile ||
+						new RegExp(`${doc.data().mobile.slice(3 - doc.data().mobile.length)}`).test(mobile)) &&
+					doc.data().password === pass
+				) {
 					truePass = true
 					user = { name: doc.data().name, mobile: doc.data().mobile, password: doc.data().password }
 				}
 			})
 			if (truePass) {
+				console.log('pass ok')
+				//this.instantLogin(callback, user, false, true)
 				authProvider.isAuthenticated = true
 				callback(false, true, user)
 			} else {
@@ -83,6 +89,12 @@ const authProvider = {
 		authProvider.isAuthenticated = false
 		callback()
 	},
+	instantLogin(callback, user = null) {
+		if (user == null)
+			user = { name: getCookie('name'), password: getCookie('password'), mobile: getCookie('mobile') }
+		authProvider.isAuthenticated = true
+		callback(user)
+	},
 }
 
 let AuthContext = React.createContext(null)
@@ -94,33 +106,57 @@ function useAuth() {
 function AuthProvider({ children }) {
 	let [user, setUser] = React.useState(null)
 
+	function handleChange(state, user = null) {
+		if (state === 'out') {
+			setCookie('logged', false, { secure: false, 'max-age': 3600 })
+		} else {
+			setCookie('logged', true, { secure: false, 'max-age': 3600 })
+		}
+		setUser(user)
+		console.log('hh', user)
+		setCookie('password', user?.password, { secure: false, 'max-age': 3600 })
+		setCookie('name', user?.name, { secure: false, 'max-age': 3600 })
+	}
+
 	let checkMobile = (mobile, callback) => {
-		return authProvider.checkMobile(mobile, (hasError, hasNum, name) => {
+		return authProvider.checkMobile(mobile, (hasError, hasNum, name = '') => {
+			handleChange('out')
 			callback(hasError, hasNum, name)
 		})
 	}
 
-	let signIn = (pass, callback) => {
-		return authProvider.signIn(pass, (hasError, correctPass, user) => {
-			setUser(user)
+	let signIn = (mobile, pass, callback) => {
+		return authProvider.signIn(mobile, pass, (hasError, correctPass, user) => {
+			if (!hasError && correctPass) {
+				handleChange('in', user)
+			}
 			callback(hasError, correctPass)
 		})
 	}
 
 	let register = (name, pass, mobile, callback) => {
 		return authProvider.register(name, pass, mobile, (success) => {
+			handleChange('out')
 			callback(success)
 		})
 	}
 
 	let signOut = (callback) => {
 		return authProvider.signOut(() => {
-			setUser(null)
+			handleChange('out')
+			setCookie('mobile', '', { secure: false, 'max-age': 3600 })
 			callback()
 		})
 	}
 
-	let value = { user, checkMobile, signIn, register, signOut }
+	let instantLogin = (callback) => {
+		return authProvider.instantLogin((user) => {
+			handleChange('in', user)
+			callback()
+		})
+	}
+
+	let value = { user, checkMobile, signIn, register, signOut, instantLogin }
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

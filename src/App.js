@@ -6,7 +6,7 @@ import { Main } from './components/main.js'
 import { About } from './components/about.js'
 import { Footer } from './components/footer.js'
 import { Login } from './components/cabinet/login.js'
-import { CabinetMain } from './components/cabinet/cabinetMain.js'
+import { Cabinet } from './components/cabinet/cabinet.js'
 import { AuthProvider, RequireAuth } from './scripts/firebaseAuth.js'
 
 export default function App() {
@@ -40,7 +40,7 @@ export default function App() {
 							path='cabinet'
 							element={
 								<RequireAuth>
-									<CabinetMain />
+									<Cabinet />
 								</RequireAuth>
 							}
 						/>
