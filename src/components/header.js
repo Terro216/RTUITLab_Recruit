@@ -2,29 +2,7 @@ import { NavLink } from 'react-router-dom'
 import './styles/header.scss'
 import * as Heart from '../../public/heart.svg'
 import React from 'react'
-
-function Hamburger() {
-	function toggleState() {
-		document.querySelector('.hamburger-icon').classList.toggle('openHamburger')
-		document.querySelector('.header-links').classList.toggle('showLinks')
-		//document.querySelector('.header-links').style.display = 'flex'
-		//animateCSS('.sidebar-wrapper', 'slideInDown')
-	}
-
-	return (
-		<div className='header-hamburger'>
-			<div className='hamburger-icon' onClick={toggleState}>
-				<span></span>
-				<span></span>
-				<span></span>
-				<span></span>
-			</div>
-			{
-				//<div className='hamburger-links'></div>
-			}
-		</div>
-	)
-}
+import { Hamburger } from './helpers/hamburger.js'
 
 export function Header() {
 	return (
@@ -67,7 +45,7 @@ export function Header() {
 					Стать клиентом
 				</NavLink>
 			</nav>
-			<Hamburger />
+			<Hamburger from='header' toggleHamburger='' />
 		</header>
 	)
 }
