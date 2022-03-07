@@ -42,7 +42,10 @@ export function Header() {
 					Обучение
 				</NavLink>
 				<NavLink to='/protected/cabinet' className='header-loginButton'>
-					Стать клиентом
+					Открыть счёт
+					{
+						//Стать клиентом
+					}
 				</NavLink>
 			</nav>
 			<Hamburger from='header' toggleHamburger='' />

@@ -132,17 +132,83 @@
 			}
 		}
 	}
-	.moving-wrapper {
-	}
-	.block {
-		width: 30%;
-		height: 400px;
-		background-color: white;
-		color: black;
-		display: inline-flex;
+	.whyus-description-wrapper {
+		padding: 3% 0;
+		border-top: 1px solid #000;
+		width: 100%;
+		display: flex;
 		justify-content: center;
 		align-items: center;
-		margin: 2%;
-		border: 1px solid #000;
+		color: black;
+		background-color: white;
+
+		.whyus-description {
+			width: 80%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			font-size: 1.8em;
+			&-header {
+				font-size: 1.4em;
+			}
+			&-text {
+				font-size: 1em;
+				line-height: 1.5em;
+				text-align: center;
+			}
+		}
+	}
+	.moving-wrapper {
+		margin: 4% 0;
+		.moving-header {
+			text-align: center;
+			font-size: 2em;
+		}
+		.moving-line {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 200vw;
+			.review-container {
+				border: 2px solid #ccc;
+				background-color: white;
+				color: black;
+				border-radius: 5px;
+				padding: 2%;
+				margin: 2%;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				flex-direction: column;
+				width: 40vw;
+				.review-container-top {
+					//border: 1px solid green; //debug
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					text-align: center;
+					width: 100%;
+					.review-avatar {
+						border-radius: 50%;
+						width: 130px;
+						height: 130px;
+					}
+					.review-author {
+						font-size: 1.3em;
+					}
+				}
+				.review-container-bottom {
+					text-align: center;
+					margin-top: 10%;
+					.review-text {
+						font-size: 1.2em;
+					}
+				}
+			}
+			.company-logo {
+				margin: 2% 4%;
+			}
+		}
 	}
 }
