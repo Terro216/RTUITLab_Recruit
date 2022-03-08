@@ -1,0 +1,54 @@
+@import '../../App.scss';
+
+.error404 {
+	&-wrapper {
+		width: 100vw;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		font-size: 2em;
+		@media screen and (max-width: $mobile) {
+			font-size: 1.8em;
+		}
+	}
+	&-header {
+		font-size: 1.6em;
+		margin-top: 10%;
+		@media screen and (max-width: $mobile) {
+			margin: 0;
+		}
+	}
+	&-subheader {
+		padding-top: 5%;
+		font-weight: 500;
+		font-size: 1em;
+	}
+	&-buttons {
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		margin: 10% 0;
+		@media screen and (max-width: $mobile) {
+			flex-direction: column;
+		}
+		&-button {
+			background-color: white;
+			padding: 4% 10%;
+			color: black;
+			border: 1px solid grey;
+			border-radius: 15px;
+			transition: all 0.2s;
+			cursor: pointer;
+			&:hover {
+				background-color: black;
+				color: white;
+			}
+			@media screen and (max-width: $mobile) {
+				margin-top: 5%;
+			}
+		}
+	}
+}

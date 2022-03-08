@@ -7,6 +7,7 @@ import { Main } from './components/main.js'
 import { About } from './components/about.js'
 import { Footer } from './components/footer.js'
 import { Tariffs } from './components/tariffs.js'
+import { Error404 } from './components/404.js'
 
 import { Login } from './components/cabinet/login.js'
 import { CabinetAside } from './components/cabinet/cabinetAside.js'
@@ -101,12 +102,7 @@ export default function App() {
 							/>
 						</Route>
 					</Route>
-					<Route
-						path='*'
-						element={
-							<>there will be 404 page</> //<NoMatch />
-						}
-					/>
+					<Route path='*' element={<Error404 />} />
 				</Route>
 			</Routes>
 		</AuthProvider>
