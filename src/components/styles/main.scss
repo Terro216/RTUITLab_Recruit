@@ -142,6 +142,7 @@
 		align-items: center;
 		color: black;
 		background-color: white;
+		text-align: center;
 		.whyus-description {
 			width: 80%;
 			display: flex;
@@ -155,7 +156,13 @@
 			&-text {
 				margin-top: 3%;
 				line-height: 1.5em;
-				text-align: center;
+			}
+			@media screen and (max-width: $mobile) {
+				width: 95%;
+				&-text {
+					font-size: 0.8em;
+					line-height: 1.4em;
+				}
 			}
 		}
 	}
@@ -270,7 +277,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		padding-top: 6%;
+		padding: 8%;
 		.end {
 			width: 80%;
 			display: flex;
@@ -279,7 +286,7 @@
 			align-items: center;
 			text-align: center;
 			font-size: 1.2em;
-			&,
+
 			h2 {
 				margin-bottom: 5%;
 			}
