@@ -1,7 +1,62 @@
 .about-wrapper {
-	//grid-row: footer;
 	width: 100%;
-	height: 100%;
-	margin-top: 10%;
+	margin-top: 8%;
 	color: black;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	.history-wrapper {
+		margin-top: 4%;
+		margin-bottom: 6%;
+		width: 80%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		.history-header {
+			font-size: 2em;
+		}
+		.history-text {
+			text-align: center;
+			margin-top: 2%;
+			font-size: 1.3em;
+			line-height: 2em;
+		}
+	}
+	.contact-wrapper {
+		padding: 4% 0;
+		width: 100%;
+		background-color: black;
+		color: white;
+		.contact-header {
+			text-align: center;
+			margin: 2% 0;
+			font-size: 2em;
+		}
+		.contact-content {
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			width: 100%;
+			text-align: center;
+			&-header {
+				font-size: 1.6em;
+			}
+			&-list {
+				padding: 0;
+				.contact-content-item {
+					padding-top: 14%;
+					font-size: 1.4em;
+					a {
+						color: white;
+						text-decoration: underline;
+						&:hover {
+							text-decoration: none;
+						}
+					}
+				}
+			}
+		}
+	}
 }

@@ -75,16 +75,18 @@
 				border: none;
 				border-bottom: 5px solid #27ae60;
 				text-shadow: 0px -2px #27ae60;
+				cursor: pointer;
 				will-change: transform;
-				&:active {
-					animation: bop 0.2s;
+				&:active,
+				&:focus {
+					animation: bop 0.4s;
 				}
 				@keyframes bop {
 					0% {
 						transform: scale(1);
 					}
 					50% {
-						transform: scale(1.2);
+						transform: scale(1.1);
 					}
 					100% {
 						transform: scale(1);

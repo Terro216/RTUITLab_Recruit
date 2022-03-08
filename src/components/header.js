@@ -5,9 +5,10 @@ import React from 'react'
 import { Hamburger } from './helpers/hamburger.js'
 
 export function Header() {
+	const toggleHamburger = React.useRef(null)
 	return (
 		<header className='header-wrapper'>
-			<NavLink to='/' className='header-logo'>
+			<NavLink to='/' onClick={() => toggleHamburger.current()} className='header-logo'>
 				<span className='header-logo-top'>Честный бро</span>
 
 				<div className='header-logo-bottom'>
@@ -23,29 +24,36 @@ export function Header() {
 			<nav className='header-links'>
 				<NavLink
 					to='/about'
+					onClick={() => toggleHamburger.current()}
 					className={({ isActive }) => (isActive ? 'header-link header-link--active' : 'header-link')}>
-					О&nbsp;нас
+					О нас
 				</NavLink>
 				<NavLink
-					to='/tariff'
+					to='/tariffs'
+					onClick={() => toggleHamburger.current()}
 					className={({ isActive }) => (isActive ? 'header-link header-link--active' : 'header-link')}>
 					Тарифы
 				</NavLink>
 				<NavLink
 					to='/business'
+					onClick={() => toggleHamburger.current()}
 					className={({ isActive }) => (isActive ? 'header-link header-link--active' : 'header-link')}>
 					Бизнесу
 				</NavLink>
 				<NavLink
 					to='/learning'
+					onClick={() => toggleHamburger.current()}
 					className={({ isActive }) => (isActive ? 'header-link header-link--active' : 'header-link')}>
 					Обучение
 				</NavLink>
-				<NavLink to='/protected/cabinet' className='header-loginButton'>
-					Стать клиентом
+				<NavLink
+					to='/protected/cabinet'
+					onClick={() => toggleHamburger.current()}
+					className='header-loginButton'>
+					Открыть счёт
 				</NavLink>
 			</nav>
-			<Hamburger from='header' toggleHamburger='' />
+			<Hamburger from='header' toggleHamburger={toggleHamburger} />
 		</header>
 	)
 }

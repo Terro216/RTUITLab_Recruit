@@ -14,7 +14,8 @@ export function Hamburger(props) {
 	}
 
 	useEffect(() => {
-		props.toggleHamburger.current = toggleState
+		//console.log(props.toggleHamburger.current)
+		//props.toggleHamburger.current = toggleState //?
 	}, [props.toggleHamburger])
 
 	return (

@@ -1,4 +1,4 @@
-import { firebase, db } from './firebaseAuth.js'
+import { db } from './firebaseAuth.js'
 import { doc, setDoc, updateDoc, getDoc } from 'firebase/firestore'
 
 const getTimeEpoch = () => {
@@ -23,6 +23,7 @@ async function trade(user, action, name, amount, price) {
 			.catch(() => 0)
 		console.log(currentAmount)
 		await setDoc(portfolio, {
+			//change to updateDoc ?
 			[nameAmount]: amount + currentAmount,
 		})
 	}

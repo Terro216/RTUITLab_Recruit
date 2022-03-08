@@ -9,7 +9,9 @@ export function CabinetMain() {
 				<h2>Ваш баланс:</h2>
 				<span>{getCookie('balance') + '$'}</span>
 			</div>
-			<h2>Ваш портфель:</h2>
+			<div className='cabinetMain-portfolio'>
+				<h2>Ваш портфель:</h2>
+			</div>
 		</section>
 	)
 }
