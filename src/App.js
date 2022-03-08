@@ -6,6 +6,7 @@ import { Header } from './components/header.js'
 import { Main } from './components/main.js'
 import { About } from './components/about.js'
 import { Footer } from './components/footer.js'
+import { Tariffs } from './components/tariffs.js'
 
 import { Login } from './components/cabinet/login.js'
 import { CabinetAside } from './components/cabinet/cabinetAside.js'
@@ -37,6 +38,16 @@ export default function App() {
 							<div className='site-wrapper'>
 								<Header />
 								<About />
+								<Footer />
+							</div>
+						}
+					/>
+					<Route
+						path='tariffs'
+						element={
+							<div className='site-wrapper'>
+								<Header />
+								<Tariffs />
 								<Footer />
 							</div>
 						}
