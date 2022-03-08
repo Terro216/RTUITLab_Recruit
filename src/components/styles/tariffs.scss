@@ -1,0 +1,64 @@
+@import '../../App.scss';
+
+.tariffs-wrapper {
+	width: 100%;
+	margin: 10% 0;
+	font-size: 1.2em;
+	overflow-x: auto;
+	@media screen and (max-width: $mobile) {
+		font-size: 1.4em;
+		margin: 30% auto;
+	}
+	.tariffs-table {
+		width: 100%;
+		border-collapse: collapse;
+		.table-caption {
+			&-header {
+				margin-bottom: 3%;
+			}
+		}
+
+		tr {
+			&:nth-child(2n - 2) {
+				background-color: rgba($color: #999393, $alpha: 0.2);
+			}
+			th {
+				font-size: 1.1em;
+				padding: 2% 0;
+				&.table-header-item {
+					&::after {
+						content: '»';
+					}
+					&::before {
+						content: '«';
+					}
+				}
+				@media screen and (max-width: $mobile) {
+					font-size: 1em;
+				}
+
+				&:nth-child(n + 2) {
+					border-bottom: 1px solid grey;
+				}
+			}
+			td {
+				width: 25%;
+				text-align: center;
+				span {
+					font-size: 0.7em;
+				}
+			}
+			td,
+			th {
+				border-right: 1px solid grey;
+
+				&:last-child {
+					border-right: none;
+				}
+				@media screen and (max-width: $mobile) {
+					padding: 2vh 5vw;
+				}
+			}
+		}
+	}
+}
