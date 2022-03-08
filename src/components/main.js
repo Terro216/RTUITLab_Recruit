@@ -1,12 +1,16 @@
 import './styles/main.scss'
 import React from 'react'
 import Ticker from 'react-ticker'
+import { NavLink } from 'react-router-dom'
 import * as tinder from '../../public/tinder.svg'
 import * as spotify from '../../public/spotify.svg'
 import * as apple from '../../public/apple-logo.svg'
 import * as airbnb from '../../public/airbnb-logo.svg'
 import * as batman from '../../public/batman-logo.svg'
 import * as reactLogo from '../../public/react-logo.svg'
+import * as mobScreen from '../../public/Pixel4_App.png'
+import * as gpBadge from '../../public/google-play-badge.png'
+import * as asBadge from '../../public/app-store-badge.svg'
 
 function WelcomeScreen() {
 	return (
@@ -52,9 +56,12 @@ function WhyUs() {
 				<div className='whyus-reasons-card'>100+ тысяч клиентов</div>
 				<div className='whyus-reasons-card withgreytext'>
 					Самые низкие комиссии <br />
-					<span className='greytext'>от 0.04% за сделку</span>
+					<span className='greytext'>Всего 0.04% за сделку на базовом тарифе</span>
 				</div>
-				<div className='whyus-reasons-card'>Открытие счета за 5 минут</div>
+				<div className='whyus-reasons-card withgreytext'>
+					Открытие счета за 5 минут <br />
+					<span className='greytext'>Или даже быстрее</span>
+				</div>
 				<div className='whyus-reasons-card'>Поддержка в чате 24/7</div>
 				<div className='whyus-reasons-card'>Советы по выбору акций</div>
 			</div>
@@ -72,8 +79,8 @@ function WhyUsDescription() {
 					и самостоятельных инвесторов, так и крупных компаний с мировым именем. <p /> На первом месте для нас
 					стоит честность, поэтому мы никогда не отключим торги сославшись на технические неполадки, не сменим
 					условия вашего тарифа без предварительного согласия, не будем навязывать вам огромное количество
-					бесполезных услуг, но наоборот, будем предлагать вам более выгодные условия при их наличии и систему
-					скидок, подходящую под ваши цели и запросы.
+					бесполезных услуг, а наоборот, будем предлагать вам более выгодные условия и персональные системы
+					скидок, подходящие под ваши цели и запросы.
 				</span>
 			</article>
 		</section>
@@ -104,7 +111,7 @@ function Review({ author, text }) {
 function MovingText() {
 	return (
 		<section className='moving-wrapper'>
-			<h2 className='moving-header'>Отзывы наших клиентов</h2>
+			<h2 className='moving-header'>Отзывы наших клиентов:</h2>
 			<Ticker direction='toRight' mode='smooth'>
 				{() => (
 					<div className='moving-line'>
@@ -123,7 +130,7 @@ function MovingText() {
 						/>
 						<Review
 							author='Константин Николаев, Программист'
-							text='Настолько удобный сайт, что даже моя кошка научилась им пользоваться и уже закрыла 3 акции в
+							text='Настолько удобный личный кабинет, что даже моя кошка научилась им пользоваться и уже закрыла 3 позиции в
 									плюс!'
 						/>
 						<Review
@@ -134,16 +141,15 @@ function MovingText() {
 				)}
 			</Ticker>
 
-			<h2 className='moving-header'>Компании, с которыми мы работали</h2>
+			<h2 className='moving-header'>Компании, с которыми мы работали:</h2>
 			<Ticker direction='toLeft' mode='smooth'>
 				{() => (
 					<div className='moving-line'>
+						<img src={apple} className='company-logo' width='150' height='150' />
+						<img src={spotify} className='company-logo' width='150' height='150' />
+						<img src={batman} className='company-logo' width='150' height='150' />
 						<img src={airbnb} className='company-logo' width='150' height='150' />
 						<img src={reactLogo} className='company-logo' width='150' height='150' />
-						<img src={batman} className='company-logo' width='150' height='150' />
-						<img src={spotify} className='company-logo' width='150' height='150' />
-						<img src={apple} className='company-logo' width='150' height='150' />
-						<img src={tinder} className='company-logo' width='150' height='150' />
 						<img src={tinder} className='company-logo' width='150' height='150' />
 					</div>
 				)}
@@ -153,7 +159,67 @@ function MovingText() {
 }
 
 function MobileApp() {
-	return <section>download our app + image + links to google and ios</section>
+	return (
+		<section className='mobile-wrapper'>
+			<h2 className='mobile-header'>А еще у нас есть мобильное приложение</h2>
+			<article className='mobile-content'>
+				<div className='mobile-content-description'>
+					<h3>В нем вы можете:</h3>
+					<ul className='mobile-list-wrapper'>
+						<li className='mobile-list-item'>Открыть счет</li>
+						<li className='mobile-list-item'>Просматривать свой портфель</li>
+						<li className='mobile-list-item'>Совершать сделки</li>
+						<li className='mobile-list-item'>Пользоваться помощью оператора в чате</li>
+						<li className='mobile-list-item'>Следить за текущим состоянием рынка</li>
+						<li className='mobile-list-item'>Общаться с другими пользователями</li>
+						<li className='mobile-list-item'>Читать новости</li>
+
+						<li className='mobile-list-item'>И многое другое</li>
+					</ul>
+					<div className='mobile-apps'>
+						<img
+							src={gpBadge}
+							alt='доступно в google play'
+							width='646'
+							height='250'
+							className='mobile-apps-badge'
+						/>
+						<img
+							src={asBadge}
+							alt='доступно в app store'
+							width='119'
+							height='40'
+							className='mobile-apps-badge mobile-apps-badge--apple'
+						/>
+					</div>
+				</div>
+				<img
+					src={mobScreen}
+					alt='скриншот нашей программы на телефоне'
+					className='mobile-content-img'
+					width='190'
+					height='380'
+				/>
+			</article>
+		</section>
+	)
+}
+
+function End() {
+	return (
+		<section className='end-wrapper'>
+			<article className='end'>
+				<h2>
+					Долистал до самого конца и все еще не открыл у нас счет? <br />
+					Скорее нажимай на кнопку ниже!
+				</h2>
+				<NavLink to='/protected/cabinet' className='end-loginButton'>
+					Начать инвестировать!
+				</NavLink>
+				<span>P.S. это бесплатно</span>
+			</article>
+		</section>
+	)
 }
 
 export function Main() {
@@ -164,6 +230,7 @@ export function Main() {
 			<WhyUsDescription />
 			<MovingText />
 			<MobileApp />
+			<End />
 		</main>
 	)
 }
