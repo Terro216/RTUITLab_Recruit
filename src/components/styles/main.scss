@@ -1,7 +1,6 @@
 @import '../../App.scss';
 
 .main-wrapper {
-	//grid-row: main;
 	background-color: black;
 	width: 100%;
 	height: 100%;
@@ -15,7 +14,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		/*background-image: url(../../public/blob-scene-haikei2.svg);
+		/*background-image: url(../../public/blob-scene-haikei2.svg); // background variant 2
 		background-clip: border-box;
 		background-size: 100%;*/
 		.welcome-screen-allText {
@@ -31,9 +30,11 @@
 			//border: 1px solid green; //debug
 			.welcome-screen-header {
 				font-size: 2em;
+				font-weight: 700;
 			}
 			.welcome-screen-bonus {
 				font-size: 0.8em;
+				font-weight: 400;
 			}
 			@media screen and (max-width: $middle) {
 				//margin-left: 5%;
@@ -84,7 +85,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		padding: 5% 0;
+		padding: 6% 0;
 		font-size: 2em;
 		background-color: white;
 		color: black;
@@ -104,14 +105,14 @@
 				width: 40%;
 				padding: 2%;
 				border: 1px solid grey;
-				background-color: rgba(255, 255, 255, 0.92);
+				background-color: white;
 				&:nth-child(3n-3),
 				&:nth-child(2n) {
-					box-shadow: 0px 0px 5px 2px green; //rgba(232, 36, 79, 0.6);
+					box-shadow: 0px 0px 5px 1px green; //rgba(232, 36, 79, 0.6);
 				}
 				&:nth-child(5n),
 				&:nth-child(3n -2) {
-					box-shadow: 0px 0px 5px 2px rgba(22, 74, 228, 0.6);
+					box-shadow: 0px 0px 5px 1px rgba(22, 74, 228, 0.6);
 				}
 
 				& + .withgreytext {
@@ -133,7 +134,7 @@
 		}
 	}
 	.whyus-description-wrapper {
-		padding: 3% 0;
+		padding: 6% 0;
 		border-top: 1px solid #000;
 		width: 100%;
 		display: flex;
@@ -141,7 +142,6 @@
 		align-items: center;
 		color: black;
 		background-color: white;
-
 		.whyus-description {
 			width: 80%;
 			display: flex;
@@ -153,14 +153,14 @@
 				font-size: 1.4em;
 			}
 			&-text {
-				font-size: 1em;
+				margin-top: 3%;
 				line-height: 1.5em;
 				text-align: center;
 			}
 		}
 	}
 	.moving-wrapper {
-		margin: 4% 0;
+		padding-top: 6%;
 		.moving-header {
 			text-align: center;
 			font-size: 2em;
@@ -182,6 +182,7 @@
 				align-items: center;
 				flex-direction: column;
 				width: 40vw;
+				height: 50vh;
 				.review-container-top {
 					//border: 1px solid green; //debug
 					display: flex;
@@ -207,7 +208,110 @@
 				}
 			}
 			.company-logo {
-				margin: 2% 4%;
+				margin: 4% 6%;
+			}
+		}
+	}
+	.mobile-wrapper {
+		width: 100%;
+		padding-bottom: 6%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		background: white;
+		color: black;
+		font-size: 1.4em;
+		.mobile-header {
+			margin: 5%;
+			font-size: 1.6em;
+		}
+		.mobile-content {
+			width: 100%;
+			margin: 3% 0;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			flex-direction: row;
+			&-description {
+				.mobile-list-wrapper {
+					font-size: 0.8em;
+					.mobile-list-item {
+						margin: 5%;
+						list-style-type: circle;
+						font-size: 1.4em;
+					}
+				}
+			}
+			&-img {
+				border-radius: 10px;
+				width: 30%;
+				height: 30%;
+				border: 1px solid black;
+			}
+		}
+		.mobile-apps {
+			display: inline-flex;
+			justify-content: space-around;
+			align-items: stretch;
+			&-badge {
+				width: 30%;
+				height: 30%;
+				cursor: pointer;
+				&--apple {
+					padding-top: 2%;
+					width: 23.5%;
+				}
+			}
+		}
+	}
+	.end-wrapper {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding-top: 6%;
+		.end {
+			width: 80%;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			align-items: center;
+			text-align: center;
+			font-size: 1.2em;
+			&,
+			h2 {
+				margin-bottom: 5%;
+			}
+			span {
+				margin-top: 6%;
+			}
+			.end-loginButton {
+				display: block;
+				border: none;
+				width: max-content;
+				padding: 2% 3%;
+				font-size: 1.5em;
+				background: green;
+				color: white;
+				cursor: pointer;
+				border-radius: 10px;
+				will-change: transform;
+				transition: transform 0.4s;
+				text-align: center;
+				&:hover,
+				&:focus {
+					transform: scale(1.08) translateZ(0);
+				}
+				@media screen and (max-width: $middle) {
+					padding: 2%;
+					font-size: 1.1em;
+				}
+				@media screen and (max-width: $mobile) {
+					margin: 10%;
+					padding: 8%;
+					font-size: 2.1em;
+				}
 			}
 		}
 	}
