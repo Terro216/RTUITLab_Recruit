@@ -2,8 +2,8 @@ import React from 'react'
 import { useLocation, Navigate } from 'react-router-dom'
 import { initializeApp } from 'firebase/app'
 import { getAnalytics } from 'firebase/analytics'
-import { getFirestore, collection, addDoc, getDocs } from 'firebase/firestore'
-import { deleteCookie, getCookie, setCookie } from './cookie'
+import { getFirestore, collection, addDoc, getDocs, setDoc, updateDoc, doc } from 'firebase/firestore'
+import { deleteCookie, getCookie, setCookie, deleteAllCookies } from './cookie'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyC-kBpUNGn5AqUM9iDmVUIaEOxrnLbZz54', //please dont steal it
@@ -30,7 +30,7 @@ const authProvider = {
 			querySnapshot.forEach((doc) => {
 				if (
 					doc.data().mobile == mobile ||
-					new RegExp(`${doc.data().mobile.slice(3 - doc.data().mobile.length)}`).test(+mobile)
+					new RegExp(`${doc.data().mobile.slice(6 - doc.data().mobile.length)}`).test(mobile) //упрощенная проверка на совпадение последних символов
 				) {
 					hasNum = true
 					name = doc.data().name
@@ -50,11 +50,11 @@ const authProvider = {
 			querySnapshot.forEach((doc) => {
 				if (
 					(doc.data().mobile == mobile ||
-						new RegExp(`${doc.data().mobile.slice(3 - doc.data().mobile.length)}`).test(mobile)) &&
+						new RegExp(`${doc.data().mobile.slice(6 - doc.data().mobile.length)}`).test(mobile)) &&
 					doc.data().password === pass
 				) {
 					truePass = true
-					console.table(doc.data())
+					console.table(doc.data()) //debug
 					user = {
 						name: doc.data().name,
 						mobile: doc.data().mobile,
@@ -85,7 +85,7 @@ const authProvider = {
 				balance: '1000',
 			})
 			console.log('Document written with ID: ', docRef.id)
-
+			await setDoc(doc(db, 'users', docRef.id, 'portfolio', 'data'), {})
 			callback(false)
 		} catch (e) {
 			console.error('Error writing document: ', e)
@@ -119,20 +119,31 @@ function useAuth() {
 function AuthProvider({ children }) {
 	let [user, setUser] = React.useState(null)
 
-	function handleChange(state, user = null) {
+	function handleChange(state, newUser = null) {
+		if (state === 'updateProfileData') {
+			updateDoc(doc(db, 'users', newUser?.id), {
+				name: newUser?.name,
+				password: newUser?.password,
+				mobile: newUser?.mobile,
+				mail: newUser?.mail,
+			})
+			deleteAllCookies()
+			setCookie('mail', newUser?.mail, { secure: false, 'max-age': 3600 })
+		}
 		if (state === 'out') {
 			setUser(null)
-			deleteCookie('password')
-			deleteCookie('name')
-			deleteCookie('balance')
+			deleteAllCookies() //deleting mobile (maaybe save for future)?
 			setCookie('logged', false, { secure: false, 'max-age': 3600 })
 		} else {
-			setUser(user)
-			setCookie('password', user?.password, { secure: false, 'max-age': 3600 })
-			setCookie('name', user?.name, { secure: false, 'max-age': 3600 })
-			setCookie('balance', user?.balance, { secure: false, 'max-age': 3600 })
-			setCookie('id', user?.id, { secure: false, 'max-age': 3600 })
+			setCookie('password', newUser?.password, { secure: false, 'max-age': 3600 })
+			setCookie('name', newUser?.name, { secure: false, 'max-age': 3600 })
+			updateDoc(doc(db, 'users', newUser?.id), {
+				balance: newUser?.balance,
+			})
+			setCookie('balance', newUser?.balance, { secure: false, 'max-age': 3600 })
+			setCookie('id', newUser?.id, { secure: false, 'max-age': 3600 })
 			setCookie('logged', true, { secure: false, 'max-age': 3600 })
+			setUser(newUser)
 		}
 	}
 
@@ -162,7 +173,6 @@ function AuthProvider({ children }) {
 	let signOut = (callback) => {
 		return authProvider.signOut(() => {
 			handleChange('out')
-			setCookie('mobile', '', { secure: false, 'max-age': 3600 })
 			callback()
 		})
 	}
@@ -174,7 +184,18 @@ function AuthProvider({ children }) {
 		})
 	}
 
-	let value = { user, checkMobile, signIn, register, signOut, instantLogin }
+	let changeBalance = (newBalance) => {
+		let userWithNewBalance = {}
+		Object.assign(userWithNewBalance, user)
+		userWithNewBalance.balance = newBalance //nice sneakers
+		handleChange('in', userWithNewBalance)
+	}
+
+	let updateProfileData = (newUser) => {
+		handleChange('updateProfileData', newUser)
+	}
+
+	let value = { user, checkMobile, signIn, register, signOut, instantLogin, changeBalance, updateProfileData }
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
@@ -185,7 +206,7 @@ function RequireAuth({ children }) {
 
 	if (!auth.user) {
 		// Redirect to the /login page, but save the current location
-		return <Navigate to='/protected/login' state={{ from: location }} replace />
+		return <Navigate to='/protected' state={{ from: location }} replace />
 	}
 
 	return children
