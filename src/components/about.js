@@ -48,7 +48,8 @@ export function About() {
 						src='https://yandex.ru/map-widget/v1/?um=constructor%3A3a459fe2019e715ae2dd98794082dcd7cd057517f33bc3db51024dc1777da71f&amp;source=constructor'
 						width='500'
 						height='400'
-						frameBorder='0'></iframe>
+						frameBorder='0'
+						className='contact-content-map'></iframe>
 				</div>
 			</article>
 		</section>
