@@ -1,3 +1,5 @@
+@import '../../App.scss';
+
 .about-wrapper {
 	width: 100%;
 	margin-top: 8%;
@@ -6,6 +8,9 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	@media screen and (max-width: $mobile) {
+		margin-top: 30%;
+	}
 	.history-wrapper {
 		margin-top: 4%;
 		margin-bottom: 6%;
@@ -15,6 +20,7 @@
 		align-items: center;
 		flex-direction: column;
 		.history-header {
+			text-align: center;
 			font-size: 2em;
 		}
 		.history-text {
@@ -40,8 +46,14 @@
 			align-items: center;
 			width: 100%;
 			text-align: center;
+			@media screen and (max-width: $mobile) {
+				flex-direction: column;
+			}
 			&-header {
 				font-size: 1.6em;
+				@media screen and (max-width: $mobile) {
+					margin-top: 10%;
+				}
 			}
 			&-list {
 				padding: 0;
@@ -55,6 +67,12 @@
 							text-decoration: none;
 						}
 					}
+				}
+			}
+			&-map {
+				@media screen and (max-width: $mobile) {
+					margin: 10%;
+					width: 90%;
 				}
 			}
 		}
