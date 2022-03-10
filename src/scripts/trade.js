@@ -5,7 +5,7 @@ const getTimeEpoch = () => {
 	return new Date().getTime().toString()
 }
 
-async function trade(user, action, name, amount, price) {
+async function trade(auth, user, action, name, amount, price) {
 	if (action === 'buy') {
 		let time = getTimeEpoch()
 		const portfolioHistory = doc(db, 'users', user.id, 'portfolio/history/buys', time)
@@ -16,16 +16,23 @@ async function trade(user, action, name, amount, price) {
 			amount: amount,
 			price: price,
 		})
-		let nameAmount = `${name}_amount`
-		let currentAmount = await getDoc(portfolio)
-			.then((doc) => doc.data())
-			.then((data) => data[nameAmount])
-			.catch(() => 0)
-		console.log(currentAmount)
-		await setDoc(portfolio, {
-			//change to updateDoc ?
-			[nameAmount]: amount + currentAmount,
+		let currentAmount =
+			(await getDoc(portfolio)
+				.then((doc) => doc.data())
+				.then((data) => data[name + '_amount'])
+				/*.then(
+				async (currentAmount) =>
+					await updateDoc(portfolio, {
+						//change from setDoc
+						[name + '_amount']: amount + currentAmount,
+					})
+			)*/
+				.catch(() => 0)) || 0
+		await updateDoc(portfolio, {
+			//change from setDoc
+			[name + '_amount']: amount + +currentAmount,
 		})
+		auth.changeBalance(+user.balance - price)
 	}
 	if (action === 'sell') {
 		let time = getTimeEpoch()
