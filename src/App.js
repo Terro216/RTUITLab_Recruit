@@ -54,7 +54,7 @@ export default function App() {
 						}
 					/>
 					<Route path='protected/'>
-						<Route path='login' element={<Login />} />
+						<Route index element={<Login />} />
 						<Route path='cabinet/'>
 							<Route
 								index
