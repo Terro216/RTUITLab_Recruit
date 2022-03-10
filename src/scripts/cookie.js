@@ -7,7 +7,7 @@ function getCookie(name) {
 function setCookie(name, value, options = {}) {
 	options = {
 		path: '/',
-		//  другие значения по умолчанию
+		// значения по умолчанию
 		...options,
 	}
 
@@ -34,4 +34,10 @@ function deleteCookie(name) {
 	})
 }
 
-export { getCookie, setCookie, deleteCookie }
+function deleteAllCookies() {
+	document.cookie.split(';').forEach(function (c) {
+		deleteCookie(c)
+	})
+}
+
+export { getCookie, setCookie, deleteCookie, deleteAllCookies }
