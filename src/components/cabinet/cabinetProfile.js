@@ -1,15 +1,16 @@
 import './styles/cabinetProfile.scss'
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../scripts/firebaseAuth.js'
+import { checkMobileRegex, checkMail } from '../../scripts/functions.js'
 
 export function CabinetProfile() {
+	let [editing, setEditing] = useState(false)
 	let auth = useAuth()
 	let navigate = useNavigate()
-	let name = auth.user.name
 	return (
 		<section className='profile-wrapper'>
-			<h2 className='profile-welcome'>Здравствуйте, {name}</h2>
+			<h2 className='profile-welcome'>Здравствуйте, {auth.user.name}</h2>
 			<div className='profile-avatar'>
 				<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'>
 					<path
@@ -18,33 +19,69 @@ export function CabinetProfile() {
 					/>
 				</svg>
 			</div>
-			<div className='profile-data'>
+			<form className='profile-data'>
 				<h3>Ваши данные:</h3>
 				<label>
 					Ваше имя:
 					<br />
-					<input type='text' value={auth.user.name} autoComplete='username' disabled></input>
+					<input type='text' defaultValue={auth.user.name} autoComplete='username' disabled></input>
 				</label>
 				<label>
 					Ваш пароль:
 					<br />
-					<input type='password' autoComplete='current-password' value={auth.user.password} disabled></input>
+					<input
+						type='password'
+						autoComplete='new-password'
+						defaultValue={auth.user.password}
+						disabled></input>
 				</label>
 				<label>
 					Ваш номер телефона:
 					<br />
-					<input type='text' value={auth.user.mobile} disabled></input>
+					<input type='text' defaultValue={auth.user.mobile} disabled></input>
 				</label>
 				<label>
 					Ваш почтовый адрес:
 					<br />
-					<input type='text' value='' disabled></input>
+					<input type='text' defaultValue='' disabled></input>
 				</label>
-			</div>
+			</form>
 			<div className='profile-buttons'>
 				<button
-					onClick={() => {
-						auth.signOut(() => navigate('/'))
+					onClick={(el) => {
+						let inputs = document.getElementsByTagName('input')
+						if (!editing) {
+							for (let input of inputs) {
+								input.disabled = false
+							}
+							el.target.innerText = 'Сохранить'
+						} else {
+							if (inputs[1].value.length < 6) {
+								alert('Ошибка! Слишком короткий пароль')
+								return
+							} else if (!checkMobileRegex(inputs[2].value)) {
+								alert('Ошибка! Неправильный номер телефона')
+								return
+							} else if (!checkMail(inputs[3].value)) {
+								alert('Ошибка! Неправильный адрес электронной почты')
+								return
+							}
+							let newUser = {
+								name: inputs[0].value,
+								password: inputs[1].value,
+								mobile: inputs[2].value,
+								mail: inputs[3].value,
+								id: auth.user.id,
+								balance: auth.user.balance,
+							}
+							console.log(newUser)
+							auth.updateProfileData(newUser)
+							for (let input of inputs) {
+								input.disabled = true
+							}
+							el.target.innerText = 'Изменить данные'
+						}
+						setEditing(!editing)
 					}}
 					className='profile-button profile-button--change'>
 					Поменять данные
