@@ -47,11 +47,27 @@ function WelcomeScreen() {
 	)
 }
 
+function OurServices() {
+	return (
+		<section className='services-wrapper'>
+			{
+				//<h2 className='services-header'>Что мы делаем?</h2>
+			}
+			<span className='services-description-text'>
+				Профессиональное предоставление брокерских услуг.{' '}
+				{
+					//Биржевой курс валют. Открытие ИИС.
+				}
+			</span>
+		</section>
+	)
+}
+
 function WhyUs() {
 	return (
 		<section className='whyus-wrapper'>
 			<h2 className='whyus-header'>Почему мы?</h2>
-			<div className='whyus-reasons'>
+			<article className='whyus-reasons'>
 				<div className='whyus-reasons-card'>20 лет на рынке</div>
 				<div className='whyus-reasons-card'>100+ тысяч клиентов</div>
 				<div className='whyus-reasons-card withgreytext'>
@@ -64,19 +80,19 @@ function WhyUs() {
 				</div>
 				<div className='whyus-reasons-card'>Поддержка в чате 24/7</div>
 				<div className='whyus-reasons-card'>Советы по выбору акций</div>
-			</div>
+			</article>
 		</section>
 	)
 }
 
-function WhyUsDescription() {
+function Principles() {
 	return (
-		<section className='whyus-description-wrapper'>
-			<article className='whyus-description'>
-				<h2 className='whyus-description-header'>Наши принципы</h2>
-				<span className='whyus-description-text'>
-					Выбирая нас, вы получаете гарантированные качественные услуги, полностью покрывающие потребности как
-					и самостоятельных инвесторов, так и крупных компаний с мировым именем. <p /> На первом месте для нас
+		<section className='principles-wrapper'>
+			<article className='principles'>
+				<h2 className='principles-header'>Наши принципы</h2>
+				<span className='principles-text'>
+					Выбирая нас, вы получаете по-настоящему качественные услуги, полностью покрывающие потребности как и
+					частных инвесторов, так и крупных компаний с мировым именем. <p /> На первом месте для нас всегда
 					стоит честность, поэтому мы никогда не отключим торги сославшись на технические неполадки, не сменим
 					условия вашего тарифа без предварительного согласия, не будем навязывать вам огромное количество
 					бесполезных услуг, а наоборот, будем предлагать вам более выгодные условия и персональные системы
@@ -135,7 +151,7 @@ function MovingText() {
 						/>
 						<Review
 							author='Хантер Томпсон, Журналист'
-							text='В общем то деньги у меня надолго не задерживаются.. но брокер и в правду хорош, все "Ангелы Ада" рекмоендуют именно его'
+							text='В общем то деньги у меня надолго не задерживаются.. но брокер и в правду хорош'
 						/>
 					</div>
 				)}
@@ -144,7 +160,7 @@ function MovingText() {
 			<h2 className='moving-header'>Компании, с которыми мы работали:</h2>
 			<Ticker direction='toLeft' mode='smooth'>
 				{() => (
-					<div className='moving-line'>
+					<div className='moving-line logo-line'>
 						<img src={apple} className='company-logo' width='150' height='150' />
 						<img src={spotify} className='company-logo' width='150' height='150' />
 						<img src={batman} className='company-logo' width='150' height='150' />
@@ -226,8 +242,9 @@ export function Main() {
 	return (
 		<main className='main-wrapper'>
 			<WelcomeScreen />
+			<OurServices />
 			<WhyUs />
-			<WhyUsDescription />
+			<Principles />
 			<MovingText />
 			<MobileApp />
 			<End />

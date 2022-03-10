@@ -35,6 +35,9 @@
 			.welcome-screen-bonus {
 				font-size: 0.8em;
 				font-weight: 400;
+				@media screen and (max-width: $mobile) {
+					font-size: 1em;
+				}
 			}
 			@media screen and (max-width: $middle) {
 				//margin-left: 5%;
@@ -78,6 +81,23 @@
 		}
 		//border-bottom: 1px solid yellow; //debug
 	}
+	.services-wrapper {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		padding: 6% 0;
+		font-size: 2em;
+		.services-description-text {
+			letter-spacing: 2px;
+			text-align: center;
+			width: 100%;
+		}
+		@media screen and (max-width: $mobile) {
+			font-size: 1.5em;
+		}
+	}
 	.whyus-wrapper {
 		width: 100%;
 		height: 100%;
@@ -119,13 +139,22 @@
 					.greytext {
 						font-size: 0.6em;
 						color: grey;
+						@media screen and (max-width: $mobile) {
+							font-size: 0.7em;
+							margin-top: 5%;
+						}
 					}
 				}
 				@media screen and (max-width: $middle) {
 					font-size: 0.8em;
 				}
 				@media screen and (max-width: $mobile) {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					flex-direction: column;
 					width: 40%;
+					height: 20vh;
 					padding: 5%;
 					margin-top: 10%;
 					font-size: 0.7em;
@@ -133,9 +162,9 @@
 			}
 		}
 	}
-	.whyus-description-wrapper {
+	.principles-wrapper {
 		padding: 6% 0;
-		border-top: 1px solid #000;
+		border-top: 1px dashed grey;
 		width: 100%;
 		display: flex;
 		justify-content: center;
@@ -143,7 +172,7 @@
 		color: black;
 		background-color: white;
 		text-align: center;
-		.whyus-description {
+		.principles {
 			width: 80%;
 			display: flex;
 			justify-content: center;
@@ -160,7 +189,7 @@
 			@media screen and (max-width: $mobile) {
 				width: 95%;
 				&-text {
-					font-size: 0.8em;
+					font-size: 0.75em;
 					line-height: 1.4em;
 				}
 			}
@@ -177,6 +206,10 @@
 			justify-content: center;
 			align-items: center;
 			width: 200vw;
+			@media screen and (max-width: $mobile) {
+				width: auto;
+				height: auto;
+			}
 			.review-container {
 				border: 2px solid #ccc;
 				background-color: white;
@@ -190,6 +223,10 @@
 				flex-direction: column;
 				width: 40vw;
 				height: 50vh;
+				@media screen and (max-width: $mobile) {
+					width: 100vw;
+					height: 100%;
+				}
 				.review-container-top {
 					//border: 1px solid green; //debug
 					display: flex;
@@ -197,6 +234,9 @@
 					align-items: center;
 					text-align: center;
 					width: 100%;
+					@media screen and (max-width: $mobile) {
+						justify-content: space-around;
+					}
 					.review-avatar {
 						border-radius: 50%;
 						width: 130px;
@@ -214,8 +254,16 @@
 					}
 				}
 			}
-			.company-logo {
-				margin: 4% 6%;
+			&.logo-line {
+				@media screen and (max-width: $mobile) {
+					width: max-content;
+				}
+				.company-logo {
+					margin: 4% 6%;
+					@media screen and (max-width: $mobile) {
+						margin: 4% 40px;
+					}
+				}
 			}
 		}
 	}
@@ -232,16 +280,21 @@
 		.mobile-header {
 			margin: 5%;
 			font-size: 1.6em;
+			text-align: center;
 		}
 		.mobile-content {
 			width: 100%;
-			margin: 3% 0;
 			display: flex;
 			justify-content: space-around;
 			align-items: center;
 			flex-direction: row;
+			@media screen and (max-width: $mobile) {
+				flex-direction: column-reverse;
+			}
 			&-description {
+				text-align: center;
 				.mobile-list-wrapper {
+					text-align: left;
 					font-size: 0.8em;
 					.mobile-list-item {
 						margin: 5%;
@@ -255,6 +308,10 @@
 				width: 30%;
 				height: 30%;
 				border: 1px solid black;
+				@media screen and (max-width: $mobile) {
+					width: 60%;
+					margin: 5% 0 10% 0; //-40%; как-будто выглядывает
+				}
 			}
 		}
 		.mobile-apps {
@@ -268,6 +325,13 @@
 				&--apple {
 					padding-top: 2%;
 					width: 23.5%;
+				}
+				@media screen and (max-width: $mobile) {
+					width: 50%;
+					&--apple {
+						padding-top: 3%;
+						width: 40%;
+					}
 				}
 			}
 		}
@@ -286,12 +350,18 @@
 			align-items: center;
 			text-align: center;
 			font-size: 1.2em;
-
+			@media screen and (max-width: $mobile) {
+				width: 100%;
+				font-size: 1em;
+			}
 			h2 {
 				margin-bottom: 5%;
 			}
 			span {
 				margin-top: 6%;
+				@media screen and (max-width: $mobile) {
+					font-size: 1.3em;
+				}
 			}
 			.end-loginButton {
 				display: block;
@@ -317,7 +387,7 @@
 				@media screen and (max-width: $mobile) {
 					margin: 10%;
 					padding: 8%;
-					font-size: 2.1em;
+					font-size: 1.5em;
 				}
 			}
 		}
