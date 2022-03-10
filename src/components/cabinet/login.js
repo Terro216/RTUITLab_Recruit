@@ -1,8 +1,9 @@
 import './styles/login.scss'
 import React, { useEffect } from 'react'
-import { useAuth } from '../../scripts/firebaseAuth.js'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
-import { getCookie, setCookie } from '../../scripts/cookie'
+import { useAuth } from '../../scripts/firebaseAuth.js'
+import { getCookie, setCookie } from '../../scripts/cookie.js'
+import { checkMobileRegex } from '../../scripts/functions.js'
 
 export function Login() {
 	let navigate = useNavigate()
@@ -12,6 +13,7 @@ export function Login() {
 
 	useEffect(() => {
 		if (getCookie('logged') === 'true') {
+			//возможная брешь в безопасности?
 			auth.instantLogin(() => {
 				navigate(from, { replace: true })
 			})
@@ -25,8 +27,8 @@ export function Login() {
 
 		let formData = new FormData(event.currentTarget)
 		let mobile = formData.get('mobile')
-		let correctMob = /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/.test(mobile)
-		if (correctMob) {
+
+		if (checkMobileRegex(mobile)) {
 			setCookie('mobile', mobile, { secure: false, 'max-age': 3600 })
 			auth.checkMobile(mobile, (hasError, hasNum, name) => {
 				if (hasError) {
@@ -125,6 +127,7 @@ export function Login() {
 			<form onSubmit={handlePass} className='login-form login-password-form hidden'>
 				<div className='login-form-welcome login-form-welcome--password'></div>
 				<div className='login-form-inputs'>
+					<input type='text' autoComplete='username' hidden />
 					<input
 						className='login-form-input'
 						name='password'
