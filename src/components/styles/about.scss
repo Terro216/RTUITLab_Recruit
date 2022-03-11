@@ -8,9 +8,13 @@
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	@media screen and (max-width: $middle) {
+		margin-top: 15%;
+	}
 	@media screen and (max-width: $mobile) {
 		margin-top: 30%;
 	}
+
 	.history-wrapper {
 		margin-top: 4%;
 		margin-bottom: 6%;

@@ -23,6 +23,15 @@
 			color: white;
 		}
 	}
+	@media screen and (max-width: $middle) {
+		flex-direction: column;
+		span {
+			padding: 4% 0;
+		}
+		.toTop {
+			padding: 3% 3%;
+		}
+	}
 	@media screen and (max-width: $mobile) {
 		flex-direction: column;
 		span {
