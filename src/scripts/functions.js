@@ -8,4 +8,24 @@ function checkMail(mail) {
 	)
 }
 
-export { checkMobileRegex, checkMail }
+async function getInfo(ticker) {
+	let params = {
+		cmd: 'getStockData',
+		params: {
+			ticker,
+			lang: 'ru',
+		},
+	}
+
+	let apiElem = await fetch(`https://tradernet.ru/api/?q=${JSON.stringify(params)}`)
+		.then((response) => response.json())
+		.then((data) => data)
+		.catch((error) => console.error('error:', error))
+	return apiElem
+}
+
+function getTimeEpoch() {
+	return new Date().getTime().toString()
+}
+
+export { checkMobileRegex, checkMail, getInfo, getTimeEpoch }
