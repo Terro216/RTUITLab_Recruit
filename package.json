@@ -1,11 +1,12 @@
 {
 	"name": "rtuitlab_recruit",
 	"version": "1.0.0",
-	"description": "",
+	"description": "Honest broker app",
 	"scripts": {
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -b view -d build",
 		"start": "parcel public/index.html",
 		"build": "parcel build public/index.html --dist-dir build",
-		"test": "echo \"Error: no test specified\" && exit 1",
 		"lint": "eslint src/**/*.js"
 	},
 	"author": "ilya med",
@@ -20,6 +21,7 @@
 		"eslint-config-prettier": "^8.4.0",
 		"eslint-plugin-react": "^7.29.2",
 		"eslint-plugin-react-hooks": "^4.3.0",
+		"gh-pages": "^3.2.3",
 		"parcel": "^2.3.2",
 		"postcss": "^8.4.6",
 		"process": "^0.11.10",
