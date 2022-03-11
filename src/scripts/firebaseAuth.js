@@ -1,9 +1,8 @@
 import React from 'react'
-import { useLocation, Navigate } from 'react-router-dom'
+import { useLocation, useNavigate, Navigate } from 'react-router-dom'
 import { initializeApp } from 'firebase/app'
-import { getAnalytics } from 'firebase/analytics'
 import { getFirestore, collection, addDoc, getDocs, setDoc, updateDoc, doc } from 'firebase/firestore'
-import { deleteCookie, getCookie, setCookie, deleteAllCookies } from './cookie'
+import { getCookie, setCookie, deleteAllCookies } from './cookie.js'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyC-kBpUNGn5AqUM9iDmVUIaEOxrnLbZz54', //please dont steal it
@@ -17,7 +16,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig)
-const analytics = getAnalytics(firebase)
 const db = getFirestore(firebase)
 
 const authProvider = {
@@ -118,6 +116,7 @@ function useAuth() {
 
 function AuthProvider({ children }) {
 	let [user, setUser] = React.useState(null)
+	let navigate = useNavigate()
 
 	function handleChange(state, newUser = null) {
 		if (state === 'updateProfileData') {
@@ -128,22 +127,27 @@ function AuthProvider({ children }) {
 				mail: newUser?.mail,
 			})
 			deleteAllCookies()
-			setCookie('mail', newUser?.mail, { secure: false, 'max-age': 3600 })
+			setCookie('mobile', newUser?.password, { secure: false, 'max-age': 3600 })
 		}
 		if (state === 'out') {
 			setUser(null)
 			deleteAllCookies() //deleting mobile (maaybe save for future)?
 			setCookie('logged', false, { secure: false, 'max-age': 3600 })
-		} else {
+		} else if (newUser !== null) {
 			setCookie('password', newUser?.password, { secure: false, 'max-age': 3600 })
 			setCookie('name', newUser?.name, { secure: false, 'max-age': 3600 })
-			updateDoc(doc(db, 'users', newUser?.id), {
-				balance: newUser?.balance,
+			//console.log(newUser, newUser.balance)
+			updateDoc(doc(db, 'users', newUser.id), {
+				balance: newUser.balance,
 			})
+			setCookie('mail', newUser?.mail, { secure: false, 'max-age': 3600 })
 			setCookie('balance', newUser?.balance, { secure: false, 'max-age': 3600 })
 			setCookie('id', newUser?.id, { secure: false, 'max-age': 3600 })
 			setCookie('logged', true, { secure: false, 'max-age': 3600 })
 			setUser(newUser)
+		} else {
+			alert('Произошла непредвиденная ошибка')
+			navigate('/')
 		}
 	}
 
@@ -187,7 +191,7 @@ function AuthProvider({ children }) {
 	let changeBalance = (newBalance) => {
 		let userWithNewBalance = {}
 		Object.assign(userWithNewBalance, user)
-		userWithNewBalance.balance = newBalance //nice sneakers
+		userWithNewBalance.balance = newBalance.toFixed(2)
 		handleChange('in', userWithNewBalance)
 	}
 
