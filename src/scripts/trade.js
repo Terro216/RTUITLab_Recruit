@@ -1,58 +1,42 @@
 import { db } from './firebaseAuth.js'
-import { doc, setDoc, updateDoc, getDoc } from 'firebase/firestore'
-
-const getTimeEpoch = () => {
-	return new Date().getTime().toString()
-}
+import { doc, setDoc, updateDoc, getDoc, deleteField } from 'firebase/firestore'
+import { getTimeEpoch } from './functions.js'
 
 async function trade(auth, user, action, name, amount, price) {
+	let [ticker, exchange] = name.split('.')
+	let time = getTimeEpoch()
 	if (action === 'buy') {
-		let time = getTimeEpoch()
 		const portfolioHistory = doc(db, 'users', user.id, 'portfolio/history/buys', time)
 		const portfolio = doc(db, 'users', user.id, 'portfolio', 'data')
 
 		await setDoc(portfolioHistory, {
-			name: name,
-			amount: amount,
-			price: price,
+			name,
+			amount,
+			price,
 		})
 		let currentAmount =
 			(await getDoc(portfolio)
 				.then((doc) => doc.data())
-				.then((data) => data[name + '_amount'])
-				/*.then(
-				async (currentAmount) =>
-					await updateDoc(portfolio, {
-						//change from setDoc
-						[name + '_amount']: amount + currentAmount,
-					})
-			)*/
+				.then((data) => +data[ticker][exchange]) //data[name + '_amount'])
 				.catch(() => 0)) || 0
 		await updateDoc(portfolio, {
-			//change from setDoc
-			[name + '_amount']: amount + +currentAmount,
+			[name]: currentAmount + amount,
 		})
-		auth.changeBalance(+user.balance - price)
-	}
-	if (action === 'sell') {
-		let time = getTimeEpoch()
+		await auth.changeBalance(+user.balance - price) //не обновляет баланс
+	} else if (action === 'sell') {
 		const portfolioHistory = doc(db, 'users', user.id, 'portfolio/history/sells', time)
 		const portfolio = doc(db, 'users', user.id, 'portfolio', 'data')
 
 		await setDoc(portfolioHistory, {
-			name: name,
-			amount: amount,
-			price: price,
+			name,
+			amount,
+			price,
 		})
 
-		let nameAmount = `${name}_amount`
-		let currentAmount = await getDoc(portfolio)
-			.then((doc) => doc.data())
-			.then((data) => data[nameAmount])
-			.catch(() => 0)
-		await setDoc(portfolio, {
-			[nameAmount]: currentAmount - amount,
+		await updateDoc(portfolio, {
+			[name]: deleteField(), //currentAmount - amount,
 		})
+		auth.changeBalance(+user.balance + price)
 	}
 }
 
