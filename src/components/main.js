@@ -9,7 +9,7 @@ import * as airbnb from '../../public/airbnb-logo.svg'
 import * as batman from '../../public/batman-logo.svg'
 import * as reactLogo from '../../public/react-logo.svg'
 import * as mobScreen from '../../public/Pixel4_App.png'
-import * as gpBadge from '../../public/google-play-badge.png'
+import * as gpBadge from '../../public/Google_Play-Badge.svg'
 import * as asBadge from '../../public/app-store-badge.svg'
 
 function WelcomeScreen() {
@@ -161,12 +161,12 @@ function MovingText() {
 			<Ticker direction='toLeft' mode='smooth'>
 				{() => (
 					<div className='moving-line logo-line'>
-						<img src={apple} className='company-logo' width='150' height='150' />
-						<img src={spotify} className='company-logo' width='150' height='150' />
-						<img src={batman} className='company-logo' width='150' height='150' />
-						<img src={airbnb} className='company-logo' width='150' height='150' />
-						<img src={reactLogo} className='company-logo' width='150' height='150' />
-						<img src={tinder} className='company-logo' width='150' height='150' />
+						<img src={apple} className='company-logo' alt='Apple logo' width='150' height='150' />
+						<img src={spotify} className='company-logo' alt='Spotify logo' width='150' height='150' />
+						<img src={batman} className='company-logo' alt='Batman movie logo' width='150' height='150' />
+						<img src={airbnb} className='company-logo' alt='Airbnb logo' width='150' height='150' />
+						<img src={reactLogo} className='company-logo' alt='React JS logo' width='150' height='150' />
+						<img src={tinder} className='company-logo' alt='Tinder logo' width='150' height='150' />
 					</div>
 				)}
 			</Ticker>
@@ -196,15 +196,15 @@ function MobileApp() {
 						<img
 							src={gpBadge}
 							alt='доступно в google play'
-							width='646'
+							width='120'
 							height='250'
 							className='mobile-apps-badge'
 						/>
 						<img
 							src={asBadge}
 							alt='доступно в app store'
-							width='119'
-							height='40'
+							width='120'
+							height='250'
 							className='mobile-apps-badge mobile-apps-badge--apple'
 						/>
 					</div>
