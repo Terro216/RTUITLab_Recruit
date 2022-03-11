@@ -1,0 +1,33 @@
+@import '../../App.scss';
+
+.item {
+	width: 60%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 3%;
+	font-size: 1.4em;
+	border: 1px solid black;
+	border-radius: 15px;
+	margin: 0 auto 3% auto;
+	@media screen and (max-width: $mobile) {
+		flex-direction: column;
+		font-size: 1.5em;
+		width: 90%;
+	}
+	.sell-button {
+		background-color: none;
+		border-radius: 10px;
+		border: 1px solid black;
+		padding: 3%;
+		cursor: pointer;
+		transition: box-shadow 0.2s;
+		&:hover {
+			box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+		}
+		@media screen and (max-width: $mobile) {
+			margin-top: 5%;
+			padding: 6%;
+		}
+	}
+}

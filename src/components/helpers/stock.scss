@@ -1,0 +1,115 @@
+@import '../../App.scss';
+
+.stock {
+	width: 80%;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-direction: column;
+	border: 1px solid black;
+	border-radius: 10px;
+	margin: 0 auto;
+	margin-top: 3%;
+	padding: 2%;
+	@media screen and (max-width: $mobile) {
+		width: 90%;
+		margin-top: 10%;
+		padding: 5%;
+	}
+	&-top {
+		text-align: center;
+		padding: 2%;
+		.stock-name {
+			font-size: 1.6em;
+			font-weight: 600;
+			@media screen and (max-width: $mobile) {
+				font-size: 1.4em;
+			}
+		}
+		.stock-type {
+			margin-top: 5%;
+			font-size: 0.9em;
+		}
+		.stock-description {
+			margin-top: 5%;
+			font-size: 0.9em;
+			font-style: italic;
+		}
+	}
+	&-bottom {
+		width: 100%;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		flex-direction: row;
+		@media screen and (max-width: $mobile) {
+			flex-direction: column;
+		}
+		.stock-price {
+		}
+		.stock-buttons {
+			width: 40%;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			@media screen and (max-width: $mobile) {
+				margin-top: 5%;
+				flex-direction: column;
+			}
+			&-moreless-wrapper {
+				width: 50%;
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				@media screen and (max-width: $mobile) {
+					width: 100%;
+				}
+				.stock-buttons-counter {
+					@media screen and (max-width: $mobile) {
+						text-align: center;
+						padding: 0 20%;
+					}
+				}
+				.stock-buttons-moreless {
+					background: none;
+					border: none;
+					cursor: pointer;
+					border: 1px solid rgba(0, 0, 0, 0.281);
+					padding: 6% 10%;
+					border-radius: 10px;
+					transition: background-color 0.2s;
+					@media screen and (max-width: $mobile) {
+						padding: 10% 20%;
+					}
+					&:first-of-type {
+						background-color: rgba(0, 255, 0, 0.1);
+						&:hover {
+							background-color: rgba(0, 255, 0, 0.4);
+						}
+					}
+					&:last-of-type {
+						background-color: rgba(255, 0, 0, 0.1);
+						&:hover {
+							background-color: rgba(255, 0, 0, 0.4);
+						}
+					}
+				}
+			}
+			&-button {
+				border-radius: 10px;
+				border: 1px solid rgba(0, 0, 0, 0.281);
+				cursor: pointer;
+				padding: 4% 8%;
+				font-size: 1.2em;
+				transition: box-shadow 0.2s;
+				&:hover {
+					box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
+				}
+				@media screen and (max-width: $mobile) {
+					margin-top: 20%;
+					padding: 15% 40%;
+				}
+			}
+		}
+	}
+}
