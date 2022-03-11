@@ -138,7 +138,7 @@
 				& + .withgreytext {
 					.greytext {
 						font-size: 0.6em;
-						color: grey;
+						color: rgb(61, 61, 61);
 						@media screen and (max-width: $mobile) {
 							font-size: 0.7em;
 							margin-top: 5%;
@@ -316,21 +316,31 @@
 		}
 		.mobile-apps {
 			display: inline-flex;
-			justify-content: space-around;
+			justify-content: flex-start;
 			align-items: stretch;
+			//border: 1px solid black; //debug
 			&-badge {
 				width: 30%;
-				height: 30%;
 				cursor: pointer;
 				&--apple {
-					padding-top: 2%;
-					width: 23.5%;
+					width: 22%;
+					margin-left: 5%;
 				}
 				@media screen and (max-width: $mobile) {
 					width: 50%;
 					&--apple {
-						padding-top: 3%;
+						width: 38%;
+					}
+				}
+			}
+			@media screen and (max-width: $mobile) {
+				justify-content: space-around;
+				&-badge {
+					margin: -14% 6% 0 0;
+					width: 60%;
+					&--apple {
 						width: 40%;
+						margin-left: -10%;
 					}
 				}
 			}
