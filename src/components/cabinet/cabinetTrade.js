@@ -1,59 +1,9 @@
 import './styles/cabinetTrade.scss'
 import ReactDom from 'react-dom'
 import React, { useEffect, useState } from 'react'
-import { trade } from '../../scripts/trade.js'
 import { useAuth } from '../../scripts/firebaseAuth.js'
-
-function Stock({ data, auth }) {
-	let user = auth.user
-	let [counter, changeCounter] = useState(1)
-
-	function handleChange(num) {
-		if (counter + num > 0) changeCounter(counter + num)
-		console.log(data)
-	}
-
-	function buy(elem) {
-		let price = +data.true_price * +data.lot_size_q
-
-		if (user.balance - price >= 0) {
-			elem.innerText = 'Готово!'
-			trade(auth, user, 'buy', data.code_nm, counter, price)
-		} else {
-			elem.innerText = 'Недостаточно средств'
-		}
-
-		setTimeout(
-			() => {
-				elem.innerText = 'Купить'
-			},
-			4000,
-			elem
-		)
-	}
-	if (data.title == null) {
-		alert('Ошибка поиска. Проверьте введенное значение на корректность')
-		return null
-	}
-	return (
-		<article className='stock'>
-			<div className='stock-name'>{data.title}</div>
-			<div className='stock-price'>{new Number(data.true_price).toFixed(2) + '$'}</div>
-			<div className='stock-buttons'>
-				<button className='stock-buttons-moreless' onClick={() => handleChange(1)}>
-					+
-				</button>
-				<div className='stock-buttons-counter'>{counter}</div>
-				<button className='stock-buttons-moreless' onClick={() => handleChange(-1)}>
-					-
-				</button>
-				<button className='stock-buttons-button' onClick={buy}>
-					Купить
-				</button>
-			</div>
-		</article>
-	)
-}
+import { Stock } from '../helpers/stock.js'
+import { getInfo } from '../../scripts/functions.js'
 
 export function CabinetTrade() {
 	const [exchangeStatus, setExchangeStatus] = useState(undefined)
@@ -61,7 +11,9 @@ export function CabinetTrade() {
 	let auth = useAuth()
 
 	function changeExchangeStatus(status) {
-		status === 'OPEN' ? setExchangeStatus(true) : setExchangeStatus(false)
+		if (status === 'OPEN') setExchangeStatus(true)
+		else if (status === 'CLOSE') setExchangeStatus(false)
+		else setExchangeStatus(null)
 	}
 
 	async function getExchangeStatus() {
@@ -79,39 +31,28 @@ export function CabinetTrade() {
 					if (market.n2 === 'SPBFOR') changeExchangeStatus(market.s)
 				})
 			)
-			.catch((error) => console.error('error:', error))
+			.catch((error) => {
+				console.error('error:', error)
+				changeExchangeStatus(null)
+			})
 	}
-	async function getInfo(ticker) {
-		var exampleParams = {
-			cmd: 'getStockData',
-			params: {
-				ticker: ticker,
-				lang: 'ru',
-			},
-		}
 
-		let apiElem = await fetch(`https://tradernet.ru/api/?q=${JSON.stringify(exampleParams)}`)
-			.then((response) => response.json())
-			.then((data) => data)
-			.catch((error) => console.error('error:', error))
-		return apiElem
-	}
 	function addStock(apiElem) {
 		let wrapper = document.createElement('div')
 		wrapper.classList.add('stock-wrapper')
-		//father.appendChild(wrapper)
 		ReactDom.render(<Stock data={apiElem} auth={auth} />, wrapper)
 		return wrapper
 	}
+
 	async function getShopCatalog() {
-		let exampleParams = {
+		let params = {
 			cmd: 'getShopCatalog',
 			params: {
 				domain: 'freedom24.ru',
 				lang: 'ru',
 			},
 		}
-		await fetch(`https://tradernet.ru/api/?q=${JSON.stringify(exampleParams)}`)
+		await fetch(`https://tradernet.ru/api/?q=${JSON.stringify(params)}`)
 			.then((response) => response.json())
 			.then((data) => {
 				console.log(data)
@@ -128,28 +69,51 @@ export function CabinetTrade() {
 			getExchangeStatus()
 			getShopCatalog()
 		}
-		//return () => ws.current.close() // кода меняется connectionState - соединение закрывается
-	}, [exchangeStatus])
+	}, [])
 
 	return (
 		<section className='cabinetTrade'>
 			<div className='trade-status'>
 				{exchangeStatus === true ? (
-					<span className='trade-status-open'>Биржа открыта</span>
+					<span className='trade-status-content indicator--open'>Биржа открыта</span>
 				) : exchangeStatus === false ? (
-					<span className='trade-status-close'>Биржа закрыта</span>
+					<span className='trade-status-content indicator--close'>Биржа закрыта</span>
+				) : exchangeStatus === undefined ? (
+					<></>
 				) : (
-					<span className='trade-status'>Невозможно получить статус биржи</span>
+					<span className='trade-status-content indicator--close'>Статус биржи неизвестен</span>
 				)}
 			</div>
+
+			{curRates === null ? (
+				<></>
+			) : (
+				<div className='trade-rates'>
+					<span>1€ = {curRates.rates.EUR}₽</span> <span>1$ = {curRates.rates.USD}₽</span>
+				</div>
+			)}
+
 			<div className='stock-search'>
-				<input type='text' placeholder='Введите тикер для поиска по акциями'></input>
+				<input
+					className='stock-search-line'
+					type='text'
+					defaultValue='AMD.US'
+					placeholder='Введите тикер для поиска по акциями'
+				/>
 				<button
+					className='stock-search-button'
 					onClick={async (el) => {
-						let apiElem = await getInfo(el.target.parentNode.childNodes[0].value)
+						let apiElem = await getInfo(
+							el.target.parentNode.parentNode.childNodes[0].value || el.target.parentNode.childNodes[0].value
+						)
 						document.querySelector('.stock-list').insertAdjacentElement('afterbegin', addStock(apiElem))
 					}}>
-					Поиск
+					<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
+						<path
+							fill='#190C3B'
+							d='M500.3 443.7l-119.7-119.7c27.22-40.41 40.65-90.9 33.46-144.7C401.8 87.79 326.8 13.32 235.2 1.723C99.01-15.51-15.51 99.01 1.724 235.2c11.6 91.64 86.08 166.7 177.6 178.9c53.8 7.189 104.3-6.236 144.7-33.46l119.7 119.7c15.62 15.62 40.95 15.62 56.57 0C515.9 484.7 515.9 459.3 500.3 443.7zM79.1 208c0-70.58 57.42-128 128-128s128 57.42 128 128c0 70.58-57.42 128-128 128S79.1 278.6 79.1 208z'
+						/>
+					</svg>
 				</button>
 			</div>
 			<div className='stock-list'></div>
