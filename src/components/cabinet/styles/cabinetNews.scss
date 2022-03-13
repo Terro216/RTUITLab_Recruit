@@ -1,0 +1,38 @@
+@import '../../../App.scss';
+
+.profile-news {
+	width: 100%;
+	padding-top: 5%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	@media screen and (max-width: $mobile) {
+		@include marginFromButton;
+	}
+	.news-header {
+		font-size: 2em;
+		margin-bottom: 3%;
+	}
+	.news-wrapper {
+		width: 100%;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		.news-item {
+			width: 80%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			margin-bottom: 4%;
+			padding-bottom: 4%;
+			border-bottom: 1px solid #000;
+			@media screen and (max-width: $mobile) {
+				margin-bottom: 12%;
+				padding-bottom: 12%;
+			}
+		}
+	}
+}

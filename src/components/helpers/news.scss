@@ -1,0 +1,59 @@
+@import '../../App.scss';
+
+.news {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	@media screen and (max-width: $mobile) {
+		margin-top: 10%;
+	}
+	&-image {
+		width: 40%;
+		height: 40%;
+		@media screen and (max-width: $mobile) {
+			width: 100%;
+			height: auto;
+		}
+	}
+	&-head {
+		width: 70%;
+		font-size: 1.6em;
+		text-align: center;
+		margin: 2% 0;
+		@media screen and (max-width: $mobile) {
+			width: 100%;
+			margin: 8% 0;
+		}
+	}
+	&-content {
+		width: 70%;
+		font-size: 1.3em;
+		text-align: center;
+		margin-bottom: 2%;
+		@media screen and (max-width: $mobile) {
+			width: 100%;
+			margin-bottom: 8%;
+			font-size: 1.4em;
+		}
+	}
+	&-link {
+		background-color: white;
+		padding: 2% 3%;
+		color: black;
+		border: 1px solid grey;
+		border-radius: 15px;
+		font-size: 1.4em;
+		transition: all 0.2s;
+		cursor: pointer;
+		&:hover {
+			background-color: black;
+			color: white;
+		}
+		@media screen and (max-width: $mobile) {
+			padding: 10% 8%;
+			font-size: 1.5em;
+		}
+	}
+}
