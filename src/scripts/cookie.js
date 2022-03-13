@@ -4,6 +4,7 @@ function getCookie(name) {
 	)
 	return matches ? decodeURIComponent(matches[1]) : undefined
 }
+
 function setCookie(name, value, options = {}) {
 	options = {
 		path: '/',
@@ -30,12 +31,15 @@ function setCookie(name, value, options = {}) {
 
 function deleteCookie(name) {
 	setCookie(name, '', {
-		'max-age': -1,
+		secure: false,
+		'max-age': 0,
 	})
 }
 
 function deleteAllCookies() {
+	//not working in logout
 	document.cookie.split(';').forEach(function (c) {
+		c = c.split('=')[0]
 		deleteCookie(c)
 	})
 }
