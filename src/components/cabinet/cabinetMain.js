@@ -8,6 +8,13 @@ import { PortfolioItem } from '../helpers/portfolioItem.js'
 export function CabinetMain() {
 	let auth = useAuth()
 
+	function changeBalance(sum) {
+		let newBalance = +auth.user.balance + sum
+		if (newBalance >= 0) {
+			auth.changeBalance(newBalance)
+		}
+	}
+
 	async function loadPortfolio() {
 		const docSnap = await getDoc(doc(db, 'users', auth.user.id, 'portfolio', 'data'))
 		if (docSnap.exists()) {
@@ -39,16 +46,17 @@ export function CabinetMain() {
 		document.querySelector('.portfolio-wrapper').innerHTML = ''
 		loadPortfolio()
 	}, [])
+
 	return (
 		<section className='cabinetMain-wrapper'>
 			<div className='cabinetMain-balance'>
 				<h2>Ваш баланс:</h2>
 				<div className='balance-value'>{auth.user.balance}$</div>
 				<div className='balance-buttons'>
-					<button className='balance-button' onClick={() => auth.changeBalance(+auth.user.balance + 300)}>
+					<button className='balance-button' onClick={() => changeBalance(300)}>
 						Пополнить на 300$
 					</button>
-					<button className='balance-button' onClick={() => auth.changeBalance(+auth.user.balance - 300)}>
+					<button className='balance-button' onClick={() => changeBalance(-300)}>
 						Вывести 300$
 					</button>
 				</div>
