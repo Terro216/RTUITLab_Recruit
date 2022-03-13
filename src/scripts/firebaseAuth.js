@@ -74,12 +74,12 @@ const authProvider = {
 			callback(true, false, {})
 		}
 	},
-	async register(name, pass, mobile, callback) {
+	async register(name, password, mobile, callback) {
 		try {
 			const docRef = await addDoc(collection(db, 'users'), {
-				name: name,
-				password: pass,
-				mobile: mobile,
+				name,
+				password,
+				mobile,
 				balance: '1000',
 			})
 			console.log('Document written with ID: ', docRef.id)
@@ -120,29 +120,28 @@ function AuthProvider({ children }) {
 
 	function handleChange(state, newUser = null) {
 		if (state === 'updateProfileData') {
-			updateDoc(doc(db, 'users', newUser?.id), {
-				name: newUser?.name,
-				password: newUser?.password,
-				mobile: newUser?.mobile,
+			updateDoc(doc(db, 'users', newUser.id), {
+				name: newUser.name,
+				password: newUser.password,
+				mobile: newUser.mobile,
 				mail: newUser?.mail,
 			})
 			deleteAllCookies()
-			setCookie('mobile', newUser?.password, { secure: false, 'max-age': 3600 })
 		}
 		if (state === 'out') {
 			setUser(null)
-			deleteAllCookies() //deleting mobile (maaybe save for future)?
+			deleteAllCookies()
 			setCookie('logged', false, { secure: false, 'max-age': 3600 })
 		} else if (newUser !== null) {
 			setCookie('password', newUser?.password, { secure: false, 'max-age': 3600 })
 			setCookie('name', newUser?.name, { secure: false, 'max-age': 3600 })
-			//console.log(newUser, newUser.balance)
 			updateDoc(doc(db, 'users', newUser.id), {
 				balance: newUser.balance,
 			})
 			setCookie('mail', newUser?.mail, { secure: false, 'max-age': 3600 })
 			setCookie('balance', newUser?.balance, { secure: false, 'max-age': 3600 })
 			setCookie('id', newUser?.id, { secure: false, 'max-age': 3600 })
+			setCookie('mobile', newUser?.mobile, { secure: false, 'max-age': 3600 })
 			setCookie('logged', true, { secure: false, 'max-age': 3600 })
 			setUser(newUser)
 		} else {
@@ -189,8 +188,7 @@ function AuthProvider({ children }) {
 	}
 
 	let changeBalance = (newBalance) => {
-		let userWithNewBalance = {}
-		Object.assign(userWithNewBalance, user)
+		let userWithNewBalance = Object.assign({}, user)
 		userWithNewBalance.balance = newBalance.toFixed(2)
 		handleChange('in', userWithNewBalance)
 	}
