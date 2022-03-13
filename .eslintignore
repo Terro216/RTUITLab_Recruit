@@ -4,3 +4,4 @@ src/scripts/cookie.js
 node_modules
 cache
 parcel-cache
+.firebase
