@@ -65,23 +65,23 @@ function OurServices() {
 
 function WhyUs() {
 	return (
-		<section className='whyus-wrapper'>
+		<div className='whyus-wrapper'>
 			<h2 className='whyus-header'>Почему мы?</h2>
-			<article className='whyus-reasons'>
-				<div className='whyus-reasons-card'>20 лет на рынке</div>
-				<div className='whyus-reasons-card'>100+ тысяч клиентов</div>
-				<div className='whyus-reasons-card withgreytext'>
+			<section className='whyus-reasons'>
+				<article className='whyus-reasons-card'>20 лет на рынке</article>
+				<article className='whyus-reasons-card'>100+ тысяч клиентов</article>
+				<article className='whyus-reasons-card withgreytext'>
 					Самые низкие комиссии <br />
 					<span className='greytext'>Всего 0.04% за сделку на базовом тарифе</span>
-				</div>
-				<div className='whyus-reasons-card withgreytext'>
+				</article>
+				<article className='whyus-reasons-card withgreytext'>
 					Открытие счета за 5 минут <br />
 					<span className='greytext'>Или даже быстрее</span>
-				</div>
-				<div className='whyus-reasons-card'>Поддержка в чате 24/7</div>
-				<div className='whyus-reasons-card'>Советы по выбору акций</div>
-			</article>
-		</section>
+				</article>
+				<article className='whyus-reasons-card'>Поддержка в чате 24/7</article>
+				<article className='whyus-reasons-card'>Обучение</article>
+			</section>
+		</div>
 	)
 }
 
