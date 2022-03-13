@@ -8,11 +8,12 @@ import { getInfo } from '../../scripts/functions.js'
 export function CabinetTrade() {
 	const [exchangeStatus, setExchangeStatus] = useState(undefined)
 	const [curRates, setCurRates] = useState(null)
-	let auth = useAuth()
+	let authX = useAuth()
 
 	function changeExchangeStatus(status) {
 		if (status === 'OPEN') setExchangeStatus(true)
 		else if (status === 'CLOSE') setExchangeStatus(false)
+		else if (status === 'TECH') setExchangeStatus('tech')
 		else setExchangeStatus(null)
 	}
 
@@ -21,16 +22,16 @@ export function CabinetTrade() {
 			cmd: 'getMarketStatus',
 			params: {
 				market: '*',
-				mode: 'demo',
 			},
 		}
 		await fetch(`https://tradernet.ru/api/?q=${JSON.stringify(paramsToGetStatus)}`)
 			.then((response) => response.json())
-			.then((json) =>
+			.then((json) => {
+				console.log(json)
 				json.result.markets.m.forEach((market) => {
 					if (market.n2 === 'SPBFOR') changeExchangeStatus(market.s)
 				})
-			)
+			})
 			.catch((error) => {
 				console.error('error:', error)
 				changeExchangeStatus(null)
@@ -40,7 +41,7 @@ export function CabinetTrade() {
 	function addStock(apiElem) {
 		let wrapper = document.createElement('div')
 		wrapper.classList.add('stock-wrapper')
-		ReactDom.render(<Stock data={apiElem} auth={auth} />, wrapper)
+		ReactDom.render(<Stock data={apiElem} auth={authX} />, wrapper)
 		return wrapper
 	}
 
@@ -80,6 +81,8 @@ export function CabinetTrade() {
 					<span className='trade-status-content indicator--close'>Биржа закрыта</span>
 				) : exchangeStatus === undefined ? (
 					<></>
+				) : exchangeStatus === 'tech' ? (
+					<span className='trade-status-content indicator--close'>На бирже технические работы</span>
 				) : (
 					<span className='trade-status-content indicator--close'>Статус биржи неизвестен</span>
 				)}
