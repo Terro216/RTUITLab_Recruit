@@ -3,32 +3,36 @@ import React, { useState } from 'react'
 import { trade } from '../../scripts/trade.js'
 
 function Stock({ data, auth }) {
-	let user = auth.user
 	let [counter, changeCounter] = useState(1)
 
 	function handleChange(num) {
 		if (counter + num > 0) changeCounter(counter + num)
 	}
 
-	function buy(elem) {
+	async function buy(elem) {
 		elem = elem.target
-		let price = +data.true_price * +data.lot_size_q
+		let price = +data.true_price // * +data.lot_size_q
 
-		if (+user.balance - price >= 0) {
+		if (+auth.user.balance - price * counter >= 0) {
+			elem.disabled = true
+			elem.innerText = 'Обработка'
+			await trade(auth, 'buy', data.ticker, counter, price)
 			elem.innerText = 'Готово!'
-			changeCounter(1)
-			trade(auth, user, 'buy', data.ticker, counter, price)
+			handleChange(-counter + 1)
+			setTimeout(() => {
+				alert('Покупка успешно произведена')
+				window.location.reload() //fix multiple buying
+			}, 100)
 		} else {
 			elem.innerText = 'Недостаточно средств'
+			setTimeout(
+				() => {
+					elem.innerText = 'Купить'
+				},
+				2000,
+				elem
+			)
 		}
-
-		setTimeout(
-			() => {
-				elem.innerText = 'Купить'
-			},
-			4000,
-			elem
-		)
 	}
 
 	if (data.title == null) {
