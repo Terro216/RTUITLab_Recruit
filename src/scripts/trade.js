@@ -23,7 +23,7 @@ async function trade(auth, action, name, amount, price) {
 		await updateDoc(portfolio, {
 			[name]: currentAmount + amount,
 		})
-		await auth.changeBalance(+user.balance - price * amount)
+		await auth.changeBalance(+user.balance - +price * +amount)
 	} else if (action === 'sell') {
 		const portfolioHistory = doc(db, 'users', user.id, 'portfolio/history/sells', time)
 		const portfolio = doc(db, 'users', user.id, 'portfolio', 'data')
