@@ -10,7 +10,9 @@ function PortfolioItem(props) {
 		let newData = await getInfo(props.ticker + '.' + props.exchanges[0])
 		setData(newData)
 	}
-	useEffect(updateTicker)
+	useEffect(() => {
+		updateTicker()
+	}, [])
 	return elem ? (
 		<div className='item'>
 			<div className='item-name'>{data.name}</div>

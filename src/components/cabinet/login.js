@@ -29,7 +29,6 @@ export function Login() {
 		let mobile = formData.get('mobile')
 
 		if (checkMobileRegex(mobile)) {
-			setCookie('mobile', mobile, { secure: false, 'max-age': 3600 })
 			auth.checkMobile(mobile, (hasError, hasNum, name) => {
 				if (hasError) {
 					alert('Произошла ошибка. Пожалуйста, попробуйте еще раз')
