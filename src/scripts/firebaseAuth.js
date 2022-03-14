@@ -3,6 +3,7 @@ import { useLocation, useNavigate, Navigate } from 'react-router-dom'
 import { initializeApp } from 'firebase/app'
 import { getFirestore, collection, addDoc, getDocs, setDoc, updateDoc, doc } from 'firebase/firestore'
 import { getCookie, setCookie, deleteAllCookies } from './cookie.js'
+import { getTimeEpoch } from '../scripts/functions.js'
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyC-kBpUNGn5AqUM9iDmVUIaEOxrnLbZz54', //please dont steal it
@@ -58,6 +59,7 @@ const authProvider = {
 						mobile: doc.data().mobile,
 						password: doc.data().password,
 						balance: doc.data().balance,
+						mail: doc.data().mail,
 						id: doc.id,
 					}
 				}
@@ -80,6 +82,7 @@ const authProvider = {
 				name,
 				password,
 				mobile,
+				mail: '',
 				balance: '1000',
 			})
 			console.log('Document written with ID: ', docRef.id)
@@ -101,10 +104,28 @@ const authProvider = {
 				password: getCookie('password'),
 				mobile: getCookie('mobile'),
 				balance: getCookie('balance'),
+				mail: getCookie('mail'),
 				id: getCookie('id'),
 			}
 		authProvider.isAuthenticated = true
 		callback(user)
+	},
+	async changeBalance(newBalance, sum, action, user, callback) {
+		let userWithNewBalance = Object.assign({}, user)
+		userWithNewBalance.balance = newBalance.toFixed(2)
+		if (sum !== 0) {
+			//если это пополнение/снятие из лк
+			try {
+				let time = getTimeEpoch()
+				await setDoc(doc(db, 'users', user.id, 'portfolio/history/balance', time), {
+					action,
+					sum,
+				})
+			} catch (e) {
+				console.error('Error writing document: ', e)
+			}
+		}
+		callback(userWithNewBalance)
 	},
 }
 
@@ -124,7 +145,7 @@ function AuthProvider({ children }) {
 				name: newUser.name,
 				password: newUser.password,
 				mobile: newUser.mobile,
-				mail: newUser?.mail,
+				mail: newUser.mail,
 			})
 			deleteAllCookies()
 		}
@@ -190,10 +211,10 @@ function AuthProvider({ children }) {
 		})
 	}
 
-	let changeBalance = (newBalance) => {
-		let userWithNewBalance = Object.assign({}, user)
-		userWithNewBalance.balance = newBalance.toFixed(2)
-		handleChange('in', userWithNewBalance)
+	let changeBalance = (newBalance, sum = 0, action = '') => {
+		return authProvider.changeBalance(newBalance, sum, action, user, (userWithNewBalance) => {
+			handleChange('in', userWithNewBalance)
+		})
 	}
 
 	let updateProfileData = (newUser) => {
