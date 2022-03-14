@@ -32,14 +32,15 @@ function setCookie(name, value, options = {}) {
 function deleteCookie(name) {
 	setCookie(name, '', {
 		secure: false,
-		'max-age': 0,
+		'max-age': -9999999,
+		expires: 'Thu, 01 Jan 1970 00:00:01 GMT',
 	})
 }
 
 function deleteAllCookies() {
 	//not working in logout
 	document.cookie.split(';').forEach(function (c) {
-		c = c.split('=')[0]
+		c = c.split('=')[0].trim()
 		deleteCookie(c)
 	})
 }

@@ -21,6 +21,7 @@ async function getInfo(ticker) {
 		.then((response) => response.json())
 		.then((data) => data)
 		.catch((error) => console.error('error:', error))
+	//console.log(apiElem) //debug
 	return apiElem
 }
 

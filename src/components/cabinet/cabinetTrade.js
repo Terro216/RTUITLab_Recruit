@@ -8,7 +8,7 @@ import { getInfo } from '../../scripts/functions.js'
 export function CabinetTrade() {
 	const [exchangeStatus, setExchangeStatus] = useState(undefined)
 	const [curRates, setCurRates] = useState(null)
-	let authX = useAuth()
+	let auth = useAuth()
 
 	function changeExchangeStatus(status) {
 		if (status === 'OPEN') setExchangeStatus(true)
@@ -41,7 +41,7 @@ export function CabinetTrade() {
 	function addStock(apiElem) {
 		let wrapper = document.createElement('div')
 		wrapper.classList.add('stock-wrapper')
-		ReactDom.render(<Stock data={apiElem} auth={authX} />, wrapper)
+		ReactDom.render(<Stock data={apiElem} auth={auth} />, wrapper)
 		return wrapper
 	}
 

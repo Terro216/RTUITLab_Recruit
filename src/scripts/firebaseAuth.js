@@ -153,6 +153,9 @@ function AuthProvider({ children }) {
 	let checkMobile = (mobile, callback) => {
 		return authProvider.checkMobile(mobile, (hasError, hasNum, name = '') => {
 			handleChange('out')
+			if (!hasError) {
+				setCookie('mobile', mobile, { secure: false, 'max-age': 3600 })
+			}
 			callback(hasError, hasNum, name)
 		})
 	}
