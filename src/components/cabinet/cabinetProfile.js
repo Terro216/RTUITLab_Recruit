@@ -1,15 +1,97 @@
 import './styles/cabinetProfile.scss'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../scripts/firebaseAuth.js'
 import { checkMobileRegex, checkMail } from '../../scripts/functions.js'
+import { Modal } from '../helpers/modal.js'
 
 export function CabinetProfile() {
 	let [editing, setEditing] = useState(false)
+	let [modalContent, changeModalContent] = useState({
+		head: '',
+		body: '',
+		show: false,
+		callback: handleModalCallback,
+	})
 	let auth = useAuth()
 	let navigate = useNavigate()
+
+	function handleModalCallback() {
+		changeModalContent({
+			head: '',
+			body: '',
+			show: false,
+			callback: handleModalCallback,
+		})
+	}
+
+	function handleProfileChanging(el) {
+		let inputs = document.getElementsByTagName('input')
+		if (!editing) {
+			for (let input of inputs) {
+				input.disabled = false
+			}
+			el.target.innerText = 'Сохранить'
+		} else {
+			if (inputs[1].value.length < 6) {
+				//alert('Ошибка! Слишком короткий пароль')
+				changeModalContent({
+					head: 'Ошибка!',
+					body: 'Слишком короткий пароль',
+					show: true,
+					callback: handleModalCallback,
+				})
+				return
+			} else if (!checkMobileRegex(inputs[2].value)) {
+				//alert('Ошибка! Неправильный номер телефона')
+				changeModalContent({
+					head: 'Ошибка!',
+					body: 'Неправильный номер телефона',
+					show: true,
+					callback: handleModalCallback,
+				})
+				return
+			} else if (!checkMail(inputs[3].value)) {
+				//alert('Ошибка! Неправильный адрес электронной почты')
+				changeModalContent({
+					head: 'Ошибка!',
+					body: 'Неправильный адрес электронной почты',
+					show: true,
+					callback: handleModalCallback,
+				})
+				return
+			}
+			let newUser = {
+				name: inputs[0].value,
+				password: inputs[1].value,
+				mobile: inputs[2].value,
+				mail: inputs[3].value,
+				id: auth.user.id,
+				balance: auth.user.balance,
+			}
+			console.log(newUser)
+			auth.updateProfileData(newUser)
+			for (let input of inputs) {
+				input.disabled = true
+			}
+			changeModalContent({
+				head: 'Успех!',
+				body: 'Данные изменены',
+				show: true,
+				callback: handleModalCallback,
+			})
+			el.target.innerText = 'Изменить данные'
+		}
+		setEditing(!editing)
+	}
+
+	useEffect(() => {
+		console.log(auth.user?.mail)
+	}) //debug
+
 	return (
 		<section className='profile-wrapper'>
+			<Modal props={modalContent} />
 			<h2 className='profile-welcome'>Здравствуйте, {auth.user.name}</h2>
 			<div className='profile-avatar'>
 				<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'>
@@ -43,45 +125,13 @@ export function CabinetProfile() {
 				<label>
 					Ваш почтовый адрес:
 					<br />
-					<input type='text' defaultValue='' disabled></input>
+					<input type='text' defaultValue={auth.user?.mail} disabled></input>
 				</label>
 			</form>
 			<div className='profile-buttons'>
 				<button
 					onClick={(el) => {
-						let inputs = document.getElementsByTagName('input')
-						if (!editing) {
-							for (let input of inputs) {
-								input.disabled = false
-							}
-							el.target.innerText = 'Сохранить'
-						} else {
-							if (inputs[1].value.length < 6) {
-								alert('Ошибка! Слишком короткий пароль')
-								return
-							} else if (!checkMobileRegex(inputs[2].value)) {
-								alert('Ошибка! Неправильный номер телефона')
-								return
-							} else if (!checkMail(inputs[3].value)) {
-								alert('Ошибка! Неправильный адрес электронной почты')
-								return
-							}
-							let newUser = {
-								name: inputs[0].value,
-								password: inputs[1].value,
-								mobile: inputs[2].value,
-								mail: inputs[3].value,
-								id: auth.user.id,
-								balance: auth.user.balance,
-							}
-							console.log(newUser)
-							auth.updateProfileData(newUser)
-							for (let input of inputs) {
-								input.disabled = true
-							}
-							el.target.innerText = 'Изменить данные'
-						}
-						setEditing(!editing)
+						handleProfileChanging(el)
 					}}
 					className='profile-button profile-button--change'>
 					Поменять данные
