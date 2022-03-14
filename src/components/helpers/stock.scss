@@ -1,7 +1,7 @@
 @import '../../App.scss';
 
 .stock {
-	width: 80%;
+	width: 70%;
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
@@ -42,7 +42,7 @@
 		justify-content: space-around;
 		align-items: center;
 		flex-direction: row;
-		@media screen and (max-width: $mobile) {
+		@media screen and (max-width: $middle) {
 			flex-direction: column;
 		}
 		.stock-price {
@@ -52,7 +52,7 @@
 			display: flex;
 			justify-content: space-around;
 			align-items: center;
-			@media screen and (max-width: $mobile) {
+			@media screen and (max-width: $middle) {
 				margin-top: 5%;
 				flex-direction: column;
 			}
@@ -61,11 +61,11 @@
 				display: flex;
 				justify-content: space-around;
 				align-items: center;
-				@media screen and (max-width: $mobile) {
+				@media screen and (max-width: $middle) {
 					width: 100%;
 				}
 				.stock-buttons-counter {
-					@media screen and (max-width: $mobile) {
+					@media screen and (max-width: $middle) {
 						text-align: center;
 						padding: 0 20%;
 					}
@@ -105,7 +105,7 @@
 				&:hover {
 					box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 				}
-				@media screen and (max-width: $mobile) {
+				@media screen and (max-width: $middle) {
 					margin-top: 20%;
 					padding: 15% 40%;
 				}
