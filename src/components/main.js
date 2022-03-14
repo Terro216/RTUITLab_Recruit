@@ -2,15 +2,15 @@ import './styles/main.scss'
 import React from 'react'
 import Ticker from 'react-ticker'
 import { NavLink } from 'react-router-dom'
-import * as tinder from '../../public/tinder.svg'
-import * as spotify from '../../public/spotify.svg'
-import * as apple from '../../public/apple-logo.svg'
-import * as airbnb from '../../public/airbnb-logo.svg'
-import * as batman from '../../public/batman-logo.svg'
-import * as reactLogo from '../../public/react-logo.svg'
+import * as tinder from '../../public/logos/tinder.svg'
+import * as spotify from '../../public/logos/spotify.svg'
+import * as apple from '../../public/logos/apple.svg'
+import * as airbnb from '../../public/logos/airbnb.svg'
+import * as batman from '../../public/logos/batman.svg'
+import * as reactLogo from '../../public/logos/react.svg'
 import * as mobScreen from '../../public/Pixel4_App.png'
-import * as gpBadge from '../../public/Google_Play-Badge.svg'
-import * as asBadge from '../../public/app-store-badge.svg'
+import * as gpBadge from '../../public/bages/Google_Play-Badge.svg'
+import * as asBadge from '../../public/bages/App-Store-Badge.svg'
 
 function WelcomeScreen() {
 	return (
@@ -93,7 +93,6 @@ function Principles() {
 				<span className='principles-text'>
 					Выбирая нас, вы получаете по-настоящему качественные услуги, полностью покрывающие потребности как и
 					частных инвесторов, так и крупных компаний с мировым именем. <br />
-					<br />
 					На первом месте для нас всегда стоит честность, поэтому мы никогда не отключим торги сославшись на
 					технические неполадки, не сменим условия вашего тарифа без предварительного согласия, не будем
 					навязывать вам огромное количество бесполезных услуг, а наоборот, будем предлагать вам более
