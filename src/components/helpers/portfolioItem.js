@@ -22,6 +22,7 @@ function PortfolioItem(props) {
 				onClick={() => {
 					trade(props.auth, 'sell', props.ticker, props.count, +data.true_price * +props.count)
 					deleteElem(false)
+					props.callback()
 				}}>
 				Продать
 			</button>
