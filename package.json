@@ -3,8 +3,6 @@
 	"version": "1.0.0",
 	"description": "Honest broker app",
 	"scripts": {
-		"predeploy": "npm run build",
-		"deploy": "gh-pages -b view -d build",
 		"start": "parcel public/index.html",
 		"build": "parcel build public/index.html --dist-dir build",
 		"lint": "eslint src/**/*.js"
