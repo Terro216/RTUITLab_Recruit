@@ -67,6 +67,7 @@ export function CabinetTrade() {
 
 	useEffect(() => {
 		if (exchangeStatus === undefined) {
+			//document.querySelector('.stock-search-line').value = 'AMD'
 			getExchangeStatus()
 			getShopCatalog()
 		}
@@ -92,7 +93,8 @@ export function CabinetTrade() {
 				<></>
 			) : (
 				<div className='trade-rates'>
-					<span>1€ = {curRates.rates.EUR}₽</span> <span>1$ = {curRates.rates.USD}₽</span>
+					<span>1€ = {curRates.rates.EUR.toFixed(2)}₽</span>{' '}
+					<span>1$ = {curRates.rates.USD.toFixed(2)}₽</span>
 				</div>
 			)}
 
@@ -100,15 +102,21 @@ export function CabinetTrade() {
 				<input
 					className='stock-search-line'
 					type='text'
-					defaultValue='AMD.US'
+					//placeholder='GOOGL'
 					placeholder='Введите тикер для поиска по акциями'
 				/>
 				<button
 					className='stock-search-button'
 					onClick={async (el) => {
-						let apiElem = await getInfo(
+						let ticker =
 							el.target.parentNode.parentNode.childNodes[0].value || el.target.parentNode.childNodes[0].value
-						)
+						let apiElem = await getInfo(ticker + '.' + 'US')
+						if (apiElem?.code == 1) {
+							apiElem = await getInfo(ticker + '.' + 'SPBEX')
+							if (apiElem?.code == 1) {
+								apiElem = await getInfo(ticker + '.' + 'MOEX')
+							}
+						}
 						document.querySelector('.stock-list').insertAdjacentElement('afterbegin', addStock(apiElem))
 					}}>
 					<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
