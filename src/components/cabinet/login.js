@@ -1,15 +1,31 @@
 import './styles/login.scss'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { useAuth } from '../../scripts/firebaseAuth.js'
-import { getCookie, setCookie } from '../../scripts/cookie.js'
+import { getCookie } from '../../scripts/cookie.js'
 import { checkMobileRegex } from '../../scripts/functions.js'
+import { Modal } from '../helpers/modal.js'
 
 export function Login() {
+	let [modalContent, changeModalContent] = useState({
+		head: '',
+		body: '',
+		show: false,
+		callback: handleModalCallback,
+	})
 	let navigate = useNavigate()
 	let location = useLocation()
 	let auth = useAuth()
 	let from = location.state?.from?.pathname || '/'
+
+	function handleModalCallback() {
+		changeModalContent({
+			head: '',
+			body: '',
+			show: false,
+			callback: handleModalCallback,
+		})
+	}
 
 	useEffect(() => {
 		if (getCookie('logged') === 'true') {
@@ -31,7 +47,13 @@ export function Login() {
 		if (checkMobileRegex(mobile)) {
 			auth.checkMobile(mobile, (hasError, hasNum, name) => {
 				if (hasError) {
-					alert('Произошла ошибка. Пожалуйста, попробуйте еще раз')
+					//alert('Произошла ошибка. Пожалуйста, попробуйте еще раз')
+					changeModalContent({
+						head: 'Ошибка!',
+						body: 'Слишком короткий пароль',
+						show: true,
+						callback: handleModalCallback,
+					})
 					document.querySelector('.login-tel-form').reset()
 					return 0
 				} else if (hasNum === true) {
@@ -58,7 +80,13 @@ export function Login() {
 		let mobile = getCookie('mobile')
 		auth.signIn(mobile, pass, (hasError, correctPass) => {
 			if (hasError) {
-				alert('Произошла ошибка. Пожалуйста, попробуйте еще раз')
+				//alert('Произошла ошибка. Пожалуйста, попробуйте еще раз')
+				changeModalContent({
+					head: 'Ошибка!',
+					body: 'Пожалуйста, попробуйте еще раз',
+					show: true,
+					callback: handleModalCallback,
+				})
 				document.querySelector('.login-password-form').reset()
 			} else if (!correctPass) {
 				document.querySelector('.login-password-form').reset()
@@ -83,10 +111,22 @@ export function Login() {
 		let mobile = getCookie('mobile')
 		auth.register(name, pass, mobile, (hasError) => {
 			if (hasError) {
-				alert('Произошла ошибка. Пожалуйста, попробуйте еще раз')
+				//alert('Произошла ошибка. Пожалуйста, попробуйте еще раз')
+				changeModalContent({
+					head: 'Ошибка!',
+					body: 'Пожалуйста, попробуйте еще раз',
+					show: true,
+					callback: handleModalCallback,
+				})
 				document.querySelector('.login-register-form').reset()
 			} else {
-				alert('Регистрация прошла успешно! Теперь осталось только войти')
+				//alert('Регистрация прошла успешно! Теперь осталось только войти')
+				changeModalContent({
+					head: 'Регистрация прошла успешно!',
+					body: 'Войдите, что бы получить свои подарочные 1000$',
+					show: true,
+					callback: handleModalCallback,
+				})
 				document.querySelector('.login-tel-form').classList.remove('hidden')
 				document.querySelector('.login-register-form').classList.add('hidden')
 				document.querySelector('.register-error-message').classList.add('hidden')
@@ -96,6 +136,8 @@ export function Login() {
 
 	return (
 		<div className='login-wrapper'>
+			<Modal props={modalContent} />
+
 			<Link to='/'>
 				<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512' className='back'>
 					<path
@@ -115,7 +157,7 @@ export function Login() {
 						placeholder='Номер телефона'
 					/>
 				</div>
-				<div className='login-error-message tel-error-message hidden'>Неправильно набран номер</div>
+				<div className='login-error-message tel-error-message hidden'>Некорректный номер</div>
 				<div className='login-form-buttons'>
 					<button className='login-form-button' type='submit'>
 						Продолжить
