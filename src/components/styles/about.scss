@@ -12,7 +12,7 @@
 		margin-top: 15%;
 	}
 	@media screen and (max-width: $mobile) {
-		margin-top: 30%;
+		margin-top: 25%;
 	}
 
 	.history-wrapper {
@@ -23,6 +23,9 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
+		@media screen and (max-width: $mobile) {
+			width: 95%;
+		}
 		.history-header {
 			text-align: center;
 			font-size: 2em;
@@ -32,6 +35,10 @@
 			margin-top: 2%;
 			font-size: 1.3em;
 			line-height: 2em;
+			@media screen and (max-width: $mobile) {
+				line-height: 1.5;
+				font-size: 1.2em;
+			}
 		}
 	}
 	.contact-wrapper {
@@ -57,6 +64,7 @@
 				font-size: 1.6em;
 				@media screen and (max-width: $mobile) {
 					margin-top: 10%;
+					font-size: 1.4em;
 				}
 			}
 			&-list {
@@ -64,6 +72,9 @@
 				.contact-content-item {
 					padding-top: 14%;
 					font-size: 1.4em;
+					@media screen and (max-width: $mobile) {
+						font-size: 1.2em;
+					}
 					a {
 						color: white;
 						text-decoration: underline;
