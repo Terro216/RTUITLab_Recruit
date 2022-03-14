@@ -70,8 +70,11 @@
 	text-align: center;
 	z-index: 2;
 	cursor: pointer;
+	@media screen and (max-width: $middle) {
+		width: 20%;
+	}
 	@media screen and (max-width: $mobile) {
-		width: 8%;
+		min-width: 35%;
 	}
 	.hamburger-icon {
 		width: 3em;
