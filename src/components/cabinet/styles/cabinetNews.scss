@@ -35,4 +35,22 @@
 			}
 		}
 	}
+	.news-button {
+		background-color: white;
+		padding: 4% 10%;
+		color: black;
+		border: 1px solid grey;
+		border-radius: 15px;
+		transition: all 0.2s;
+		cursor: pointer;
+		margin-bottom: 15%;
+		font-size: 1.6em;
+		&:hover {
+			background-color: black;
+			color: white;
+		}
+		@media screen and (max-width: $mobile) {
+			margin-top: 5%;
+		}
+	}
 }
