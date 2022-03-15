@@ -24,7 +24,6 @@ export function CabinetNews() {
 			await fetch(query)
 				.then((res) => res.json())
 				.then((res) => {
-					console.log(res)
 					if (res.data === undefined) throw 'err'
 					else if (res.data.length === 0) {
 						getNewsList(val)
@@ -37,7 +36,7 @@ export function CabinetNews() {
 				})
 		} catch (e) {
 			if (e === 'end') return 0
-			console.log('trying get news again')
+			console.info('trying get news again')
 			try {
 				const apiToken = 'HermQXrbr1zsGMKKqZmBkDmXz9vXpWLYVTbvYMxx' //dont steal it please //backup token
 				let query = 'https://api.marketaux.com/v1/news/all?'

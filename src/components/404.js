@@ -1,10 +1,10 @@
 import React from 'react'
-import { NavLink, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './styles/404.scss'
 
 export function Error404() {
 	let navigate = useNavigate()
-	console.log(navigate)
+	//console.log(navigate) //debug
 	return (
 		<section className='error404-wrapper'>
 			<h2 className='error404-header'>Ошибка 404</h2>

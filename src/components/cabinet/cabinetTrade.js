@@ -27,7 +27,6 @@ export function CabinetTrade() {
 		await fetch(`https://tradernet.ru/api/?q=${JSON.stringify(paramsToGetStatus)}`)
 			.then((response) => response.json())
 			.then((json) => {
-				console.log(json)
 				json.result.markets.m.forEach((market) => {
 					if (market.n2 === 'SPBFOR') changeExchangeStatus(market.s)
 				})
@@ -56,7 +55,6 @@ export function CabinetTrade() {
 		await fetch(`https://tradernet.ru/api/?q=${JSON.stringify(params)}`)
 			.then((response) => response.json())
 			.then((data) => {
-				console.log(data)
 				setCurRates(data.currRates)
 				data.shopSet['spb_stock'].list.forEach((apiElem) => {
 					document.querySelector('.stock-list').appendChild(addStock(apiElem))

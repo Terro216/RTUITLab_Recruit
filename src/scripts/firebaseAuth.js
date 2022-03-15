@@ -85,7 +85,7 @@ const authProvider = {
 				mail: '',
 				balance: '1000',
 			})
-			console.log('Document written with ID: ', docRef.id)
+			console.info('Document written with ID: ', docRef.id)
 			await setDoc(doc(db, 'users', docRef.id, 'portfolio', 'data'), {})
 			callback(false)
 		} catch (e) {
