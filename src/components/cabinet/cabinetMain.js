@@ -29,11 +29,10 @@ export function CabinetMain() {
 		if (docSnap.exists()) {
 			let data = docSnap.data()
 			console.log('Portfolio data:', data)
-			let wrapper = document.querySelector('.portfolio-wrapper')
 			if (Object.keys(data).length === 0) {
-				wrapper.innerHTML =
-					'<div class="portfolio-empty">Ваш портфель пуст :(<br/>Купите что-либо в разделе Торговля</div>'
+				document.querySelector('.portfolio-empty').hidden = false
 			}
+			let wrapper = document.querySelector('.portfolio-wrapper')
 			for (let ticker in data) {
 				let item = document.createElement('div')
 				item.classList.add('item-wrapper')
