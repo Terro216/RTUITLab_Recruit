@@ -69,7 +69,7 @@ export function CabinetProfile() {
 				id: auth.user.id,
 				balance: auth.user.balance,
 			}
-			console.log(newUser)
+			//console.log(newUser) //debug
 			auth.updateProfileData(newUser)
 			for (let input of inputs) {
 				input.disabled = true
@@ -84,10 +84,6 @@ export function CabinetProfile() {
 		}
 		setEditing(!editing)
 	}
-
-	useEffect(() => {
-		console.log(auth.user?.mail)
-	}) //debug
 
 	return (
 		<section className='profile-wrapper'>

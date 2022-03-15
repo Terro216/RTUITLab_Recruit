@@ -28,7 +28,7 @@ export function CabinetMain() {
 		const docSnap = await getDoc(doc(db, 'users', auth.user.id, 'portfolio', 'data'))
 		if (docSnap.exists()) {
 			let data = docSnap.data()
-			console.log('Portfolio data:', data)
+			//console.log('Portfolio data:', data) //debug
 			if (Object.keys(data).length === 0) {
 				document.querySelector('.portfolio-empty').hidden = false
 			}
@@ -57,7 +57,7 @@ export function CabinetMain() {
 			}
 		} else {
 			// doc.data() will be undefined in this case
-			console.log('No such document!')
+			console.error('No such document!')
 		}
 	}
 
