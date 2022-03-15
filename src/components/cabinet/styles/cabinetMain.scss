@@ -86,10 +86,6 @@
 		}
 
 		.portfolio-wrapper {
-			.portfolio-empty {
-				margin-top: 10%;
-				font-size: 1.2em;
-			}
 			.item-wrapper {
 				width: 100%;
 				margin-top: 3%;
@@ -97,6 +93,10 @@
 					margin-top: 10%;
 				}
 			}
+		}
+		.portfolio-empty {
+			margin-top: 5%;
+			font-size: 1.1em;
 		}
 	}
 }
