@@ -45,14 +45,13 @@
 		@media screen and (max-width: $middle) {
 			flex-direction: column;
 		}
-		.stock-price {
-		}
 		.stock-buttons {
-			width: 40%;
+			width: 60%;
 			display: flex;
 			justify-content: space-around;
 			align-items: center;
 			@media screen and (max-width: $middle) {
+				width: 40%;
 				margin-top: 5%;
 				flex-direction: column;
 			}
@@ -106,6 +105,7 @@
 					box-shadow: 4px 4px 8px 0px rgba(34, 60, 80, 0.2);
 				}
 				@media screen and (max-width: $middle) {
+					//font-size: 1em;
 					margin-top: 20%;
 					padding: 15% 40%;
 				}
