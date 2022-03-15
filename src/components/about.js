@@ -49,6 +49,7 @@ export function About() {
 						width='500'
 						height='400'
 						frameBorder='0'
+						title='карта с расположением нашего офиса'
 						className='contact-content-map'></iframe>
 				</div>
 			</article>
