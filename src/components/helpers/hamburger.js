@@ -20,7 +20,6 @@ export function Hamburger(props) {
 
 	return (
 		<div
-			aria-label='Открыть/закрыть меню'
 			title='Открыть/закрыть меню'
 			className={props.from == 'header' ? 'header-hamburger' : 'aside-hamburger'}
 			onClick={toggleState}>
