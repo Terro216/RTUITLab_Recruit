@@ -107,9 +107,9 @@ export function CabinetTrade() {
 				/>
 				<button
 					className='stock-search-button'
+					aria-label='Поиск акции по тикеру'
 					onClick={async (el) => {
-						let ticker =
-							el.target.parentNode.parentNode.childNodes[0].value || el.target.parentNode.childNodes[0].value
+						let ticker = el.currentTarget.parentNode.childNodes[0].value
 						let apiElem = await getInfo(ticker + '.' + 'US')
 						if (apiElem?.code == 1) {
 							apiElem = await getInfo(ticker + '.' + 'SPBEX')
