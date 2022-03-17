@@ -1,5 +1,5 @@
 import './styles/cabinetProfile.scss'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../../scripts/firebaseAuth.js'
 import { checkMobileRegex, checkMail } from '../../scripts/functions.js'
