@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../scripts/firebaseAuth.js'
 import { Stock } from '../helpers/stock.js'
 import { getInfo } from '../../scripts/functions.js'
+import { Loader } from '../helpers/loader.js'
 
 export function CabinetTrade() {
 	const [exchangeStatus, setExchangeStatus] = useState(undefined)
@@ -14,6 +15,7 @@ export function CabinetTrade() {
 		if (status === 'OPEN') setExchangeStatus(true)
 		else if (status === 'CLOSE') setExchangeStatus(false)
 		else if (status === 'TECH') setExchangeStatus('tech')
+		else if (status === 'POST') setExchangeStatus('post')
 		else setExchangeStatus(null)
 	}
 
@@ -61,11 +63,13 @@ export function CabinetTrade() {
 				})
 			})
 			.catch((error) => console.error('error:', error))
+
+		document.querySelector('.loader-spinner').classList.add('hidden')
 	}
 
 	useEffect(() => {
 		if (exchangeStatus === undefined) {
-			//document.querySelector('.stock-search-line').value = 'AMD'
+			//document.querySelector('.stock-search-line').value = 'AMD' //default value
 			getExchangeStatus()
 			getShopCatalog()
 		}
@@ -73,6 +77,7 @@ export function CabinetTrade() {
 
 	return (
 		<section className='cabinetTrade'>
+			<Loader />
 			<div className='trade-status'>
 				{exchangeStatus === true ? (
 					<span className='trade-status-content indicator--open'>Биржа открыта</span>
@@ -81,9 +86,11 @@ export function CabinetTrade() {
 				) : exchangeStatus === undefined ? (
 					<></>
 				) : exchangeStatus === 'tech' ? (
-					<span className='trade-status-content indicator--close'>На бирже технические работы</span>
+					<span className='trade-status-content'>На бирже технические работы</span>
+				) : exchangeStatus === 'post' ? (
+					<span className='trade-status-content'>Торги в отложенном режиме</span>
 				) : (
-					<span className='trade-status-content indicator--close'>Статус биржи неизвестен</span>
+					<span className='trade-status-content'>Статус биржи неизвестен</span>
 				)}
 			</div>
 
