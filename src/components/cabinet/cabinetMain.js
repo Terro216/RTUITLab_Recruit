@@ -8,19 +8,19 @@ import { getInfo } from '../../scripts/functions'
 
 export function CabinetMain() {
 	let [portfolioPrice, changePortfolioPrice] = useState(0)
+	let [reload, doReload] = useState(true)
 	let auth = useAuth()
 
 	async function handleChangePortfolioPrice(ticker, count, exchanges) {
 		let currentStocksPrice = await getInfo(ticker + '.' + exchanges[0]) //only first exchange...enough for now
-		currentStocksPrice = +currentStocksPrice['true_price'] * +count
-		changePortfolioPrice((portfolioPrice) => (+portfolioPrice + +currentStocksPrice).toFixed(2)) //genius
+		currentStocksPrice = +currentStocksPrice['true_price'] * Number(count)
+		changePortfolioPrice((portfolioPrice) => (+portfolioPrice + currentStocksPrice).toFixed(2)) //genius
 	}
 
 	function changeBalance(sum) {
-		let newBalance = +auth.user.balance + sum
-		let action = sum > 0 ? 'deposit' : 'withdraw '
-		if (newBalance >= 0) {
-			auth.changeBalance(newBalance, sum, action)
+		let action = sum > 0 ? 'deposit' : 'withdraw'
+		if (+auth.user.balance + sum >= 0) {
+			auth.changeBalance(sum, action, () => {})
 		}
 	}
 
@@ -49,7 +49,7 @@ export function CabinetMain() {
 						count={count}
 						exchanges={exchanges}
 						auth={auth}
-						callback={() => handleChangePortfolioPrice(ticker, -count, exchanges)}
+						callback={() => doReload(!reload)}
 					/>,
 					item
 				)
@@ -66,7 +66,7 @@ export function CabinetMain() {
 		document.querySelector('.portfolio-empty').hidden = true
 		changePortfolioPrice(0)
 		loadPortfolio()
-	}, [])
+	}, [reload])
 
 	useEffect(() => {
 		if (portfolioPrice == 0) {
