@@ -3,19 +3,21 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { Hamburger } from '../helpers/hamburger'
 import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../scripts/firebaseAuth.js'
 
 export function CabinetAside() {
-	let auth = useAuth()
 	let navigate = useNavigate()
 	const toggleHamburger = React.useRef(null)
+	function handleLinkClick() {
+		toggleHamburger.current()
+	}
 	return (
 		<>
+			<Hamburger from='aside' toggleHamburger={toggleHamburger} />
 			<button
 				className='cabinetAside-logout'
-				aria-label='Logout'
-				title='Logout'
-				onClick={() => auth.signOut(() => navigate('/'))}>
+				aria-label='На главную страницу'
+				title='На главную страницу'
+				onClick={() => navigate('/')}>
 				<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'>
 					<path
 						fill='black'
@@ -23,13 +25,9 @@ export function CabinetAside() {
 					/>
 				</svg>
 			</button>
-			<Hamburger toggleHamburger={toggleHamburger} />
 			<aside className='cabinetAside-wrapper asideDisplay'>
 				<nav className='cabinetAside'>
-					<Link
-						to='/protected/cabinet'
-						className='cabinetAside-link'
-						onClick={() => toggleHamburger.current()}>
+					<Link to='/protected/cabinet' className='cabinetAside-link' onClick={handleLinkClick}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							viewBox='0 0 576 512'
@@ -42,10 +40,7 @@ export function CabinetAside() {
 						<span className='cabinetAside-text'>Главная</span>
 					</Link>
 
-					<Link
-						to='/protected/cabinet/profile'
-						className='cabinetAside-link'
-						onClick={() => toggleHamburger.current()}>
+					<Link to='/protected/cabinet/profile' className='cabinetAside-link' onClick={handleLinkClick}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							viewBox='0 0 448 512'
@@ -57,10 +52,7 @@ export function CabinetAside() {
 						</svg>
 						<span className='cabinetAside-text'>Профиль</span>
 					</Link>
-					<Link
-						to='/protected/cabinet/news'
-						className='cabinetAside-link'
-						onClick={() => toggleHamburger.current()}>
+					<Link to='/protected/cabinet/news' className='cabinetAside-link' onClick={handleLinkClick}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							viewBox='0 0 512 512'
@@ -72,10 +64,7 @@ export function CabinetAside() {
 						</svg>
 						<span className='cabinetAside-text'>Новости</span>
 					</Link>
-					<Link
-						to='/protected/cabinet/trade'
-						className='cabinetAside-link'
-						onClick={() => toggleHamburger.current()}>
+					<Link to='/protected/cabinet/trade' className='cabinetAside-link' onClick={handleLinkClick}>
 						<svg
 							xmlns='http://www.w3.org/2000/svg'
 							viewBox='0 0 640 512'
