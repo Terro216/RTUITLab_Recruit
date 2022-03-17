@@ -2,17 +2,18 @@
 
 .about-wrapper {
 	width: 100%;
-	margin-top: 8%;
+	margin-top: 6%;
 	color: black;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
+	background-color: white;
 	@media screen and (max-width: $middle) {
 		margin-top: 15%;
 	}
 	@media screen and (max-width: $mobile) {
-		margin-top: 25%;
+		margin-top: 20%;
 	}
 
 	.history-wrapper {
@@ -25,6 +26,7 @@
 		flex-direction: column;
 		@media screen and (max-width: $mobile) {
 			width: 95%;
+			padding: 10% 0;
 		}
 		.history-header {
 			text-align: center;
