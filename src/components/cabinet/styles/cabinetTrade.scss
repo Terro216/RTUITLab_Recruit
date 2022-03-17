@@ -2,13 +2,15 @@
 
 .cabinetTrade {
 	width: 100%;
+	height: 100%;
 	display: flex;
 	justify-content: flex-start;
 	padding-top: 10%;
 	align-items: center;
 	flex-direction: column;
 	font-size: 1.4em;
-	margin-bottom: 3%;
+	padding-bottom: 3%;
+	background-color: white;
 	@media screen and (max-width: $middle) {
 		padding-top: 15%;
 		font-size: 2em;

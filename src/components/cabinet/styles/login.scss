@@ -7,11 +7,15 @@
 	align-items: center;
 	background-color: black;
 	color: white;
+	overflow: hidden;
 	.back {
 		position: absolute;
 		top: 5%;
 		left: 5%;
 		width: 5%;
+		&:focus {
+			border: 1px solid blue;
+		}
 		@media screen and (max-width: $mobile) {
 			top: 2%;
 			width: 15%;
@@ -27,7 +31,7 @@
 		align-items: center;
 		flex-direction: column;
 		@media screen and (max-width: $mobile) {
-			width: 100%;
+			width: 90%;
 			padding: 0;
 			height: 100%;
 			border-radius: 0;
@@ -77,7 +81,6 @@
 				border-bottom: 5px solid #27ae60;
 				text-shadow: 0px -2px #27ae60;
 				cursor: pointer;
-				will-change: transform;
 				&:active,
 				&:focus {
 					animation: bop 0.4s;
