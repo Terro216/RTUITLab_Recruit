@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './styles/tariffs.scss'
+import { animateCSS } from '../scripts/functions.js'
 
 export function Tariffs() {
+	useEffect(() => {
+		animateCSS('.tariffs-wrapper', 'fadeIn')
+	}, [])
 	return (
 		<section className='tariffs-wrapper'>
 			<table border='0' className='tariffs-table'>

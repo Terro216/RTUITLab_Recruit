@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import './styles/404.scss'
+import { animateCSS } from '../scripts/functions.js'
 
 export function Error404() {
 	let navigate = useNavigate()
-	//console.log(navigate) //debug
+
+	useEffect(() => {
+		animateCSS('.error404-wrapper', 'fadeIn')
+	}, [])
 	return (
 		<section className='error404-wrapper'>
 			<h2 className='error404-header'>Ошибка 404</h2>
