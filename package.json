@@ -14,7 +14,7 @@
 		"@babel/eslint-parser": "^7.17.0",
 		"@babel/preset-react": "^7.16.7",
 		"@parcel/transformer-sass": "^2.3.2",
-		"autoprefixer": "^10.4.2",
+		"autoprefixer": "^9.0.0",
 		"eslint": "^8.10.0",
 		"eslint-config-prettier": "^8.4.0",
 		"eslint-plugin-react": "^7.29.2",
