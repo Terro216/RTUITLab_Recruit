@@ -26,54 +26,57 @@ const authProvider = {
 			const querySnapshot = await getDocs(collection(db, 'users'))
 			let hasNum = false
 			let name = ''
-			querySnapshot.forEach((doc) => {
+			for (let i = 0; i < querySnapshot.size; i++) {
+				let doc = querySnapshot.docs[i]
 				if (
 					doc.data().mobile == mobile ||
-					new RegExp(`${doc.data().mobile.slice(6 - doc.data().mobile.length)}`).test(mobile) //упрощенная проверка на совпадение последних символов
+					new RegExp(`${doc.data().mobile.slice(6 - doc.data().mobile.length)}`).test(mobile)
 				) {
 					hasNum = true
 					name = doc.data().name
+					break
 				}
-			})
+			}
 			callback(false, hasNum, name)
 		} catch (e) {
 			console.error('Error reading document: ', e)
 			callback(true, false)
 		}
 	},
-	async signIn(mobile, pass, callback) {
+	async signIn(pass, callback) {
 		try {
 			const querySnapshot = await getDocs(collection(db, 'users'))
 			let truePass = false
 			let user = {}
-			querySnapshot.forEach((doc) => {
+			let mobile = getCookie('mobile')
+
+			for (let i = 0; i < querySnapshot.size; i++) {
+				let doc = querySnapshot.docs[i]
 				if (
 					(doc.data().mobile == mobile ||
 						new RegExp(`${doc.data().mobile.slice(6 - doc.data().mobile.length)}`).test(mobile)) &&
 					doc.data().password === pass
 				) {
 					truePass = true
-					console.table(doc.data()) //debug
+					//console.table(doc.data()) //debug
 					user = {
 						name: doc.data().name,
 						mobile: doc.data().mobile,
 						password: doc.data().password,
-						balance: doc.data().balance,
+						balance: +doc.data().balance,
 						mail: doc.data().mail,
 						id: doc.id,
 					}
+					break
 				}
-			})
-			if (truePass) {
-				//this.instantLogin(callback, user, false, true)
-				authProvider.isAuthenticated = true
-				callback(false, true, user)
-			} else {
-				callback(false, false, user)
 			}
+			if (truePass) {
+				authProvider.isAuthenticated = true
+			}
+			callback(false, truePass, user)
 		} catch (e) {
 			console.error('Error reading document: ', e)
-			callback(true, false, {})
+			callback(true, false)
 		}
 	},
 	async register(name, password, mobile, callback) {
@@ -83,7 +86,7 @@ const authProvider = {
 				password,
 				mobile,
 				mail: '',
-				balance: '1000',
+				balance: 1000,
 			})
 			console.info('Document written with ID: ', docRef.id)
 			await setDoc(doc(db, 'users', docRef.id, 'portfolio', 'data'), {})
@@ -103,18 +106,18 @@ const authProvider = {
 				name: getCookie('name'),
 				password: getCookie('password'),
 				mobile: getCookie('mobile'),
-				balance: getCookie('balance'),
+				balance: +getCookie('balance'),
 				mail: getCookie('mail'),
 				id: getCookie('id'),
 			}
 		authProvider.isAuthenticated = true
 		callback(user)
 	},
-	async changeBalance(newBalance, sum, action, user, callback) {
-		let userWithNewBalance = Object.assign({}, user)
-		userWithNewBalance.balance = newBalance.toFixed(2)
-		if (sum !== 0) {
-			//если это пополнение/снятие из лк
+	async changeBalance(sum, action, user, callback) {
+		let newUser = Object.assign({}, user)
+		newUser.balance = +(+newUser.balance + sum).toFixed(2)
+		if (action === 'deposit' || action === 'withdraw') {
+			//if not from trade
 			try {
 				let time = getTimeEpoch()
 				await setDoc(doc(db, 'users', user.id, 'portfolio/history/balance', time), {
@@ -125,7 +128,7 @@ const authProvider = {
 				console.error('Error writing document: ', e)
 			}
 		}
-		callback(userWithNewBalance)
+		callback(newUser)
 	},
 }
 
@@ -157,10 +160,10 @@ function AuthProvider({ children }) {
 			setCookie('password', newUser?.password, { secure: false, 'max-age': 3600 })
 			setCookie('name', newUser?.name, { secure: false, 'max-age': 3600 })
 			updateDoc(doc(db, 'users', newUser.id), {
-				balance: newUser.balance,
+				balance: +newUser.balance,
 			})
 			setCookie('mail', newUser?.mail, { secure: false, 'max-age': 3600 })
-			setCookie('balance', newUser?.balance, { secure: false, 'max-age': 3600 })
+			setCookie('balance', +newUser?.balance, { secure: false, 'max-age': 3600 })
 			setCookie('id', newUser?.id, { secure: false, 'max-age': 3600 })
 			setCookie('mobile', newUser?.mobile, { secure: false, 'max-age': 3600 })
 			setCookie('logged', true, { secure: false, 'max-age': 3600 })
@@ -181,8 +184,8 @@ function AuthProvider({ children }) {
 		})
 	}
 
-	let signIn = (mobile, pass, callback) => {
-		return authProvider.signIn(mobile, pass, (hasError, correctPass, user) => {
+	let signIn = (pass, callback) => {
+		return authProvider.signIn(pass, (hasError, correctPass, user = {}) => {
 			if (!hasError && correctPass) {
 				handleChange('in', user)
 			}
@@ -211,9 +214,10 @@ function AuthProvider({ children }) {
 		})
 	}
 
-	let changeBalance = (newBalance, sum = 0, action = '') => {
-		return authProvider.changeBalance(newBalance, sum, action, user, (userWithNewBalance) => {
-			handleChange('in', userWithNewBalance)
+	let changeBalance = (sum = 0, action = '', callback) => {
+		return authProvider.changeBalance(sum, action, user, (user) => {
+			handleChange('in', user)
+			callback()
 		})
 	}
 
