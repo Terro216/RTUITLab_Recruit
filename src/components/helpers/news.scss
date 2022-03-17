@@ -47,7 +47,8 @@
 		font-size: 1.4em;
 		transition: all 0.2s;
 		cursor: pointer;
-		&:hover {
+		&:hover,
+		&:focus {
 			background-color: black;
 			color: white;
 		}
