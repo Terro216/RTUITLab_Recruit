@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Outlet } from 'react-router-dom'
 import './App.scss'
 
 import { Header } from './components/header.js'
@@ -21,89 +21,39 @@ import { AuthProvider, RequireAuth } from './scripts/firebaseAuth.js'
 export default function App() {
 	return (
 		<AuthProvider>
-			<Routes>
-				<Route path='/'>
-					<Route
-						index
-						element={
-							<div className='site-wrapper'>
-								<Header />
-								<Main />
-								<Footer />
-							</div>
-						}
-					/>
-					<Route
-						path='about'
-						element={
-							<div className='site-wrapper'>
-								<Header />
-								<About />
-								<Footer />
-							</div>
-						}
-					/>
-					<Route
-						path='tariffs'
-						element={
-							<div className='site-wrapper'>
-								<Header />
-								<Tariffs />
-								<Footer />
-							</div>
-						}
-					/>
-					<Route path='protected/'>
-						<Route index element={<Login />} />
-						<Route path='cabinet/'>
-							<Route
-								index
-								element={
-									<RequireAuth>
-										<div className='cabinet-wrapper'>
-											<CabinetAside />
-											<CabinetMain />
-										</div>
-									</RequireAuth>
-								}
-							/>
-							<Route
-								path='profile'
-								element={
-									<RequireAuth>
-										<div className='cabinet-wrapper'>
-											<CabinetAside />
-											<CabinetProfile />
-										</div>
-									</RequireAuth>
-								}
-							/>
-							<Route
-								path='news'
-								element={
-									<RequireAuth>
-										<div className='cabinet-wrapper'>
-											<CabinetAside />
-											<CabinetNews />
-										</div>
-									</RequireAuth>
-								}
-							/>
-							<Route
-								path='trade'
-								element={
-									<RequireAuth>
-										<div className='cabinet-wrapper'>
-											<CabinetAside />
-											<CabinetTrade />
-										</div>
-									</RequireAuth>
-								}
-							/>
-						</Route>
-					</Route>
-					<Route path='*' element={<Error404 />} />
+			<Routes path='/'>
+				<Route
+					path='/'
+					element={
+						<div className='site-wrapper'>
+							<Header />
+							<Outlet />
+							<Footer />
+						</div>
+					}>
+					<Route index element={<Main />} />
+					<Route path='about' element={<About />} />
+					<Route path='tariffs' element={<Tariffs />} />
 				</Route>
+				<Route path='/protected/'>
+					<Route index element={<Login />} />
+					<Route
+						path='cabinet/'
+						element={
+							<RequireAuth>
+								<div className='cabinet-wrapper'>
+									<CabinetAside />
+									<Outlet />
+								</div>
+							</RequireAuth>
+						}>
+						<Route index element={<CabinetMain />} />
+						<Route path='profile' element={<CabinetProfile />} />
+						<Route path='news' element={<CabinetNews />} />
+						<Route path='trade' element={<CabinetTrade />} />
+					</Route>
+				</Route>
+				<Route path='*' element={<Error404 />} />
 			</Routes>
 		</AuthProvider>
 	)
