@@ -1,25 +1,39 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import './hamburger.scss'
+import { animateCSS } from '../../scripts/functions.js'
 
 export function Hamburger(props) {
 	function toggleState() {
-		document.querySelector('.hamburger-icon').classList.toggle('openHamburger')
+		let burger = document.querySelector('.hamburger-icon')
+		burger.classList.toggle('openHamburger')
 		if (props.from == 'header') {
-			document.querySelector('.header-links').classList.toggle('showLinks')
-			//document.querySelector('.header-links').style.display = 'flex'
-			//animateCSS('.sidebar-wrapper', 'slideInDown')
-		} else {
-			document.querySelector('.cabinetAside-wrapper').classList.toggle('asideDisplay')
+			let links = document.querySelector('.header-links')
+
+			if (links.classList.contains('showLinks')) {
+				animateCSS('.header-links', 'fadeOut').then(() => {
+					links.classList.toggle('showLinks')
+				})
+			} else {
+				links.classList.toggle('showLinks')
+				animateCSS('.header-links', 'fadeIn')
+			}
+			//animateCSS('.header-links', 'backInDown') //too much...
+		} else if (props.from == 'aside') {
+			let aside = document.querySelector('.cabinetAside-wrapper')
+
+			if (aside.classList.contains('asideDisplay')) {
+				aside.classList.toggle('asideDisplay')
+				animateCSS('.cabinetAside-wrapper', 'slideInLeft')
+			} else {
+				animateCSS('.cabinetAside-wrapper', 'slideOutLeft').then(() => {
+					aside.classList.toggle('asideDisplay')
+				})
+			}
 		}
 	}
 
-	useEffect(() => {
-		//console.log(props.toggleHamburger.current)
-		//props.toggleHamburger.current = toggleState //?
-	}, [props.toggleHamburger])
-
 	return (
-		<div
+		<button
 			title='Открыть/закрыть меню'
 			className={props.from == 'header' ? 'header-hamburger' : 'aside-hamburger'}
 			onClick={toggleState}>
@@ -29,6 +43,6 @@ export function Hamburger(props) {
 				<span></span>
 				<span></span>
 			</div>
-		</div>
+		</button>
 	)
 }
