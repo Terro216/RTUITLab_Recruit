@@ -31,15 +31,16 @@ function Stock({ data, auth }) {
 		if (+auth.user.balance - price * +counter >= 0) {
 			elem.disabled = true
 			elem.innerText = 'Обработка'
-			await trade(auth, 'buy', data.ticker, counter, price)
-			elem.innerText = 'Готово!'
-			handleCounterChange(-counter + 1)
-			changeModalContent({
-				head: 'Успех',
-				body: `Теперь вы владеете частью ${data.ticker.split('.')[0]}!`,
-				afterClose: 'reloadPage',
-				show: true,
-				callback: handleModalCallback,
+			await trade(auth, 'buy', data.ticker, counter, price, () => {
+				elem.innerText = 'Готово!'
+				handleCounterChange(-counter + 1)
+				changeModalContent({
+					head: 'Успех',
+					body: `Теперь вы владеете частью ${data.ticker.split('.')[0]}!`,
+					afterClose: 'reloadPage',
+					show: true,
+					callback: handleModalCallback,
+				})
 			})
 		} else {
 			elem.innerText = 'Недостаточно средств'
