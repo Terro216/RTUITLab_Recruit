@@ -58,6 +58,7 @@ const authProvider = {
 					doc.data().password === pass
 				) {
 					truePass = true
+					authProvider.isAuthenticated = true
 					//console.table(doc.data()) //debug
 					user = {
 						name: doc.data().name,
@@ -69,9 +70,6 @@ const authProvider = {
 					}
 					break
 				}
-			}
-			if (truePass) {
-				authProvider.isAuthenticated = true
 			}
 			callback(false, truePass, user)
 		} catch (e) {
