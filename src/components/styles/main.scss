@@ -14,9 +14,6 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		/*background-image: url(../../public/blob-scene-haikei2.svg); // background variant 2
-		background-clip: border-box;
-		background-size: 100%;*/
 		.welcome-screen-allText {
 			text-align: center;
 			display: flex;
@@ -28,6 +25,16 @@
 			font-size: 2em;
 			z-index: 1;
 			//border: 1px solid green; //debug
+			@media screen and (max-width: $middle) {
+				//margin-left: 5%;
+				font-size: 1.8em;
+				width: 90%;
+			}
+			@media screen and (max-width: $mobile) {
+				//margin-left: 5%;
+				font-size: 1.3em;
+				width: 90%;
+			}
 			.welcome-screen-header {
 				font-size: 2em;
 				font-weight: 700;
@@ -38,11 +45,6 @@
 				@media screen and (max-width: $mobile) {
 					font-size: 1em;
 				}
-			}
-			@media screen and (max-width: $middle) {
-				//margin-left: 5%;
-				font-size: 1.3em;
-				width: 90%;
 			}
 		}
 		.welcome-redblop {
@@ -400,7 +402,6 @@
 				color: white;
 				cursor: pointer;
 				border-radius: 10px;
-				will-change: transform;
 				transition: transform 0.4s;
 				text-align: center;
 				&:hover,

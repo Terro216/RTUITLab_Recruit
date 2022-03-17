@@ -67,9 +67,9 @@
 			align-items: center;
 			position: fixed;
 			width: 100%; //if 110 = full screen
-			height: 90%;
+			height: 85%;
 			background-color: black;
-			top: 10%;
+			top: 15%;
 		}
 		.header-link {
 			display: flex;
@@ -79,18 +79,34 @@
 			width: fit-content;
 			margin: 5px;
 			height: 100%;
-			//border-right: 1px solid white;
 			color: white;
 			font-size: 1.3em;
 			text-align: center;
+			position: relative;
+			&:after {
+				display: block;
+				position: absolute;
+				left: 0;
+				bottom: -5px;
+				width: 0;
+				height: 2px;
+				background-color: white;
+				content: '';
+				transition: width 0.2s ease-out;
+			}
+
+			&:hover:after,
+			&:focus:after {
+				width: 100%;
+			}
 			&--active {
 				text-decoration: underline wavy currentColor;
 				&:hover {
 					text-decoration: none;
 				}
-			}
-			&:hover {
-				border-bottom: 1px solid white;
+				&:after {
+					display: none;
+				}
 			}
 
 			@media screen and (max-width: $middle) {
@@ -99,10 +115,17 @@
 			@media screen and (max-width: $mobile) {
 				margin: 0;
 				width: 100%;
-				padding: 10%; //15
+				//padding: 10%; //15
 				background-color: black;
 				border: 1px solid white;
-				font-size: 2em;
+				border-bottom: none;
+				font-size: 1.6em;
+				&:after {
+					display: none;
+				}
+				&:nth-last-child(2) {
+					border-bottom: 1px solid white;
+				}
 			}
 		}
 		.header-loginButton {
@@ -127,9 +150,9 @@
 				font-size: 1.1em;
 			}
 			@media screen and (max-width: $mobile) {
-				margin: 10%;
+				margin: 5%;
 				padding: 8%;
-				font-size: 2.1em;
+				font-size: 1.8em;
 			}
 		}
 	}
@@ -140,5 +163,6 @@
 	}
 	@media screen and (max-width: $mobile) {
 		justify-content: space-around;
+		height: 15%;
 	}
 }

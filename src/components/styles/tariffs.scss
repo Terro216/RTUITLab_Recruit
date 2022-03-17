@@ -2,12 +2,13 @@
 
 .tariffs-wrapper {
 	width: 100%;
-	margin: 10% 0;
+	padding: 10% 0 5% 0;
 	font-size: 1.2em;
 	overflow-x: auto;
+	background-color: white;
 	@media screen and (max-width: $mobile) {
 		font-size: 1em;
-		margin: 30% auto;
+		padding: 40% 0;
 	}
 	.tariffs-table {
 		width: 100%;
