@@ -8,6 +8,7 @@
 	align-items: center;
 	flex-direction: column;
 	font-size: 1.2em;
+	background-color: white;
 	@media screen and (max-width: $middle) {
 		padding-top: 15%;
 		font-size: 1.6em;
@@ -105,8 +106,8 @@
 				padding: 6% 3%;
 			}
 			@media screen and (max-width: $mobile) {
-				font-size: 1.2em;
-				padding: 1% 2%;
+				font-size: 1.1em;
+				padding: 4%;
 			}
 		}
 		@media screen and (max-width: $mobile) {
