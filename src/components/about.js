@@ -1,7 +1,11 @@
 import './styles/about.scss'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { animateCSS } from '../scripts/functions.js'
 
 export function About() {
+	useEffect(() => {
+		animateCSS('.about-wrapper', 'fadeIn')
+	}, [])
 	return (
 		<section className='about-wrapper'>
 			<article className='history-wrapper'>
