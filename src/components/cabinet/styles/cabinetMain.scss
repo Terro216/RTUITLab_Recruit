@@ -69,9 +69,11 @@
 					background-color: black;
 					color: white;
 				}
+				@media screen and (max-width: $middle) {
+					width: 45%;
+				}
 				@media screen and (max-width: $mobile) {
 					width: 80%;
-					font-size: 1.1em;
 					padding: 6% 5%;
 					&:last-of-type {
 						margin-top: 5%;
