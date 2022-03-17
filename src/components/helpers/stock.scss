@@ -11,6 +11,7 @@
 	margin: 0 auto;
 	margin-top: 3%;
 	padding: 2%;
+	background-color: white;
 	@media screen and (max-width: $mobile) {
 		width: 90%;
 		margin-top: 10%;
@@ -73,8 +74,9 @@
 					background: none;
 					border: none;
 					cursor: pointer;
+					font-size: 1.2em;
 					border: 1px solid rgba(0, 0, 0, 0.281);
-					padding: 6% 10%;
+					padding: 4% 8%;
 					border-radius: 10px;
 					transition: background-color 0.2s;
 					@media screen and (max-width: $mobile) {
