@@ -16,6 +16,7 @@
 	align-items: center;
 	text-align: center;
 	z-index: 2;
+	background-color: white;
 	cursor: pointer;
 	@media screen and (max-width: $middle) {
 		width: 12%; //15 + padding
@@ -35,6 +36,8 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	z-index: 1;
+	--animate-duration: 0.25s;
 	@media screen and (max-width: $middle) {
 		width: 20%;
 	}
@@ -61,7 +64,8 @@
 			justify-content: center;
 			align-items: center;
 			flex-direction: column;
-			&:hover {
+			&:hover,
+			&:focus {
 				.cabinetAside-icon {
 					transform: scale(1.2);
 				}
