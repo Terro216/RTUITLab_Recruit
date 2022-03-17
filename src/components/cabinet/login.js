@@ -56,6 +56,7 @@ export function Login() {
 			document.querySelector('#telInput').value = getCookie('mobile') // вставка номера если он уже вводился
 		}
 		animateCSS('.login-tel-form', 'fadeIn')
+		document.querySelector('#telInput').focus()
 	}, [])
 
 	function handleMobile(event) {
@@ -73,12 +74,16 @@ export function Login() {
 				} else if (hasNum === true) {
 					document.querySelector('.login-tel-form').classList.add('hidden')
 					document.querySelector('.login-password-form').classList.remove('hidden')
-					animateCSS('.login-password-form', 'fadeIn')
+					animateCSS('.login-password-form', 'fadeIn').then(() => {
+						document.querySelector('#passInput').focus()
+					})
 					document.querySelector('.login-form-welcome--password').innerText = `Рады видеть вас, ${name}!`
 				} else {
 					document.querySelector('.login-tel-form').classList.add('hidden')
-					animateCSS('.login-register-form', 'fadeIn')
 					document.querySelector('.login-register-form').classList.remove('hidden')
+					animateCSS('.login-register-form', 'fadeIn').then(() =>
+						document.querySelector('#nameInput').focus()
+					)
 				}
 				document.querySelector('.tel-error-message').classList.add('hidden')
 			})
@@ -169,6 +174,7 @@ export function Login() {
 					<input type='text' autoComplete='username' hidden />
 					<input
 						className='login-form-input'
+						id='passInput'
 						name='password'
 						type='password'
 						placeholder='Пароль'
@@ -190,6 +196,7 @@ export function Login() {
 				<div className='login-form-inputs'>
 					<input
 						className='login-form-input'
+						id='nameInput'
 						name='name'
 						type='text'
 						placeholder='Имя'
