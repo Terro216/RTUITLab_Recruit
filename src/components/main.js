@@ -198,6 +198,7 @@ function MobileApp() {
 							alt='доступно в google play'
 							width='120'
 							height='250'
+							loading='lazy'
 							className='mobile-apps-badge'
 						/>
 						<img
@@ -205,6 +206,7 @@ function MobileApp() {
 							alt='доступно в app store'
 							width='120'
 							height='250'
+							loading='lazy'
 							className='mobile-apps-badge mobile-apps-badge--apple'
 						/>
 					</div>
@@ -215,6 +217,7 @@ function MobileApp() {
 					className='mobile-content-img'
 					width='190'
 					height='380'
+					loading='lazy'
 				/>
 			</article>
 		</section>
