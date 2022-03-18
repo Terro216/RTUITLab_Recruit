@@ -11,13 +11,13 @@
 
 ## Содержание
 
-- #### [🗃️ Описание](#miniDescription)
-- #### [👀 Внешний вид](#screenshots)
-- #### [🧱 Стек](#stack)
-- #### [🚀 Запуск](#launching)
-- #### [📚 Постраничное описание](#fullDescription)
-- #### [☎️ Контакты](#contacts)
-- #### [⚖️ Остальное](#acknowledgments)
+- ### [🗃️ Описание](#miniDescription)
+- ### [👀 Внешний вид](#screenshots)
+- ### [🧱 Стек](#stack)
+- ### [🚀 Запуск](#launching)
+- ### [📚 Постраничное описание](#fullDescription)
+- ### [☎️ Контакты](#contacts)
+- ### [⚖️ Остальное](#acknowledgments)
 
 <a name="miniDescription"></a>
 
