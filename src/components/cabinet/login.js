@@ -48,7 +48,6 @@ export function Login() {
 
 	useEffect(() => {
 		if (getCookie('logged') === 'true') {
-			//возможная брешь в безопасности?
 			auth.instantLogin(() => {
 				navigate(from, { replace: true })
 			})

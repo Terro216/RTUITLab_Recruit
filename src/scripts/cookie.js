@@ -38,7 +38,6 @@ function deleteCookie(name) {
 }
 
 function deleteAllCookies() {
-	//not working in logout
 	document.cookie.split(';').forEach(function (c) {
 		c = c.split('=')[0].trim()
 		deleteCookie(c)

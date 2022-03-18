@@ -7,9 +7,11 @@ import { useNavigate } from 'react-router-dom'
 export function CabinetAside() {
 	let navigate = useNavigate()
 	const toggleHamburger = React.useRef(null)
+
 	function handleLinkClick() {
 		toggleHamburger.current()
 	}
+
 	return (
 		<>
 			<Hamburger from='aside' toggleHamburger={toggleHamburger} />

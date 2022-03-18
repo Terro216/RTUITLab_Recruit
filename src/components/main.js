@@ -50,11 +50,8 @@ function WelcomeScreen() {
 function OurServices() {
 	return (
 		<section className='services-wrapper'>
-			{
-				//<h2 className='services-header'>Что мы делаем?</h2>
-			}
 			<span className='services-description-text'>
-				Профессиональное предоставление брокерских услуг.{' '}
+				Профессиональное предоставление брокерских услуг.
 				{
 					//Биржевой курс валют. Открытие ИИС.
 				}
