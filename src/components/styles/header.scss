@@ -45,7 +45,6 @@
 			font-size: 1.6em; // 1.8-2 ok
 		}
 		@media screen and (max-width: 320px) {
-			//micro fix
 			//margin-left: 5%;
 			font-size: 1.4em;
 		}
@@ -115,7 +114,6 @@
 			@media screen and (max-width: $mobile) {
 				margin: 0;
 				width: 100%;
-				//padding: 10%; //15
 				background-color: black;
 				border: 1px solid white;
 				border-bottom: none;
@@ -138,7 +136,6 @@
 			color: white;
 			cursor: pointer;
 			border-radius: 8px;
-			//will-change: transform;
 			transition: transform 0.4s;
 			text-align: center;
 			&:hover,

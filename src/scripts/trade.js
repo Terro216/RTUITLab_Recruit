@@ -39,7 +39,7 @@ async function trade(auth, action, name, amount, price, callback) {
 		})
 
 		await updateDoc(portfolio, {
-			[name]: deleteField(), //currentAmount - amount if selling not all
+			[name]: deleteField(), //currentAmount - amount // if selling not all
 		})
 
 		await auth.changeBalance(+price * +amount, 'trade', callback)

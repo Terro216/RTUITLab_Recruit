@@ -34,7 +34,6 @@ export function CabinetProfile() {
 			el.target.innerText = 'Сохранить'
 		} else {
 			if (inputs[1].value.length < 6) {
-				//alert('Ошибка! Слишком короткий пароль')
 				changeModalContent({
 					head: 'Ошибка!',
 					body: 'Слишком короткий пароль',
@@ -43,7 +42,6 @@ export function CabinetProfile() {
 				})
 				return
 			} else if (!checkMobileRegex(inputs[2].value)) {
-				//alert('Ошибка! Неправильный номер телефона')
 				changeModalContent({
 					head: 'Ошибка!',
 					body: 'Неправильный номер телефона',
@@ -52,7 +50,6 @@ export function CabinetProfile() {
 				})
 				return
 			} else if (!checkMail(inputs[3].value)) {
-				//alert('Ошибка! Неправильный адрес электронной почты')
 				changeModalContent({
 					head: 'Ошибка!',
 					body: 'Неправильный адрес электронной почты',
@@ -69,7 +66,6 @@ export function CabinetProfile() {
 				id: auth.user.id,
 				balance: auth.user.balance,
 			}
-			//console.log(newUser) //debug
 			auth.updateProfileData(newUser)
 			for (let input of inputs) {
 				input.disabled = true

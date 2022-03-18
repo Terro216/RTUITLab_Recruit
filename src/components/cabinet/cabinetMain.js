@@ -14,7 +14,7 @@ export function CabinetMain() {
 	async function handleChangePortfolioPrice(ticker, count, exchanges) {
 		let currentStocksPrice = await getInfo(ticker + '.' + exchanges[0]) //only first exchange...enough for now
 		currentStocksPrice = +currentStocksPrice['true_price'] * Number(count)
-		changePortfolioPrice((portfolioPrice) => (+portfolioPrice + currentStocksPrice).toFixed(2)) //genius
+		changePortfolioPrice((portfolioPrice) => (+portfolioPrice + currentStocksPrice).toFixed(2))
 	}
 
 	function changeBalance(sum) {
@@ -56,7 +56,6 @@ export function CabinetMain() {
 				wrapper.appendChild(item)
 			}
 		} else {
-			// doc.data() will be undefined in this case
 			console.error('No such document!')
 		}
 	}

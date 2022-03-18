@@ -26,7 +26,7 @@ function Stock({ data, auth }) {
 
 	async function buy(elem) {
 		elem = elem.target
-		let price = +data.true_price // * +data.lot_size_q
+		let price = +data.true_price
 
 		if (+auth.user.balance - price * +counter >= 0) {
 			elem.disabled = true
@@ -56,7 +56,6 @@ function Stock({ data, auth }) {
 
 	useEffect(() => {
 		if (data.title == null) {
-			//alert('Ошибка поиска. Проверьте введенное значение на корректность')
 			changeModalContent({
 				head: 'Ошибка поиска',
 				body: 'Проверьте введенное значение на корректность',
