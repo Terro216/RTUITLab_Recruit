@@ -156,12 +156,14 @@
 
 <details>
 <summary>А также</summary>
+  
    * react-router
    * react-ticker
    * animate.css
    * eslint
    * prettier
    * babel
+  
 </details>
 
 <a name="launching"></a>
