@@ -1,6 +1,6 @@
-# Честный Брокер
+# 💰 Честный Брокер
 
-### Цель
+### 🎯 Цель
 
 Дать пользователю общую информацию о компании + реализовать функционал личного кабинета (авторизация, торговля)
 
@@ -8,16 +8,17 @@
 ![repo size](https://img.shields.io/github/repo-size/Terro216/RTUITLab_Recruit)
 ![total lines](https://img.shields.io/tokei/lines/github/Terro216/RTUITLab_Recruit)
 ![wheelmap](https://img.shields.io/wheelmap/a/26699541)
+[![License: MIT](https://img.shields.io/badge/License-MIT-greener.svg)](https://opensource.org/licenses/MIT)
 
 ## Содержание
 
-- ### [🗃️ Описание](#miniDescription)
-- ### [👀 Внешний вид](#screenshots)
-- ### [🧱 Стек](#stack)
-- ### [🚀 Запуск](#launching)
-- ### [📚 Постраничное описание](#fullDescription)
-- ### [☎️ Контакты](#contacts)
-- ### [⚖️ Остальное](#acknowledgments)
+- #### [🗃️ Описание](#miniDescription)
+- #### [👀 Внешний вид](#screenshots)
+- #### [🧱 Стек](#stack)
+- #### [🚀 Запуск](#launching)
+- #### [📚 Постраничное описание](#fullDescription)
+- #### [☎️ Контакты](#contacts)
+- #### [⚖️ Остальное](#acknowledgments)
 
 <a name="miniDescription"></a>
 
