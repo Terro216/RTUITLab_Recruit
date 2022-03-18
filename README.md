@@ -31,7 +31,7 @@
 ## 👀 Внешний вид
 
 <details>
-<summary>ПК версия</summary>
+<summary>Вид на пк</summary>
 
 ### Главная страница
 
@@ -85,7 +85,7 @@
 </details>
 
 <details>
-<summary>Мобильный вид</summary>
+<summary>Вид на телефоне</summary>
 
 ### Главная страница
 
@@ -156,12 +156,12 @@
 
 <details>
 <summary>А также</summary>
-- react-router
-- react-ticker
-- animate.css
-- eslint
-- prettier
-- babel
+   * react-router
+   * react-ticker
+   * animate.css
+   * eslint
+   * prettier
+   * babel
 </details>
 
 <a name="launching"></a>
@@ -234,3 +234,5 @@ npm run start
 - [News API](https://www.marketaux.com/)
 - [Font Awesome Icons](https://fontawesome.com/)
 - [Bages](https://shields.io/)
+- [Loading.io](https://loading.io/)
+- [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
