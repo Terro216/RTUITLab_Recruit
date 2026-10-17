@@ -1,0 +1,79 @@
+@font-face {
+	font-family: 'Montserrat';
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('../public/static/montserrat-cyrillic.woff2') format('woff2');
+	unicode-range: U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+@font-face {
+	font-family: 'Montserrat';
+	font-style: normal;
+	font-weight: 100 900;
+	font-display: swap;
+	src: url('../public/static/montserrat-latin.woff2') format('woff2');
+}
+.demo-bar {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	z-index: 5;
+	width: 100%;
+	background: #181818;
+	color: #fff;
+	border-top: 1px solid #555;
+	font-size: 12px;
+	padding: 7px 12px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 16px;
+	button { background: transparent; color: inherit; border: 1px solid #777; border-radius: 4px; padding: 4px 8px; cursor: pointer; white-space: nowrap; }
+}
+body { padding-bottom: 56px; }
+.demo-storage-error { position: fixed; bottom: 55px; z-index: 6; background: #fff0ce; padding: 12px; color: #000; width: 100%; text-align: center; }
+.demo-note { font-size: 14px; text-align: center; max-width: 90%; line-height: 1.6; margin: 10px auto 24px; }
+.demo-history { width: 80%; padding: 20px 0 80px; text-align: center; }
+.demo-history h2 { margin-bottom: 25px; }
+.demo-history ol { padding: 0; }
+.demo-history li { display: flex; flex-direction: column; gap: 8px; padding: 18px 8px; border-bottom: 1px solid #bbb; font-size: 15px; }
+.demo-history time { font-size: 12px; color: #555; }
+.demo-quantity { width: 85px; padding: 8px 4px; text-align: center; font-size: 18px; }
+.demo-sell { display: flex; align-items: center; flex-direction: column; gap: 12px; }
+.demo-sell label { font-size: 12px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.item small, .stock-price small { display: block; font-size: 13px; margin: 10px 0; line-height: 1.5; }
+.item { gap: 20px; }
+.item .sell-button { padding: 10px 20px; }
+.cabinetMain-wrapper { height: auto; min-height: 100vh; padding-bottom: 40px; }
+.profile-wrapper, .profile-news, .cabinetTrade { min-height: 100vh; }
+.cabinetTrade .trade-rates { gap: 24px; width: auto; max-width: 95%; font-size: 16px; }
+.stock .stock-buttons-moreless-wrapper { min-width: 215px; gap: 6px; }
+.stock .stock-buttons-moreless { padding: 8px 12px !important; }
+.cabinetTrade .stock .stock-bottom .stock-buttons .stock-buttons-moreless-wrapper {
+	width: auto;
+	min-width: 0;
+	gap: 8px;
+	justify-content: center;
+}
+.cabinetTrade .stock .stock-bottom .stock-buttons .stock-buttons-moreless-wrapper .stock-buttons-counter { padding: 0; }
+.demo-news-image { width: 100px !important; height: 100px !important; }
+.modal-wrapper .modal-window { height: auto; min-height: 260px; max-height: 85vh; overflow: auto; padding: 30px; gap: 24px; }
+.modal-wrapper .modal-body { font-size: 18px; line-height: 1.6; }
+.modal-wrapper .modal-ok { margin-right: 0; }
+.demo-cancel { background: white; border: 1px solid #777; border-radius: 4px; cursor: pointer; padding: 8px 24px; }
+button:disabled { cursor: wait; }
+.profile-wrapper .profile-welcome { text-align: center; max-width: 95%; overflow-wrap: anywhere; }
+@media (max-width: 480px) {
+	.header-wrapper .header-links { left: 0; }
+	.main-wrapper .end-wrapper .end-loginButton { max-width: 94vw; }
+	.demo-bar { font-size: 10px; gap: 8px; padding: 6px 8px; }
+	.demo-bar span { max-width: 65%; }
+	.demo-history { width: 90%; }
+	.modal-wrapper .modal-window { width: 94%; }
+	.modal-wrapper .modal-body { font-size: 16px; }
+	.cabinetTrade .trade-status-content { font-size: 20px; }
+	.cabinetTrade .trade-status-content::before { width: 12px; height: 12px; }
+	.profile-news .news-header { font-size: 28px; }
+	.cabinetTrade .stock .stock-bottom .stock-buttons { width: 100%; }
+	.stock .stock-buttons-button { padding: 16px 40px; margin-top: 18px; }
+}

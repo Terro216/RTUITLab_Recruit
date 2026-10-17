@@ -9,7 +9,7 @@ export function CabinetAside() {
 	const toggleHamburger = React.useRef(null)
 
 	function handleLinkClick() {
-		toggleHamburger.current()
+		toggleHamburger.current?.()
 	}
 
 	return (

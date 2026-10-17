@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import './styles/header.scss'
-import * as Heart from '../../public/heart.svg'
+const Heart = new URL('../../public/heart.svg', import.meta.url).href
 import React from 'react'
 import { Hamburger } from './helpers/hamburger.js'
 
@@ -8,7 +8,7 @@ export function Header() {
 	const toggleHamburger = React.useRef(null)
 
 	function handleLinkClick() {
-		toggleHamburger.current()
+		toggleHamburger.current?.()
 	}
 
 	return (

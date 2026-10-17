@@ -1,0 +1,9 @@
+.git
+node_modules
+build
+.parcel-cache
+.env*
+test-results
+docs
+README.md
+*.log

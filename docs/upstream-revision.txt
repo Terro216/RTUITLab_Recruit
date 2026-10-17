@@ -1,0 +1,6 @@
+Repository: https://github.com/Terro216/RTUITLab_Recruit
+Original commit: f8ab86663837b92cd0851141f375a96a79020b35
+Original commit date: 2022-03-18T18:14:38+03:00
+Original subject: last update
+Initial working tree: clean; new clone, no pre-existing project directory
+Restoration: 2026-10-17; React 17, React Router 6, original SCSS/layout/assets retained

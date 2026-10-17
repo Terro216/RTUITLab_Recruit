@@ -1,90 +1,29 @@
 import './styles/cabinetProfile.scss'
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import { useAuth } from '../../scripts/firebaseAuth.js'
-import { checkMobileRegex, checkMail } from '../../scripts/functions.js'
+import { Link } from 'react-router-dom'
+import { useDemo, operationId } from '../../data/demoStore.js'
 import { Modal } from '../helpers/modal.js'
 
 export function CabinetProfile() {
-	let [editing, setEditing] = useState(false)
-	let [modalContent, changeModalContent] = useState({
-		head: '',
-		body: '',
-		show: false,
-		callback: handleModalCallback,
-	})
-	let auth = useAuth()
-	let navigate = useNavigate()
-
-	function handleModalCallback() {
-		changeModalContent({
-			head: '',
-			body: '',
-			show: false,
-			callback: handleModalCallback,
-		})
+	const { state, dispatch } = useDemo()
+	const [editing, setEditing] = useState(false)
+	const [profile, setProfile] = useState(state.profile)
+	const [notice, setNotice] = useState(null)
+	const [pending, setPending] = useState(false)
+	async function save(event) {
+		event.preventDefault()
+		if (pending) return
+		setPending(true)
+		try {
+			await dispatch({ id: operationId(), type: 'profile', profile })
+			setEditing(false)
+			setNotice({ head: 'Успех!', body: 'Данные сохранены в этом браузере.' })
+		} catch (error) { setNotice({ head: 'Проверьте данные', body: error.message }) }
+		setPending(false)
 	}
-
-	function handleProfileChanging(el) {
-		let inputs = document.getElementsByTagName('input')
-		if (!editing) {
-			for (let input of inputs) {
-				input.disabled = false
-			}
-			el.target.innerText = 'Сохранить'
-		} else {
-			if (inputs[1].value.length < 6) {
-				changeModalContent({
-					head: 'Ошибка!',
-					body: 'Слишком короткий пароль',
-					show: true,
-					callback: handleModalCallback,
-				})
-				return
-			} else if (!checkMobileRegex(inputs[2].value)) {
-				changeModalContent({
-					head: 'Ошибка!',
-					body: 'Неправильный номер телефона',
-					show: true,
-					callback: handleModalCallback,
-				})
-				return
-			} else if (!checkMail(inputs[3].value)) {
-				changeModalContent({
-					head: 'Ошибка!',
-					body: 'Неправильный адрес электронной почты',
-					show: true,
-					callback: handleModalCallback,
-				})
-				return
-			}
-			let newUser = {
-				name: inputs[0].value,
-				password: inputs[1].value,
-				mobile: inputs[2].value,
-				mail: inputs[3].value,
-				id: auth.user.id,
-				balance: auth.user.balance,
-			}
-			auth.updateProfileData(newUser)
-			for (let input of inputs) {
-				input.disabled = true
-			}
-			changeModalContent({
-				head: 'Успех!',
-				body: 'Данные изменены',
-				show: true,
-				callback: handleModalCallback,
-			})
-			el.target.innerText = 'Изменить данные'
-		}
-		setEditing(!editing)
-	}
-
-	return (
-		<section className='profile-wrapper'>
-			<Modal props={modalContent} />
-			<h2 className='profile-welcome'>Здравствуйте, {auth.user.name}</h2>
+	return <section className='profile-wrapper'>
+		<Modal props={{ show: !!notice, ...notice, callback: () => setNotice(null) }} />
+		<h2 className='profile-welcome'>Здравствуйте, {state.profile.name}</h2>
 			<div className='profile-avatar'>
 				<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'>
 					<path
@@ -93,49 +32,14 @@ export function CabinetProfile() {
 					/>
 				</svg>
 			</div>
-			<form className='profile-data'>
-				<h3>Ваши данные:</h3>
-				<label>
-					Ваше имя:
-					<br />
-					<input type='text' defaultValue={auth.user.name} autoComplete='username' disabled></input>
-				</label>
-				<label>
-					Ваш пароль:
-					<br />
-					<input
-						type='password'
-						autoComplete='new-password'
-						defaultValue={auth.user.password}
-						disabled></input>
-				</label>
-				<label>
-					Ваш номер телефона:
-					<br />
-					<input type='text' defaultValue={auth.user.mobile} disabled></input>
-				</label>
-				<label>
-					Ваш почтовый адрес:
-					<br />
-					<input type='text' defaultValue={auth.user?.mail} disabled></input>
-				</label>
-			</form>
+		<form className='profile-data' onSubmit={save}>
+			<h3>Ваши данные:</h3>
+			<p className='demo-note'>Локальный демопрофиль. Можно использовать вымышленные данные.</p>
+			{[['name', 'Ваше имя:', 'text'], ['mobile', 'Ваш номер телефона:', 'tel'], ['mail', 'Ваш почтовый адрес:', 'email']].map(([key, label, type]) => <label key={key}>{label}<br /><input type={type} maxLength={key === 'name' ? 80 : key === 'mobile' ? 40 : 120} value={(editing ? profile : state.profile)[key]} onChange={e => setProfile({ ...profile, [key]: e.target.value })} disabled={!editing} required autoComplete='off' /></label>)}
 			<div className='profile-buttons'>
-				<button
-					onClick={(el) => {
-						handleProfileChanging(el)
-					}}
-					className='profile-button profile-button--change'>
-					Поменять данные
-				</button>
-				<button
-					onClick={() => {
-						auth.signOut(() => navigate('/'))
-					}}
-					className='profile-button profile-button--exit'>
-					Выход из аккаунта
-				</button>
+				{editing ? <button className='profile-button' disabled={pending} type='submit'>Сохранить</button> : <button className='profile-button' type='button' onClick={event => { event.preventDefault(); setProfile(state.profile); setEditing(true) }}>Поменять данные</button>}
+				{editing ? <button className='profile-button profile-button--exit' type='button' onClick={() => setEditing(false)}>Отмена</button> : <Link className='profile-button profile-button--exit' to='/'>На главную</Link>}
 			</div>
-		</section>
-	)
+		</form>
+	</section>
 }

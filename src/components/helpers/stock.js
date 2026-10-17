@@ -1,98 +1,27 @@
 import './stock.scss'
-import React, { useState, useEffect } from 'react'
-import { trade } from '../../scripts/trade.js'
-import { Modal } from './modal.js'
+import React, { useState } from 'react'
+import { money } from '../../data/model.mjs'
+import { OperationButton } from './operation.js'
 
-function Stock({ data, auth }) {
-	let [counter, changeCounter] = useState(1)
-	let [modalContent, changeModalContent] = useState({
-		head: '',
-		body: '',
-		show: false,
-		callback: handleModalCallback,
-	})
-	let [notFound, changeNotFound] = useState(false)
-
-	function handleModalCallback(val) {
-		changeModalContent({ head: '', body: '', afterClose: '', show: false, callback: handleModalCallback })
-		if (val === 'notFound') {
-			changeNotFound(true)
-		}
-	}
-
-	function handleCounterChange(num) {
-		if (counter + num > 0) changeCounter(counter + num)
-	}
-
-	async function buy(elem) {
-		elem = elem.target
-		let price = +data.true_price
-
-		if (+auth.user.balance - price * +counter >= 0) {
-			elem.disabled = true
-			elem.innerText = 'Обработка'
-			await trade(auth, 'buy', data.ticker, counter, price, () => {
-				elem.innerText = 'Готово!'
-				handleCounterChange(-counter + 1)
-				changeModalContent({
-					head: 'Успех',
-					body: `Теперь вы владеете частью ${data.ticker.split('.')[0]}!`,
-					afterClose: 'reloadPage',
-					show: true,
-					callback: handleModalCallback,
-				})
-			})
-		} else {
-			elem.innerText = 'Недостаточно средств'
-			setTimeout(
-				() => {
-					elem.innerText = 'Купить'
-				},
-				2000,
-				elem
-			)
-		}
-	}
-
-	useEffect(() => {
-		if (data.title == null) {
-			changeModalContent({
-				head: 'Ошибка поиска',
-				body: 'Проверьте введенное значение на корректность',
-				afterClose: 'notFound',
-				show: true,
-				callback: handleModalCallback,
-			})
-		}
-	}, [])
-
-	return notFound ? null : (
-		<article className='stock'>
-			<Modal props={modalContent} />
-			<div className='stock-top'>
-				<div className='stock-name'>{data.name}</div>
-				<div className='stock-type'>{data.i_name}</div>
-				<div className='stock-description'>{data.descr}</div>
-			</div>
-			<div className='stock-bottom'>
-				<div className='stock-price'>{new Number(data.true_price * counter).toFixed(2) + '$'}</div>
-				<div className='stock-buttons'>
-					<div className='stock-buttons-moreless-wrapper'>
-						<button className='stock-buttons-moreless' onClick={() => handleCounterChange(1)}>
-							+
-						</button>
-						<span className='stock-buttons-counter'>{counter} шт.</span>
-						<button className='stock-buttons-moreless' onClick={() => handleCounterChange(-1)}>
-							-
-						</button>
-					</div>
-					<button className='stock-buttons-button' onClick={buy}>
-						Купить
-					</button>
+export function Stock({ data }) {
+	const [counter, setCounter] = useState(1)
+	return <article className='stock' data-ticker={data.ticker}>
+		<div className='stock-top'>
+			<div className='stock-name'>{data.name}</div>
+			<div className='stock-type'>{data.ticker} · {data.i_name}</div>
+			<div className='stock-description'>{data.descr}</div>
+		</div>
+		<div className='stock-bottom'>
+			<div className='stock-price'>{money(data.priceCents * (Number(counter) || 0))}<small>Цена за шт.: {money(data.priceCents)} · комиссия 0,04%</small></div>
+			<div className='stock-buttons'>
+				<div className='stock-buttons-moreless-wrapper'>
+					<button className='stock-buttons-moreless' aria-label={`Увеличить количество ${data.ticker}`} onClick={() => setCounter(Math.min(1000000, Number(counter) + 1))}>+</button>
+					<input className='demo-quantity' aria-label={`Количество ${data.ticker}`} type='number' min='1' max='1000000' step='1' value={counter} onChange={e => setCounter(e.target.value)} />
+					<span className='stock-buttons-counter'>шт.</span>
+					<button className='stock-buttons-moreless' aria-label={`Уменьшить количество ${data.ticker}`} onClick={() => setCounter(Math.max(1, Number(counter) - 1))}>-</button>
 				</div>
+				<OperationButton className='stock-buttons-button' command={{ type: 'buy', ticker: data.ticker, quantity: Number(counter) }}>Купить</OperationButton>
 			</div>
-		</article>
-	)
+		</div>
+	</article>
 }
-
-export { Stock }

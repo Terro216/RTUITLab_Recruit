@@ -16,11 +16,14 @@ import { CabinetProfile } from './components/cabinet/cabinetProfile.js'
 import { CabinetNews } from './components/cabinet/cabinetNews.js'
 import { CabinetTrade } from './components/cabinet/cabinetTrade.js'
 
-import { AuthProvider, RequireAuth } from './scripts/firebaseAuth.js'
+import { DemoProvider } from './data/demoStore.js'
+import { DemoNotice } from './components/helpers/demoNotice.js'
+import './demo.scss'
 
 export default function App() {
 	return (
-		<AuthProvider>
+		<DemoProvider>
+			<DemoNotice />
 			<Routes path='/'>
 				<Route
 					path='/'
@@ -40,12 +43,12 @@ export default function App() {
 					<Route
 						path='cabinet/'
 						element={
-							<RequireAuth>
+
 								<div className='cabinet-wrapper'>
 									<CabinetAside />
 									<Outlet />
 								</div>
-							</RequireAuth>
+
 						}>
 						<Route index element={<CabinetMain />} />
 						<Route path='profile' element={<CabinetProfile />} />
@@ -55,6 +58,6 @@ export default function App() {
 				</Route>
 				<Route path='*' element={<Error404 />} />
 			</Routes>
-		</AuthProvider>
+		</DemoProvider>
 	)
 }

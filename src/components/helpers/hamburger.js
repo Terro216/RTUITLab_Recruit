@@ -1,12 +1,13 @@
-import React from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import './hamburger.scss'
 import { animateCSS } from '../../scripts/functions.js'
 
-export function Hamburger(props) {
-	function toggleState() {
-		let burger = document.querySelector('.hamburger-icon')
+export function Hamburger({ from, toggleHamburger }) {
+	const root = useRef(null)
+	const toggleState = useCallback(() => {
+		let burger = root.current.querySelector('.hamburger-icon')
 		burger.classList.toggle('openHamburger')
-		if (props.from == 'header') {
+		if (from == 'header') {
 			let links = document.querySelector('.header-links')
 
 			if (links.classList.contains('showLinks')) {
@@ -18,7 +19,7 @@ export function Hamburger(props) {
 				animateCSS('.header-links', 'fadeIn')
 			}
 			//animateCSS('.header-links', 'backInDown') //too much...
-		} else if (props.from == 'aside') {
+		} else if (from == 'aside') {
 			let aside = document.querySelector('.cabinetAside-wrapper')
 
 			if (aside.classList.contains('asideDisplay')) {
@@ -30,12 +31,18 @@ export function Hamburger(props) {
 				})
 			}
 		}
-	}
+	}, [from])
+	useEffect(() => {
+		toggleHamburger.current = () => {
+			if (root.current?.querySelector('.openHamburger')) toggleState()
+		}
+		return () => { toggleHamburger.current = null }
+	}, [toggleHamburger, toggleState])
 
 	return (
-		<button
+		<button ref={root}
 			title='Открыть/закрыть меню'
-			className={props.from == 'header' ? 'header-hamburger' : 'aside-hamburger'}
+			className={from == 'header' ? 'header-hamburger' : 'aside-hamburger'}
 			onClick={toggleState}>
 			<div className='hamburger-icon'>
 				<span></span>

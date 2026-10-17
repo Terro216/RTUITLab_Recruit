@@ -1,16 +1,18 @@
 import './styles/main.scss'
 import React from 'react'
 import Ticker from 'react-ticker'
+const avatar = new URL('../../public/static/avatar.svg', import.meta.url).href
 import { NavLink } from 'react-router-dom'
-import * as tinder from '../../public/logos/tinder.svg'
-import * as spotify from '../../public/logos/spotify.svg'
-import * as apple from '../../public/logos/apple.svg'
-import * as airbnb from '../../public/logos/airbnb.svg'
-import * as batman from '../../public/logos/batman.svg'
-import * as reactLogo from '../../public/logos/react.svg'
-import * as mobScreen from '../../public/Pixel4_App.png'
-import * as gpBadge from '../../public/bages/Google_Play-Badge.svg'
-import * as asBadge from '../../public/bages/App-Store-Badge.svg'
+const tinder = new URL('../../public/logos/tinder.svg', import.meta.url).href
+const spotify = new URL('../../public/logos/spotify.svg', import.meta.url).href
+const apple = new URL('../../public/logos/apple.svg', import.meta.url).href
+const airbnb = new URL('../../public/logos/airbnb.svg', import.meta.url).href
+const batman = new URL('../../public/logos/batman.svg', import.meta.url).href
+const reactLogo = new URL('../../public/logos/react.svg', import.meta.url).href
+const mobScreen = new URL('../../public/Pixel4_App.png', import.meta.url).href
+const gpBadge = new URL('../../public/bages/Google_Play-Badge.svg', import.meta.url).href
+// Preserve the original SVG bytes: the optimizer corrupts its escaped data-name attributes.
+const asBadge = '/App-Store-Badge.svg'
 
 function WelcomeScreen() {
 	return (
@@ -106,7 +108,7 @@ function Review({ author, text }) {
 			<div className='review-container-top'>
 				<img
 					className='review-avatar'
-					src='https://via.placeholder.com/130'
+					src={avatar}
 					width='130'
 					height='130'
 					loading='lazy'

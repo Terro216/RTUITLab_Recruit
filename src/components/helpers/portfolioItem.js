@@ -1,35 +1,19 @@
 import './portfolioItem.scss'
-import React, { useState, useEffect } from 'react'
-import { trade } from '../../scripts/trade.js'
-import { getInfo } from '../../scripts/functions.js'
+import React, { useState } from 'react'
+import { findInstrument } from '../../data/catalog.mjs'
+import { money } from '../../data/model.mjs'
+import { OperationButton } from './operation.js'
 
-function PortfolioItem(props) {
-	let [data, setData] = useState(props.ticker)
-
-	async function updateTicker() {
-		let newData = await getInfo(props.ticker + '.' + props.exchanges[0])
-		setData(newData)
-	}
-
-	useEffect(() => {
-		updateTicker()
-	}, [])
-
-	return (
-		<div className='item'>
-			<div className='item-name'>{data.name}</div>
-			<div className='item-val'>{props.count} шт.</div>
-			<button
-				className='sell-button'
-				onClick={() => {
-					trade(props.auth, 'sell', props.ticker, +props.count, +data.true_price, () => {
-						props.callback()
-					})
-				}}>
-				Продать
-			</button>
+export function PortfolioItem({ ticker, position }) {
+	const [quantity, setQuantity] = useState(1)
+	const data = findInstrument(ticker)
+	const value = data.priceCents * position.quantity
+	return <div className='item' data-position={ticker}>
+		<div className='item-name'>{data.name}<small>{ticker} · {money(data.priceCents)} / шт.</small></div>
+		<div className='item-val'><span data-testid='position-quantity'>{position.quantity} шт.</span><small>{money(value)}<br />Результат: {money(value - position.costCents)}</small></div>
+		<div className='demo-sell'>
+			<label>Продать, шт.<input className='demo-quantity' type='number' min='1' max={position.quantity} step='1' aria-label={`Продать количество ${ticker}`} value={quantity} onChange={e => setQuantity(e.target.value)} /></label>
+			<OperationButton className='sell-button' command={{ type: 'sell', ticker, quantity: Number(quantity) }}>Продать</OperationButton>
 		</div>
-	)
+	</div>
 }
-
-export { PortfolioItem }

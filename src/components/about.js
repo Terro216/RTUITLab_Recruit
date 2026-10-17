@@ -48,13 +48,12 @@ export function About() {
 							</li>
 						</ul>
 					</div>
-					<iframe
-						src='https://yandex.ru/map-widget/v1/?um=constructor%3A3a459fe2019e715ae2dd98794082dcd7cd057517f33bc3db51024dc1777da71f&amp;source=constructor'
+					<img
+						src='/office-map.svg'
 						width='500'
 						height='400'
-						frameBorder='0'
-						title='карта с расположением нашего офиса'
-						className='contact-content-map'></iframe>
+						alt='Демонстрационная карта офиса'
+						className='contact-content-map' />
 				</div>
 			</article>
 		</section>
