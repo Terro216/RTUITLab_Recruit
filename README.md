@@ -254,3 +254,10 @@ npm run start
 - [Bages](https://shields.io/)
 - [Loading.io](https://loading.io/)
 - [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
+
+## Аналитика посещений
+
+Plausible на `analytics.ilyamedve.dev` считает просмотры публичных страниц.
+Счётчик включается на `broker.ilyamedve.dev`; локальные проверки его не загружают.
+Query-параметры, hash и значения полей форм не передаются; коды комнат
+заменяются на `:code`. Новых секретов и отдельных баз данных нет.
