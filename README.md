@@ -261,3 +261,9 @@ Plausible на `analytics.ilyamedve.dev` считает просмотры пу�
 Счётчик включается на `broker.ilyamedve.dev`; локальные проверки его не загружают.
 Query-параметры, hash и значения полей форм не передаются; коды комнат
 заменяются на `:code`. Новых секретов и отдельных баз данных нет.
+
+## Local API configuration
+
+The deployed demo does not use Marketaux. See [credential handling](docs/credentials.md)
+and the empty [`.env.example`](.env.example). API tokens must stay server-side
+and must never be compiled into browser JavaScript.
