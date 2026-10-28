@@ -238,3 +238,9 @@ npm run start
 - [Bages](https://shields.io/)
 - [Loading.io](https://loading.io/)
 - [Chrome DevTools](https://developer.chrome.com/docs/devtools/)
+
+## Local API configuration
+
+The deployed demo does not use Marketaux. See [credential handling](docs/credentials.md)
+and the empty [`.env.example`](.env.example). API tokens must stay server-side
+and must never be compiled into browser JavaScript.
